@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var cameraIcon: UIImageView!
     @IBOutlet weak var userPlaceholder: UIImageView!
@@ -16,6 +16,44 @@ class ProfileViewController: UIViewController {
     
     @IBAction func cameraIconTapped(_ sender: Any) {
         print("Выбери изображение профиля")
+        showActionSheet()
+    }
+    
+    func showActionSheet() {
+        let actionSheet = UIAlertController(title: "Выберите источник", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            actionSheet.addAction(UIAlertAction(title: "Камера", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+                self.runCamera()
+            }))
+        }
+        actionSheet.addAction(UIAlertAction(title: "Галерея", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+            self.photoLibrary()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil))
+        self.present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func runCamera()
+    {
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = self
+        myPickerController.sourceType = .camera
+        self.present(myPickerController, animated: true, completion: nil)
+    }
+    
+    func photoLibrary()
+    {
+        let myPickerController = UIImagePickerController()
+        myPickerController.delegate = self
+        myPickerController.sourceType = .photoLibrary
+        self.present(myPickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[.originalImage] as? UIImage {
+            userPlaceholder.image = pickedImage
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
 //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) { // is used when you create the view programmatically
