@@ -15,6 +15,7 @@
 		8C2FEBCE21611AAB006FA820 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */; };
 		8C2FEBD02161515D006FA820 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FEBCF2161515C006FA820 /* .gitignore */; };
 		8C51857421617B7800350C42 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857321617B7800350C42 /* CustomButton.swift */; };
+		8C51857621617C8800350C42 /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857521617C8800350C42 /* CustomImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8C2FEBCF2161515C006FA820 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		8C51857321617B7800350C42 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		8C51857521617C8800350C42 /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */,
 				8C2FEBCF2161515C006FA820 /* .gitignore */,
 				8C51857321617B7800350C42 /* CustomButton.swift */,
+				8C51857521617C8800350C42 /* CustomImage.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -146,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C51857421617B7800350C42 /* CustomButton.swift in Sources */,
+				8C51857621617C8800350C42 /* CustomImage.swift in Sources */,
 				8C2FEBB9216119BF006FA820 /* AppDelegate.swift in Sources */,
 				8C2FEBCE21611AAB006FA820 /* ProfileViewController.swift in Sources */,
 				8C2FEBC1216119BF006FA820 /* TinkoffChat.xcdatamodeld in Sources */,
