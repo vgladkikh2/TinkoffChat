@@ -13,6 +13,8 @@
 		8C2FEBC1216119BF006FA820 /* TinkoffChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FEBBF216119BF006FA820 /* TinkoffChat.xcdatamodeld */; };
 		8C2FEBC3216119C0006FA820 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FEBC2216119C0006FA820 /* Assets.xcassets */; };
 		8C2FEBC6216119C0006FA820 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FEBC4216119C0006FA820 /* LaunchScreen.storyboard */; };
+		8C2FEBCE21611AAB006FA820 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */; };
+		8C2FEBD02161515D006FA820 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FEBCF2161515C006FA820 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		8C2FEBC2216119C0006FA820 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8C2FEBC5216119C0006FA820 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8C2FEBC7216119C0006FA820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		8C2FEBCF2161515C006FA820 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				8C2FEBC4216119C0006FA820 /* LaunchScreen.storyboard */,
 				8C2FEBC7216119C0006FA820 /* Info.plist */,
 				8C2FEBBF216119BF006FA820 /* TinkoffChat.xcdatamodeld */,
+				8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */,
+				8C2FEBCF2161515C006FA820 /* .gitignore */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -125,6 +131,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C2FEBD02161515D006FA820 /* .gitignore in Resources */,
 				8C2FEBC6216119C0006FA820 /* LaunchScreen.storyboard in Resources */,
 				8C2FEBC3216119C0006FA820 /* Assets.xcassets in Resources */,
 				8C2FEBBE216119BF006FA820 /* Main.storyboard in Resources */,
@@ -140,6 +147,7 @@
 			files = (
 				8C2FEBBB216119BF006FA820 /* ViewController.swift in Sources */,
 				8C2FEBB9216119BF006FA820 /* AppDelegate.swift in Sources */,
+				8C2FEBCE21611AAB006FA820 /* ProfileViewController.swift in Sources */,
 				8C2FEBC1216119BF006FA820 /* TinkoffChat.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,7 +294,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TinkoffChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -294,8 +303,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gladkikh.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -303,7 +313,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = TinkoffChat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -311,8 +322,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.gladkikh.TinkoffChat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
