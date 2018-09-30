@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var cameraIcon: UIImageView!
+    @IBOutlet weak var cameraIcon: CustomView!
     @IBOutlet weak var userPlaceholder: UIImageView!
     @IBOutlet weak var editButton: UIButton!
     

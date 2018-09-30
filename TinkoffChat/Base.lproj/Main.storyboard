@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,11 +14,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ProfileViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umm-Kl-QPD" customClass="CustomImage" customModule="TinkoffChat" customModuleProvider="target">
-                                <rect key="frame" x="16" y="36" width="343" height="343"/>
+                                <rect key="frame" x="16" y="36" width="288" height="288"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="umm-Kl-QPD" secondAttribute="height" multiplier="1:1" id="4xZ-oI-R6G"/>
                                 </constraints>
@@ -29,29 +29,13 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Alex Zverev" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMC-xR-E1f">
-                                <rect key="frame" x="16" y="395" width="343" height="36"/>
+                                <rect key="frame" x="16" y="340" width="288" height="36"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nF4-8b-iHo" customClass="CustomImage" customModule="TinkoffChat" customModuleProvider="target">
-                                <rect key="frame" x="256" y="276" width="103" height="103"/>
-                                <color key="backgroundColor" red="0.24705882352941178" green="0.47058823529411764" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="nF4-8b-iHo" secondAttribute="height" multiplier="1:1" id="ckc-4d-IJM"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="40"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="mRE-8P-j8j" appends="YES" id="nEC-aE-XkI"/>
-                                </connections>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wef-Es-J15" customClass="CustomButton" customModule="TinkoffChat" customModuleProvider="target">
-                                <rect key="frame" x="16" y="602" width="343" height="49"/>
+                                <rect key="frame" x="16" y="511" width="288" height="41"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="wef-Es-J15" secondAttribute="height" multiplier="288:41" id="XOb-qy-S2L"/>
@@ -73,50 +57,70 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love 😍 iOS Development, like butterflies and live in Tinkoff Bank" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-Fv-oC6">
-                                <rect key="frame" x="16" y="447" width="343" height="43"/>
+                                <rect key="frame" x="16" y="392" width="288" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraIcon" translatesAutoresizingMaskIntoConstraints="NO" id="D8A-vu-cvE">
-                                <rect key="frame" x="282" y="302" width="51.5" height="51.5"/>
-                            </imageView>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-dt-Tx0" customClass="CustomView" customModule="TinkoffChat" customModuleProvider="target">
+                                <rect key="frame" x="217.5" y="237.5" width="86.5" height="86.5"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CVU-T2-ReR">
+                                        <rect key="frame" x="21.5" y="21.5" width="43.5" height="43.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="CVU-T2-ReR" secondAttribute="height" multiplier="1:1" id="OCc-C9-FBv"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="CVU-T2-ReR" firstAttribute="centerX" secondItem="Rtz-dt-Tx0" secondAttribute="centerX" id="pRC-Hb-DpD"/>
+                                    <constraint firstItem="CVU-T2-ReR" firstAttribute="width" secondItem="Rtz-dt-Tx0" secondAttribute="width" multiplier="0.5" id="sv4-AX-2U3"/>
+                                    <constraint firstAttribute="width" secondItem="Rtz-dt-Tx0" secondAttribute="height" multiplier="1:1" id="uHR-As-Woz"/>
+                                    <constraint firstItem="CVU-T2-ReR" firstAttribute="centerY" secondItem="Rtz-dt-Tx0" secondAttribute="centerY" id="xjw-Ug-VQB"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="1qm-OZ-I0F" appends="YES" id="bqV-2a-HNc"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="K6h-Fv-oC6" firstAttribute="top" secondItem="QMC-xR-E1f" secondAttribute="bottom" constant="16" id="3Jw-b7-p4j"/>
                             <constraint firstItem="QMC-xR-E1f" firstAttribute="top" secondItem="umm-Kl-QPD" secondAttribute="bottom" constant="16" id="57y-LK-6r6"/>
-                            <constraint firstItem="nF4-8b-iHo" firstAttribute="width" secondItem="umm-Kl-QPD" secondAttribute="width" multiplier="0.3" id="8IT-Q9-Oq5"/>
-                            <constraint firstItem="nF4-8b-iHo" firstAttribute="trailing" secondItem="umm-Kl-QPD" secondAttribute="trailing" id="9Eb-PQ-Qu5"/>
                             <constraint firstItem="wef-Es-J15" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="A8z-9e-V35"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wef-Es-J15" secondAttribute="trailing" constant="16" id="BYA-Ej-nhg"/>
-                            <constraint firstItem="D8A-vu-cvE" firstAttribute="width" secondItem="nF4-8b-iHo" secondAttribute="width" multiplier="0.5" id="EDE-25-BzF"/>
-                            <constraint firstItem="D8A-vu-cvE" firstAttribute="height" secondItem="nF4-8b-iHo" secondAttribute="height" multiplier="0.5" id="GqY-0B-6Fg"/>
+                            <constraint firstItem="Rtz-dt-Tx0" firstAttribute="trailing" secondItem="umm-Kl-QPD" secondAttribute="trailing" id="N8g-Fh-8rz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QMC-xR-E1f" secondAttribute="trailing" constant="16" id="NvU-dh-IOp"/>
                             <constraint firstItem="wef-Es-J15" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K6h-Fv-oC6" secondAttribute="bottom" constant="16" id="QCS-mq-nlh"/>
+                            <constraint firstItem="Rtz-dt-Tx0" firstAttribute="width" secondItem="umm-Kl-QPD" secondAttribute="width" multiplier="0.3" id="VCj-7u-2cU"/>
                             <constraint firstItem="QMC-xR-E1f" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="VkP-Ae-fI6"/>
-                            <constraint firstItem="D8A-vu-cvE" firstAttribute="centerX" secondItem="nF4-8b-iHo" secondAttribute="centerX" id="XXV-pl-6CX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wef-Es-J15" secondAttribute="bottom" constant="16" id="ZbE-pu-noB"/>
-                            <constraint firstItem="D8A-vu-cvE" firstAttribute="centerY" secondItem="nF4-8b-iHo" secondAttribute="centerY" id="brK-Rd-9jw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="umm-Kl-QPD" secondAttribute="trailing" constant="16" id="iBS-eH-anh"/>
+                            <constraint firstItem="Rtz-dt-Tx0" firstAttribute="bottom" secondItem="umm-Kl-QPD" secondAttribute="bottom" id="jve-W7-MLy"/>
                             <constraint firstItem="umm-Kl-QPD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="jy9-7P-qi4"/>
                             <constraint firstItem="K6h-Fv-oC6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="m2A-ow-6uC"/>
                             <constraint firstItem="umm-Kl-QPD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="mSW-FW-UPJ"/>
-                            <constraint firstItem="nF4-8b-iHo" firstAttribute="bottom" secondItem="umm-Kl-QPD" secondAttribute="bottom" id="vv3-Pe-MQo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="K6h-Fv-oC6" secondAttribute="trailing" constant="16" id="zct-mm-OWd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="cameraIcon" destination="nF4-8b-iHo" id="VWi-Rn-HTK"/>
+                        <outlet property="cameraIcon" destination="Rtz-dt-Tx0" id="5XV-qq-ZuW"/>
                         <outlet property="editButton" destination="wef-Es-J15" id="b6X-NJ-UIl"/>
                         <outlet property="userPlaceholder" destination="umm-Kl-QPD" id="4GC-5P-gHB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="mRE-8P-j8j">
+                <tapGestureRecognizer id="1qm-OZ-I0F">
                     <connections>
-                        <action selector="cameraIconTapped:" destination="BYZ-38-t0r" id="vNA-JA-bEj"/>
+                        <action selector="cameraIconTapped:" destination="BYZ-38-t0r" id="bAW-YK-wSv"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
