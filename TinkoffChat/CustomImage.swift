@@ -10,6 +10,7 @@ import UIKit
 
 @IBDesignable
 class CustomImage: UIImageView {
+//    let sizeCoefficient = self.view.frame.size.width / 375.0
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet {
             self.layer.cornerRadius = cornerRadius

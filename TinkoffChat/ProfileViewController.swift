@@ -68,11 +68,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        let sizeCoefficient = self.view.frame.size.width / 375.0
-        userPlaceholder.layer.cornerRadius = 50 * sizeCoefficient
-        userPlaceholder.layer.masksToBounds = true
-        cameraIcon.layer.cornerRadius = 50 * sizeCoefficient
-        cameraIcon.layer.masksToBounds = true
         print("\(#function) -> \(editButton.frame)")
     }
     
