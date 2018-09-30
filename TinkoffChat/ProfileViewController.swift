@@ -11,11 +11,11 @@ import UIKit
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var cameraIcon: CustomView!
-    @IBOutlet weak var userPlaceholder: UIImageView!
-    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var userPlaceholder: CustomImage!
+    @IBOutlet weak var editButton: CustomButton!
     
     @IBAction func cameraIconTapped(_ sender: Any) {
-        print("Выбери изображение профиля")
+        print("Вызов выбора изображения профиля")
         showActionSheet()
     }
     

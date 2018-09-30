@@ -113,8 +113,8 @@
                     </view>
                     <connections>
                         <outlet property="cameraIcon" destination="Rtz-dt-Tx0" id="5XV-qq-ZuW"/>
-                        <outlet property="editButton" destination="wef-Es-J15" id="b6X-NJ-UIl"/>
-                        <outlet property="userPlaceholder" destination="umm-Kl-QPD" id="4GC-5P-gHB"/>
+                        <outlet property="editButton" destination="wef-Es-J15" id="gcx-QV-t4w"/>
+                        <outlet property="userPlaceholder" destination="umm-Kl-QPD" id="AnQ-FO-7cr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
