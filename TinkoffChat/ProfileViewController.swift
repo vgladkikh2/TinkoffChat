@@ -73,9 +73,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         userPlaceholder.layer.masksToBounds = true
         cameraIcon.layer.cornerRadius = 50 * sizeCoefficient
         cameraIcon.layer.masksToBounds = true
-        editButton.layer.cornerRadius = 15 * sizeCoefficient
-        editButton.layer.borderWidth = 2 * sizeCoefficient
-        editButton.layer.borderColor = UIColor.black.cgColor
         print("\(#function) -> \(editButton.frame)")
     }
     
