@@ -18,6 +18,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         print("Вызов выбора изображения профиля")
         showActionSheet()
     }
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func showActionSheet() {
         let actionSheet = UIAlertController(title: "Выберите источник", message: nil, preferredStyle: UIAlertController.Style.actionSheet)

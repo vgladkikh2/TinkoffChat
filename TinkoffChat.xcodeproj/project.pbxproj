@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C151FF521673BDD00600348 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C151FF421673BDD00600348 /* ConversationsListViewController.swift */; };
 		8C2FEBB9216119BF006FA820 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FEBB8216119BF006FA820 /* AppDelegate.swift */; };
 		8C2FEBBE216119BF006FA820 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FEBBC216119BF006FA820 /* Main.storyboard */; };
 		8C2FEBC1216119BF006FA820 /* TinkoffChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C2FEBBF216119BF006FA820 /* TinkoffChat.xcdatamodeld */; };
@@ -17,9 +18,11 @@
 		8C51857421617B7800350C42 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857321617B7800350C42 /* CustomButton.swift */; };
 		8C51857621617C8800350C42 /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857521617C8800350C42 /* CustomImage.swift */; };
 		8C5185782161903B00350C42 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5185772161903B00350C42 /* CustomView.swift */; };
+		8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C151FF421673BDD00600348 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		8C2FEBB5216119BF006FA820 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2FEBB8216119BF006FA820 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C2FEBBD216119BF006FA820 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -32,6 +35,7 @@
 		8C51857321617B7800350C42 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		8C51857521617C8800350C42 /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
 		8C5185772161903B00350C42 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,12 +73,14 @@
 				8C2FEBC2216119C0006FA820 /* Assets.xcassets */,
 				8C2FEBC4216119C0006FA820 /* LaunchScreen.storyboard */,
 				8C2FEBC7216119C0006FA820 /* Info.plist */,
-				8C2FEBBF216119BF006FA820 /* TinkoffChat.xcdatamodeld */,
-				8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */,
 				8C2FEBCF2161515C006FA820 /* .gitignore */,
+				8C2FEBBF216119BF006FA820 /* TinkoffChat.xcdatamodeld */,
 				8C51857321617B7800350C42 /* CustomButton.swift */,
 				8C51857521617C8800350C42 /* CustomImage.swift */,
 				8C5185772161903B00350C42 /* CustomView.swift */,
+				8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */,
+				8C151FF421673BDD00600348 /* ConversationsListViewController.swift */,
+				8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -151,7 +157,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C151FF521673BDD00600348 /* ConversationsListViewController.swift in Sources */,
 				8C51857421617B7800350C42 /* CustomButton.swift in Sources */,
+				8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */,
 				8C51857621617C8800350C42 /* CustomImage.swift in Sources */,
 				8C2FEBB9216119BF006FA820 /* AppDelegate.swift in Sources */,
 				8C5185782161903B00350C42 /* CustomView.swift in Sources */,
