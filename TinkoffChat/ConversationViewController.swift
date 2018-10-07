@@ -14,13 +14,13 @@ protocol MessageCellConfiguration: class {
     
 }
 
-class ConversationCell: UITableViewCell {
+class ConversationCell: UITableViewCell, MessageCellConfiguration {
     
     @IBOutlet weak var messageLabel: UILabel!
     
     var message: String? {
         didSet {
-            self.messageLabel?.text = message
+            messageLabel?.text = message
         }
     }
     
@@ -65,9 +65,14 @@ class ConversationViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cellIdentifier = "ConversationCellUser"
-        if messages[indexPath.row].side == 1 {
+        var cellIdentifier: String = ""
+        switch messages[indexPath.row].side {
+        case 0:
+            cellIdentifier = "ConversationCellUser"
+        case 1:
             cellIdentifier = "ConversationCellCompanion"
+        default:
+            assertionFailure("Not online/offline conversation")
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ConversationCell
         cell.setParameters(message: messages[indexPath.row].message)

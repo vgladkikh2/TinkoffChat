@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Tinkoff Chat-->
         <scene sceneID="ZMT-JG-6jB">
             <objects>
                 <tableViewController id="Cn8-Rg-bE1" customClass="ConversationsListViewController" customModule="TinkoffChat" customModuleProvider="target" sceneMemberID="viewController">
@@ -68,8 +68,9 @@
                             <outlet property="delegate" destination="Cn8-Rg-bE1" id="ofN-A1-uGI"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="6xc-r1-cWQ">
-                        <barButtonItem key="rightBarButtonItem" title="Profile" id="eey-WQ-kcX">
+                    <navigationItem key="navigationItem" title="Tinkoff Chat" id="6xc-r1-cWQ">
+                        <barButtonItem key="backBarButtonItem" id="OwB-Nn-bNg"/>
+                        <barButtonItem key="rightBarButtonItem" title="Профиль" id="eey-WQ-kcX">
                             <connections>
                                 <segue destination="HZK-U5-kfZ" kind="presentation" id="u3h-im-XrF"/>
                             </connections>
