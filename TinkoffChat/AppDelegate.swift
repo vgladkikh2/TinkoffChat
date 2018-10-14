@@ -17,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        if let colorData = UserDefaults.standard.data(forKey: "ApplicationTheme") {
+            do {
+                let color = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colorData) as? UIColor
+                if color != nil {
+                    ThemesViewController.changeApplicationColor(color: color!)
+                }
+            } catch {
+                print("Cannot load application theme from UserDefaults")
+            }
+        }
         return true
     }
 
