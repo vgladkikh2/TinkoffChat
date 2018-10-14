@@ -70,6 +70,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="6xc-r1-cWQ">
                         <barButtonItem key="backBarButtonItem" id="OwB-Nn-bNg"/>
+                        <barButtonItem key="leftBarButtonItem" title="Темы" id="6Oh-ig-6GG">
+                            <connections>
+                                <segue destination="iZj-ws-Ht9" kind="presentation" identifier="openThemes" id="g9s-6R-yDP"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Профиль" id="eey-WQ-kcX">
                             <connections>
                                 <segue destination="HZK-U5-kfZ" kind="presentation" id="u3h-im-XrF"/>
@@ -294,7 +299,85 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="716" y="881"/>
+            <point key="canvasLocation" x="303" y="878"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RsP-gn-HUC">
+            <objects>
+                <navigationController id="iZj-ws-Ht9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fuX-0t-9H8">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rJX-Gx-YQe" kind="relationship" relationship="rootViewController" id="km6-N2-Th2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LhA-7N-xSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2065" y="880"/>
+        </scene>
+        <!--Themes View Controller-->
+        <scene sceneID="MVX-Xu-Zcb">
+            <objects>
+                <viewController id="rJX-Gx-YQe" customClass="ThemesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pKj-ID-BGP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roC-JF-iFA">
+                                <rect key="frame" x="70" y="276.5" width="235" height="36"/>
+                                <color key="backgroundColor" red="0.98136568631793586" green="1" blue="0.8785382742644241" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Тема 1"/>
+                                <connections>
+                                    <action selector="buttonTheme1Touched:" destination="rJX-Gx-YQe" eventType="touchUpInside" id="8Hq-4C-5wp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j97-oz-Gip">
+                                <rect key="frame" x="70" y="347.5" width="235" height="36"/>
+                                <color key="backgroundColor" red="0.98136568629999998" green="1" blue="0.87853827429999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Тема 2"/>
+                                <connections>
+                                    <action selector="buttonTheme2Touched:" destination="rJX-Gx-YQe" eventType="touchUpInside" id="OhU-bQ-pgj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xW2-I8-uUL">
+                                <rect key="frame" x="70" y="418.5" width="235" height="38"/>
+                                <color key="backgroundColor" red="0.98136568629999998" green="1" blue="0.87853827429999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Тема 3"/>
+                                <connections>
+                                    <action selector="buttonTheme3Touched:" destination="rJX-Gx-YQe" eventType="touchUpInside" id="4tO-Ed-vNM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.99009352319999999" green="1" blue="0.50812403390000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="j97-oz-Gip" firstAttribute="centerY" secondItem="DHB-3C-IBh" secondAttribute="centerY" id="13m-K7-00U"/>
+                            <constraint firstItem="roC-JF-iFA" firstAttribute="leading" secondItem="DHB-3C-IBh" secondAttribute="leading" constant="70" id="I3P-mr-AGm"/>
+                            <constraint firstItem="j97-oz-Gip" firstAttribute="leading" secondItem="DHB-3C-IBh" secondAttribute="leading" constant="70" id="LZz-sG-Qu0"/>
+                            <constraint firstItem="DHB-3C-IBh" firstAttribute="trailing" secondItem="roC-JF-iFA" secondAttribute="trailing" constant="70" id="akI-Nv-M5T"/>
+                            <constraint firstItem="DHB-3C-IBh" firstAttribute="trailing" secondItem="xW2-I8-uUL" secondAttribute="trailing" constant="70" id="fCC-5f-LAb"/>
+                            <constraint firstItem="DHB-3C-IBh" firstAttribute="trailing" secondItem="j97-oz-Gip" secondAttribute="trailing" constant="70" id="l8i-hI-nbD"/>
+                            <constraint firstItem="j97-oz-Gip" firstAttribute="top" secondItem="roC-JF-iFA" secondAttribute="bottom" constant="35" id="nov-Oo-r74"/>
+                            <constraint firstItem="xW2-I8-uUL" firstAttribute="top" secondItem="j97-oz-Gip" secondAttribute="bottom" constant="35" id="o4U-mL-bSc"/>
+                            <constraint firstItem="xW2-I8-uUL" firstAttribute="leading" secondItem="DHB-3C-IBh" secondAttribute="leading" constant="70" id="w9l-ex-vZp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="DHB-3C-IBh"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Hjx-9b-DZm">
+                        <barButtonItem key="rightBarButtonItem" title="Закрыть" id="bJP-VF-3ua">
+                            <connections>
+                                <action selector="closeButtonTapped:" destination="rJX-Gx-YQe" id="E1X-Vx-KbG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SiA-8J-GpW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1311" y="878"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="txe-F2-epW">
@@ -312,7 +395,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xwk-rt-sio" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-71" y="882"/>
+            <point key="canvasLocation" x="-428" y="878"/>
         </scene>
     </scenes>
     <resources>

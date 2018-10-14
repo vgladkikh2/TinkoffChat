@@ -117,11 +117,19 @@ class ConversationData: ConversationCellConfiguration {
     
 }
 
-class ConversationsListViewController: UITableViewController {
+class ConversationsListViewController: UITableViewController, ThemesViewControllerDelegate {
     
     // test data:
     var onlineConversationsData = [ConversationData]()
     var offlineConversationsData = [ConversationData]()
+    
+    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
+        logThemeChanging(selectedTheme: selectedTheme)
+    }
+    
+    func logThemeChanging(selectedTheme: UIColor) {
+        print(selectedTheme)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,6 +216,11 @@ class ConversationsListViewController: UITableViewController {
             default:
                 assertionFailure("Not online/offline conversation")
             }
+        }
+        if segue.identifier == "openThemes" {
+            print("open themes")
+            ((segue.destination as! UINavigationController).topViewController as! ThemesViewController).delegate = self
+            //(segue.destination as! ThemesViewController).delegate = nil
         }
     }
 
