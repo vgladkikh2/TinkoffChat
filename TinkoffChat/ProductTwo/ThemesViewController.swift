@@ -10,24 +10,6 @@ import UIKit
 
 class ThemesViewController: UIViewController {
     
-    static func changeApplicationColor(color: UIColor) {
-        let sharedApplication = UIApplication.shared
-        sharedApplication.delegate?.window??.tintColor = color
-        var r: CGFloat = 0.0
-        var g: CGFloat = 0.0
-        var b: CGFloat = 0.0
-        var a: CGFloat = 0.0
-        var brightness: CGFloat = 0.0
-        color.getRed(&r, green: &g, blue: &b, alpha: &a)
-        brightness = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-        if (brightness < 0.5) {
-            UINavigationBar.appearance().barStyle = .default
-        }
-        else {
-            UINavigationBar.appearance().barStyle = .black
-        }
-    }
-    
     var model: Themes?
     var themeChanged: ((UIColor?) -> Void)?
     
@@ -40,7 +22,7 @@ class ThemesViewController: UIViewController {
             } catch {
                 print("Cannot save application theme to UserDefaults")
             }
-            ThemesViewController.changeApplicationColor(color: color)
+            AppDelegate.changeApplicationColor(color: color)
         }
     }
 
