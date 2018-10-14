@@ -13,13 +13,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class ThemesViewController;
 @protocol ThemesViewControllerDelegate <NSObject>
-- (void)themesViewController: (ThemesViewController *)controller didSelectTheme:(UIColor *)selectedTheme;
+- (void)themesViewController:(ThemesViewController *)controller didSelectTheme:(UIColor *)selectedTheme;
 @end
 
-@interface ThemesViewController : UIViewController
+@interface ThemesViewController : UIViewController {
+    id<ThemesViewControllerDelegate> _delegate;
+    Themes * _model;
+}
 
 @property (weak, nonatomic) id<ThemesViewControllerDelegate> delegate;
-@property (retain) Themes* model;
+@property (strong, nonatomic) Themes * model;
+-(void)setDelegate:(id<ThemesViewControllerDelegate> _Nullable)delegate;
+-(id<ThemesViewControllerDelegate>)delegate;
+-(void)setModel:(Themes * _Nonnull)model;
+-(Themes*)model;
 
 @end
 
