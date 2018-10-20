@@ -1,6 +1,6 @@
 //
 //  ConversationsListTableViewController.swift
-//  TinkoffChatProductOne
+//  TinkoffChatProductTwo
 //
 //  Created by me on 14/10/2018.
 //  Copyright © 2018 gladkikh. All rights reserved.
@@ -125,18 +125,14 @@ class ConversationData: ConversationCellConfiguration {
     
 }
 
-class ConversationsListViewController: UITableViewController, ThemesViewControllerDelegate {
+class ConversationsListViewController: UITableViewController {
     
     // test data:
     var onlineConversationsData = [ConversationData]()
     var offlineConversationsData = [ConversationData]()
     
-    func themesViewController(_ controller: ThemesViewController, didSelectTheme selectedTheme: UIColor) {
-        logThemeChanging(selectedTheme: selectedTheme)
-    }
-    
     func logThemeChanging(selectedTheme: UIColor) {
-        print("(ProductOne) \(selectedTheme)")
+        print("(swift version) \(selectedTheme)")
     }
     
     override func viewDidLoad() {
@@ -144,10 +140,10 @@ class ConversationsListViewController: UITableViewController, ThemesViewControll
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
         // done 4 lines below in storyboard:
-//        self.title = "Tinkoff Chat"
-//        let backItem = UIBarButtonItem()
-//        backItem.title = ""
-//        self.navigationItem.backBarButtonItem = backItem
+        //        self.title = "Tinkoff Chat"
+        //        let backItem = UIBarButtonItem()
+        //        backItem.title = ""
+        //        self.navigationItem.backBarButtonItem = backItem
         // fill test data:
         for i in 1...15 {
             let hasMessages = (i % 2 == 0 ? true : false)
@@ -166,7 +162,7 @@ class ConversationsListViewController: UITableViewController, ThemesViewControll
             offlineConversationsData.append(ConversationData(name: "NameOffline\(i)", message: message, date: date, online: false, hasUnreadMessages: hasUnreadMessages))
         }
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -183,7 +179,7 @@ class ConversationsListViewController: UITableViewController, ThemesViewControll
         }
         return sectionHeader
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var rowsCount = 0
         switch section {
@@ -226,9 +222,9 @@ class ConversationsListViewController: UITableViewController, ThemesViewControll
             }
         }
         if segue.identifier == "openThemes" {
-            print("(ProductOne) open themes")
-            ((segue.destination as! UINavigationController).topViewController as! ThemesViewController).delegate = self
+            print("(swift version) open themes")
+            ((segue.destination as! UINavigationController).topViewController as! ThemesViewController).themeChanged = { (newColor:UIColor?) -> Void in if let color = newColor {self.logThemeChanging(selectedTheme: color)} }
         }
     }
-
+    
 }
