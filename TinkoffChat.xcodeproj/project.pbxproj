@@ -16,9 +16,9 @@
 		8C2FEBD02161515D006FA820 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FEBCF2161515C006FA820 /* .gitignore */; };
 		8C35AD85217B185200544B8A /* ConversationsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD84217B185200544B8A /* ConversationsListTableViewController.swift */; };
 		8C35AD86217B18DC00544B8A /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD80217B17BE00544B8A /* ThemesViewController.swift */; };
-		8C51857421617B7800350C42 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857321617B7800350C42 /* CustomButton.swift */; };
-		8C51857621617C8800350C42 /* CustomImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857521617C8800350C42 /* CustomImage.swift */; };
-		8C5185782161903B00350C42 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5185772161903B00350C42 /* CustomView.swift */; };
+		8C51857421617B7800350C42 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857321617B7800350C42 /* RoundedButton.swift */; };
+		8C51857621617C8800350C42 /* RoundedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857521617C8800350C42 /* RoundedImage.swift */; };
+		8C5185782161903B00350C42 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5185772161903B00350C42 /* RoundedView.swift */; };
 		8C8E030821735BDC00848FE6 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E030721735BDC00848FE6 /* Themes.m */; };
 		8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */; };
 /* End PBXBuildFile section */
@@ -35,9 +35,9 @@
 		8C2FEBCF2161515C006FA820 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		8C35AD80217B17BE00544B8A /* ThemesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		8C35AD84217B185200544B8A /* ConversationsListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsListTableViewController.swift; sourceTree = "<group>"; };
-		8C51857321617B7800350C42 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		8C51857521617C8800350C42 /* CustomImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImage.swift; sourceTree = "<group>"; };
-		8C5185772161903B00350C42 /* CustomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		8C51857321617B7800350C42 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		8C51857521617C8800350C42 /* RoundedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImage.swift; sourceTree = "<group>"; };
+		8C5185772161903B00350C42 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		8C8E03022173496100848FE6 /* TinkoffChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinkoffChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8C8E030621735BDC00848FE6 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		8C8E030721735BDC00848FE6 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
@@ -82,9 +82,9 @@
 				8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */,
 				8C2FEBCD21611AAB006FA820 /* ProfileViewController.swift */,
 				8C35AD80217B17BE00544B8A /* ThemesViewController.swift */,
-				8C51857321617B7800350C42 /* CustomButton.swift */,
-				8C51857521617C8800350C42 /* CustomImage.swift */,
-				8C5185772161903B00350C42 /* CustomView.swift */,
+				8C51857321617B7800350C42 /* RoundedButton.swift */,
+				8C51857521617C8800350C42 /* RoundedImage.swift */,
+				8C5185772161903B00350C42 /* RoundedView.swift */,
 				8C2FEBC7216119C0006FA820 /* Info.plist */,
 				8C8E03022173496100848FE6 /* TinkoffChat-Bridging-Header.h */,
 				8C8E030621735BDC00848FE6 /* Themes.h */,
@@ -168,13 +168,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C51857421617B7800350C42 /* CustomButton.swift in Sources */,
+				8C51857421617B7800350C42 /* RoundedButton.swift in Sources */,
 				8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */,
-				8C51857621617C8800350C42 /* CustomImage.swift in Sources */,
+				8C51857621617C8800350C42 /* RoundedImage.swift in Sources */,
 				8C35AD85217B185200544B8A /* ConversationsListTableViewController.swift in Sources */,
 				8C35AD86217B18DC00544B8A /* ThemesViewController.swift in Sources */,
 				8C2FEBB9216119BF006FA820 /* AppDelegate.swift in Sources */,
-				8C5185782161903B00350C42 /* CustomView.swift in Sources */,
+				8C5185782161903B00350C42 /* RoundedView.swift in Sources */,
 				8C8E030821735BDC00848FE6 /* Themes.m in Sources */,
 				8C2FEBCE21611AAB006FA820 /* ProfileViewController.swift in Sources */,
 				8C2FEBC1216119BF006FA820 /* TinkoffChat.xcdatamodeld in Sources */,

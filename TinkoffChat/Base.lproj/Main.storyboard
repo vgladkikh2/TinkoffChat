@@ -185,7 +185,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umm-Kl-QPD" customClass="CustomImage" customModule="TinkoffChat" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umm-Kl-QPD" customClass="RoundedImage" customModule="TinkoffChat" customModuleProvider="target">
                                 <rect key="frame" x="16" y="80" width="343" height="343"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="umm-Kl-QPD" secondAttribute="height" multiplier="1:1" id="4xZ-oI-R6G"/>
@@ -202,35 +202,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wef-Es-J15" customClass="CustomButton" customModule="TinkoffChat" customModuleProvider="target">
-                                <rect key="frame" x="16" y="602" width="343" height="49"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="wef-Es-J15" secondAttribute="height" multiplier="288:41" id="XOb-qy-S2L"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Редактировать">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love 😍 iOS Development, like butterflies and live in Tinkoff Bank" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-Fv-oC6">
                                 <rect key="frame" x="16" y="491" width="343" height="43"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </label>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-dt-Tx0" customClass="CustomView" customModule="TinkoffChat" customModuleProvider="target">
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-dt-Tx0" customClass="RoundedView" customModule="TinkoffChat" customModuleProvider="target">
                                 <rect key="frame" x="256" y="320" width="103" height="103"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CVU-T2-ReR">
@@ -257,22 +235,98 @@
                                     <outletCollection property="gestureRecognizers" destination="1qm-OZ-I0F" appends="YES" id="bqV-2a-HNc"/>
                                 </connections>
                             </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAd-re-WA7" customClass="RoundedButton" customModule="TinkoffChat" customModuleProvider="target">
+                                <rect key="frame" x="16" y="609" width="163.5" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="GCD">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="gcdButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rGu-pi-Vul"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fnH-l2-qEq" customClass="RoundedButton" customModule="TinkoffChat" customModuleProvider="target">
+                                <rect key="frame" x="195.5" y="609" width="163.5" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <state key="normal" title="Operation">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="operationButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1rr-p6-pzt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXG-4b-YcG" customClass="RoundedButton" customModule="TinkoffChat" customModuleProvider="target">
+                                <rect key="frame" x="16" y="609" width="343" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="PXG-4b-YcG" secondAttribute="height" multiplier="49:6" id="i32-Pw-jaH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Редактировать">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="59O-1R-X2I"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="K6h-Fv-oC6" firstAttribute="top" secondItem="QMC-xR-E1f" secondAttribute="bottom" constant="16" id="3Jw-b7-p4j"/>
                             <constraint firstItem="QMC-xR-E1f" firstAttribute="top" secondItem="umm-Kl-QPD" secondAttribute="bottom" constant="16" id="57y-LK-6r6"/>
-                            <constraint firstItem="wef-Es-J15" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="A8z-9e-V35"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wef-Es-J15" secondAttribute="trailing" constant="16" id="BYA-Ej-nhg"/>
+                            <constraint firstItem="SAd-re-WA7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K6h-Fv-oC6" secondAttribute="bottom" constant="16" id="5SK-M4-Qyk"/>
+                            <constraint firstItem="SAd-re-WA7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="5vn-S5-Ihc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXG-4b-YcG" secondAttribute="trailing" constant="16" id="9rh-aV-eei"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PXG-4b-YcG" secondAttribute="bottom" constant="16" id="FzL-ut-3fO"/>
+                            <constraint firstItem="PXG-4b-YcG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="KKa-BP-xJ4"/>
                             <constraint firstItem="Rtz-dt-Tx0" firstAttribute="trailing" secondItem="umm-Kl-QPD" secondAttribute="trailing" id="N8g-Fh-8rz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QMC-xR-E1f" secondAttribute="trailing" constant="16" id="NvU-dh-IOp"/>
-                            <constraint firstItem="wef-Es-J15" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K6h-Fv-oC6" secondAttribute="bottom" constant="16" id="QCS-mq-nlh"/>
                             <constraint firstItem="Rtz-dt-Tx0" firstAttribute="width" secondItem="umm-Kl-QPD" secondAttribute="width" multiplier="0.3" id="VCj-7u-2cU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SAd-re-WA7" secondAttribute="bottom" constant="16" id="Vc4-VN-v39"/>
+                            <constraint firstItem="SAd-re-WA7" firstAttribute="height" secondItem="PXG-4b-YcG" secondAttribute="height" id="Vgj-N2-4iL"/>
                             <constraint firstItem="QMC-xR-E1f" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="VkP-Ae-fI6"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wef-Es-J15" secondAttribute="bottom" constant="16" id="ZbE-pu-noB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fnH-l2-qEq" secondAttribute="trailing" constant="16" id="WtY-zl-h0A"/>
+                            <constraint firstItem="fnH-l2-qEq" firstAttribute="leading" secondItem="SAd-re-WA7" secondAttribute="trailing" constant="16" id="YKW-b8-lcq"/>
+                            <constraint firstItem="fnH-l2-qEq" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K6h-Fv-oC6" secondAttribute="bottom" constant="16" id="afq-pf-r4Q"/>
+                            <constraint firstItem="fnH-l2-qEq" firstAttribute="height" secondItem="PXG-4b-YcG" secondAttribute="height" id="bg3-TT-TqO"/>
+                            <constraint firstItem="PXG-4b-YcG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K6h-Fv-oC6" secondAttribute="bottom" constant="16" id="hkj-5b-Da3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="umm-Kl-QPD" secondAttribute="trailing" constant="16" id="iBS-eH-anh"/>
+                            <constraint firstItem="SAd-re-WA7" firstAttribute="width" secondItem="fnH-l2-qEq" secondAttribute="width" id="if3-vt-5y5"/>
                             <constraint firstItem="Rtz-dt-Tx0" firstAttribute="bottom" secondItem="umm-Kl-QPD" secondAttribute="bottom" id="jve-W7-MLy"/>
                             <constraint firstItem="umm-Kl-QPD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="jy9-7P-qi4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fnH-l2-qEq" secondAttribute="bottom" constant="16" id="keK-KY-iay"/>
                             <constraint firstItem="K6h-Fv-oC6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="m2A-ow-6uC"/>
                             <constraint firstItem="umm-Kl-QPD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="mSW-FW-UPJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="K6h-Fv-oC6" secondAttribute="trailing" constant="16" id="zct-mm-OWd"/>
@@ -288,7 +342,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cameraIcon" destination="Rtz-dt-Tx0" id="5XV-qq-ZuW"/>
-                        <outlet property="editButton" destination="wef-Es-J15" id="gcx-QV-t4w"/>
+                        <outlet property="editButton" destination="PXG-4b-YcG" id="zRn-GX-Bgn"/>
+                        <outlet property="gcdButton" destination="SAd-re-WA7" id="iH2-2v-dex"/>
+                        <outlet property="operationButton" destination="fnH-l2-qEq" id="FUn-pQ-34L"/>
                         <outlet property="userPlaceholder" destination="umm-Kl-QPD" id="AnQ-FO-7cr"/>
                     </connections>
                 </viewController>

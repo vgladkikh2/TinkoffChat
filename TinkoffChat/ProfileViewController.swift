@@ -10,10 +10,30 @@ import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var cameraIcon: CustomView!
-    @IBOutlet weak var userPlaceholder: CustomImage!
-    @IBOutlet weak var editButton: CustomButton!
+    @IBOutlet weak var cameraIcon: RoundedView!
+    @IBOutlet weak var userPlaceholder: RoundedImage!
+    @IBOutlet var editButton: RoundedButton!
+    @IBOutlet var gcdButton: RoundedButton!
+    @IBOutlet var operationButton: RoundedButton!
     
+    @IBAction func editButtonTapped(_ sender: Any) {
+        editButton.isHidden = true
+        gcdButton.isHidden = false
+        operationButton.isHidden = false
+        cameraIcon.isHidden = false
+    }
+    @IBAction func gcdButtonTapped(_ sender: Any) {
+        editButton.isHidden = false
+        gcdButton.isHidden = true
+        operationButton.isHidden = true
+        cameraIcon.isHidden = true
+    }
+    @IBAction func operationButtonTapped(_ sender: Any) {
+        editButton.isHidden = false
+        gcdButton.isHidden = true
+        operationButton.isHidden = true
+        cameraIcon.isHidden = true
+    }
     @IBAction func cameraIconTapped(_ sender: Any) {
         print("Вызов выбора изображения профиля")
         showActionSheet()
@@ -71,7 +91,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        print("\(#function) -> \(editButton.frame)")
+        
     }
     
     override func viewWillAppear(_ animated:Bool) {
@@ -80,7 +100,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     override func viewDidAppear(_ animated:Bool) {
         super.viewDidAppear(animated)
-        print("\(#function) -> \(editButton.frame)") // Так как в storyboard мы выбрали iphone SE, вью создавалось под его размеры, а после этого и перед его выводом оно перерисовалось под размеры того устройства, на котором сейчас запустилось, а, так как размеры iphone SE и iphone X в поинтах отличаются, то и размеры и расположение фрейма editButton отличаются
     }
     
     override func viewWillLayoutSubviews() {
