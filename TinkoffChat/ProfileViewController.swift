@@ -8,12 +8,48 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DataManagerDelegate {
     
-    var savedUsername: String?
-    var savedAbout: String?
-    var savedAvatar: UIImage?
-    var shouldSaveNewName: Bool = false {
+    @IBOutlet weak var cameraIcon: RoundedView!
+    @IBOutlet weak var userPlaceholder: RoundedImage!
+    @IBOutlet var editButton: RoundedButton!
+    @IBOutlet var gcdButton: RoundedButton!
+    @IBOutlet var operationButton: RoundedButton!
+    @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var usernameChangeField: UITextField!
+    @IBOutlet var aboutLabel: UILabel!
+    @IBOutlet var aboutChangeView: UITextView!
+    
+    @IBAction func editButtonTapped(_ sender: Any) {
+        usernameChangeField.text = usernameLabel.text
+        aboutChangeView.text = aboutLabel.text
+        inEditingState = true
+        saveButtonsEnabled = false
+    }
+    @IBAction func gcdButtonTapped(_ sender: Any) {
+        if !(dataManager is GCDDataManager) {
+            print("AAAASSSSSS")
+            dataManager = GCDDataManager(usernameKey: "username", aboutKey: "about", avatarFile: "avatar")
+            dataManager.delegate = self
+        }
+        tryToSaveChangedValuesToDataManager()
+    }
+    @IBAction func operationButtonTapped(_ sender: Any) {
+        
+    }
+    @IBAction func cameraIconTapped(_ sender: Any) {
+        print("Вызов выбора изображения профиля")
+        showActionSheet()
+    }
+    @IBAction func closeButtonTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    var dataManager: DataManager
+    private var usernameKey: String
+    private var aboutKey: String
+    private var avatarFile: String
+    private var shouldSaveNewName: Bool = false {
         didSet {
             if shouldSaveNewName || shouldSaveNewAbout || shouldSaveNewAvatar {
                 saveButtonsEnabled = true
@@ -22,7 +58,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
     }
-    var shouldSaveNewAbout: Bool = false {
+    private var shouldSaveNewAbout: Bool = false {
         didSet {
             if shouldSaveNewName || shouldSaveNewAbout || shouldSaveNewAvatar {
                 saveButtonsEnabled = true
@@ -31,7 +67,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
     }
-    var shouldSaveNewAvatar: Bool = false {
+    private var shouldSaveNewAvatar: Bool = false {
         didSet {
             if shouldSaveNewName || shouldSaveNewAbout || shouldSaveNewAvatar {
                 saveButtonsEnabled = true
@@ -40,7 +76,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
     }
-    var saveButtonsEnabled: Bool = false {
+    private var saveButtonsEnabled: Bool = false {
         didSet {
             if saveButtonsEnabled {
                 gcdButton.isEnabled = true
@@ -55,7 +91,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
     }
-    var inEditingState: Bool = false {
+    private var inEditingState: Bool = false {
         didSet {
             if inEditingState {
                 editButton.isHidden = true
@@ -67,9 +103,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 usernameChangeField.isHidden = false
                 aboutChangeView.isHidden = false
             } else {
-                savedUsername = usernameLabel.text
-                savedAbout = aboutLabel.text
-                savedAvatar = userPlaceholder.image
                 editButton.isHidden = false
                 usernameLabel.isHidden = false
                 aboutLabel.isHidden = false
@@ -82,51 +115,50 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    @IBOutlet weak var cameraIcon: RoundedView!
-    @IBOutlet weak var userPlaceholder: RoundedImage!
-    @IBOutlet var editButton: RoundedButton!
-    @IBOutlet var gcdButton: RoundedButton!
-    @IBOutlet var operationButton: RoundedButton!
-    @IBOutlet var usernameLabel: UILabel!
-    @IBOutlet var usernameChangeField: UITextField!
-    @IBOutlet var aboutLabel: UILabel!
-    @IBOutlet var aboutChangeView: UITextView!
-    
-    @IBAction func editButtonTapped(_ sender: Any) {
-        usernameChangeField.text = savedUsername
-        aboutChangeView.text = savedAbout
-        inEditingState = true
-        saveButtonsEnabled = false
+    func tryToSaveChangedValuesToDataManager() {
+        //progressBar
+        var usernameToSave: String?
+        var aboutToSave: String?
+        var avatarToSave: UIImage?
+        if shouldSaveNewName {
+            usernameToSave = usernameChangeField.text
+        }
+        if shouldSaveNewAbout {
+            aboutToSave = aboutChangeView.text
+        }
+        if shouldSaveNewAvatar {
+            avatarToSave = userPlaceholder.image
+        }
+        dataManager.saveData(username: usernameToSave, about: aboutToSave, avatar: avatarToSave)
     }
-    @IBAction func gcdButtonTapped(_ sender: Any) {
-        savedUsername = usernameChangeField.text
-        savedAbout = aboutChangeView.text
-        usernameLabel.text = savedUsername
-        aboutLabel.text = savedAbout
+    func savingDataFinished() {
+        //stop progressBar
+        //alert, below is after OK in alert
+        saveButtonsEnabled = false
         inEditingState = false
-        saveButtonsEnabled = false
+        editButton.isEnabled = false
+        editButton.alpha = 0.5
+        //progressBar
+        dataManager.loadData()
     }
-    @IBAction func operationButtonTapped(_ sender: Any) {
-        savedUsername = usernameChangeField.text
-        savedAbout = aboutChangeView.text
-        usernameLabel.text = savedUsername
-        aboutLabel.text = savedAbout
-        inEditingState = false
-        saveButtonsEnabled = false
+    func savingDataFailed() {
+        //stop progressBar
+        //alert, retry by pressed button
     }
-    @IBAction func cameraIconTapped(_ sender: Any) {
-        print("Вызов выбора изображения профиля")
-        showActionSheet()
-    }
-    @IBAction func closeButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+    func loadingDataFinished() {
+        //stop progressBar
+        usernameLabel.text = dataManager.username
+        aboutLabel.text = dataManager.about
+        userPlaceholder.image = dataManager.avatar
+        editButton.isEnabled = true
+        editButton.alpha = 1.0
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == usernameChangeField {
             if let text = textField.text, let textRange = Range(range, in: text) {
                 let updatedText = text.replacingCharacters(in: textRange, with: string)
-                if updatedText != savedUsername && updatedText != "" {
+                if updatedText != dataManager.username && updatedText != "" {
                     shouldSaveNewName = true
                 } else {
                     shouldSaveNewName = false
@@ -138,7 +170,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func textViewDidChange(_ textView: UITextView) {
         if textView == aboutChangeView {
-            if textView.text != savedAbout {
+            if textView.text != dataManager.about {
                 shouldSaveNewAbout = true
             } else {
                 shouldSaveNewAbout = false
@@ -179,11 +211,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             userPlaceholder.image = pickedImage
-            if areTwoEqualImages(savedAvatar, pickedImage) {
-                print("photo-false")
+            if areTwoEqualImages(dataManager.avatar, pickedImage) {
                 shouldSaveNewAvatar = false
             } else {
-                print("photo-true")
                 shouldSaveNewAvatar = true
             }
         }
@@ -205,17 +235,24 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //        print("\(#function) -> \(editButton.frame)")
 //    }
     required init?(coder aDecoder: NSCoder) { // is used when the view is created from storyboard/xib
+        usernameKey = "username"
+        aboutKey = "about"
+        avatarFile = "avatar.png"
+        dataManager = GCDDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
         super.init(coder: aDecoder)
+        dataManager.delegate = self
+        saveButtonsEnabled = false
+        inEditingState = false
+        editButton.isEnabled = false
+        editButton.alpha = 0.5
+        //progressBar
+        dataManager.loadData()
 //        print("\(#function) -> \(editButton.frame)") // editButton здесь nil, так как кнопка еще не успела создаться (и не присвоился адрес в переменную editButton). Поэтому, естественно, падает с ошибкой в рантайме
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        inEditingState = false
-//        savedUsername = usernameLabel.text
-//        savedAbout = aboutLabel.text
-//        savedAvatar = userPlaceholder.image
     }
     
     override func viewWillAppear(_ animated:Bool) {
