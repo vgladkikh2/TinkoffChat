@@ -16,6 +16,7 @@ class GCDDataManager: DataManager {
     private var usernameKey: String
     private var aboutKey: String
     private var avatarFile: String
+    private var isLastSaveSuccess: Bool = true
     
     required init(usernameKey: String, aboutKey: String, avatarFile: String) {
         self.usernameKey = usernameKey
@@ -26,82 +27,46 @@ class GCDDataManager: DataManager {
     var delegate: DataManagerDelegate?
     
     func saveData(username: String?, about: String?, avatar: UIImage?) {
-        var success = true
-        if let image = avatar {
-            if success {
-                success = saveDataToFile(image: image, file: avatarFile)
+        isLastSaveSuccess = true
+        let queue = DispatchQueue.global(qos: .userInitiated)
+        queue.async{
+            sleep(1)
+            if let image = self.avatar {
+                if self.isLastSaveSuccess {
+                    self.isLastSaveSuccess = self.saveDataToFile(image: image, file: self.avatarFile)
+                }
             }
-        }
-        if let info = username {
-            if success {
-                success = saveInfoToUserDefaults(info: info, key: usernameKey)
+            if let info = username {
+                if self.isLastSaveSuccess {
+                    self.isLastSaveSuccess = self.saveInfoToUserDefaults(info: info, key: self.usernameKey)
+                }
             }
-        }
-        if let info = about {
-            if success {
-                success = saveInfoToUserDefaults(info: info, key: aboutKey)
+            if let info = about {
+                if self.isLastSaveSuccess {
+                    self.isLastSaveSuccess = self.saveInfoToUserDefaults(info: info, key: self.aboutKey)
+                }
             }
-        }
-        if success {
-            delegate?.savingDataFinished()
-        } else {
-            delegate?.savingDataFailed()
+            DispatchQueue.main.async {
+                if self.isLastSaveSuccess {
+                    self.delegate?.savingDataFinished()
+                } else {
+                    self.delegate?.savingDataFailed()
+                }
+            }
         }
     }
     
     func loadData() {
-        username = loadInfoFromUserDefaults(key: usernameKey)
-        about = loadInfoFromUserDefaults(key: aboutKey)
-        avatar = loadDataFromFile(file: avatarFile)
-        delegate?.loadingDataFinished()
-    }
-    
-    
-    private func saveDataToFile(image: UIImage, file: String) -> Bool {
-        if let data = image.pngData() {
-            guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else { return false }
-            do {
-                try data.write(to: directory.appendingPathComponent(file)!)
-                return true
-            } catch {
-                print(error.localizedDescription)
-                return false
+        let queue = DispatchQueue.global(qos: .userInitiated)
+        queue.async{
+            sleep(1)
+            self.username = self.loadInfoFromUserDefaults(key: self.usernameKey)
+            self.about = self.loadInfoFromUserDefaults(key: self.aboutKey)
+            self.avatar = self.loadDataFromFile(file: self.avatarFile)
+            DispatchQueue.main.async {
+                self.delegate?.loadingDataFinished()
             }
-        } else {
-            return false
         }
     }
-    
-    private func saveInfoToUserDefaults(info: String, key: String) -> Bool {
-        do {
-            try UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: info, requiringSecureCoding: false), forKey: key)
-            UserDefaults.standard.synchronize()
-            return true
-        } catch {
-            print("Cannot save info = \"\(info)\" for key = \"\(key)\" to UserDefaults")
-            return false
-        }
-    }
-    
-    private func loadDataFromFile(file: String) -> UIImage? {
-        if let dir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
-            return UIImage(contentsOfFile: URL(fileURLWithPath: dir.absoluteString).appendingPathComponent(file).path)
-        }
-        return nil
-    }
-    
-    private func loadInfoFromUserDefaults(key: String) -> String? {
-        if let data = UserDefaults.standard.data(forKey: key) {
-            do {
-                let info = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? String
-                return info
-            } catch {
-                print("Cannot unarchive loaded info for key = \"\(key)\" from UserDefaults")
-            }
-        } else {
-            print("Cannot load info for key = \"\(key)\" from UserDefaults")
-        }
-        return nil
-    }
-    
+
 }

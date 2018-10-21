@@ -35,7 +35,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         tryToSaveChangedValuesToDataManager()
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
-        
+        if !(dataManager is OperationDataManager) {
+            print("BBBBSSSSSS")
+            dataManager = OperationDataManager(usernameKey: "username", aboutKey: "about", avatarFile: "avatar")
+            dataManager.delegate = self
+        }
+        tryToSaveChangedValuesToDataManager()
     }
     @IBAction func cameraIconTapped(_ sender: Any) {
         print("Вызов выбора изображения профиля")
@@ -46,6 +51,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     var dataManager: DataManager
+    private var activityIndicator = UIActivityIndicatorView(style: .gray)
     private var usernameKey: String
     private var aboutKey: String
     private var avatarFile: String
@@ -116,8 +122,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func tryToSaveChangedValuesToDataManager() {
-        //progressBar
-        //block all buttons
+        activityIndicator.startAnimating()
+        saveButtonsEnabled = false
+        //block iconButton
         var usernameToSave: String?
         var aboutToSave: String?
         var avatarToSave: UIImage?
@@ -133,28 +140,44 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dataManager.saveData(username: usernameToSave, about: aboutToSave, avatar: avatarToSave)
     }
     func savingDataFinished() {
-        //stop progressBar
-        let actionSheet = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        activityIndicator.stopAnimating()
+        saveButtonsEnabled = true
+        //unblock iconButton
+        let actionSheet = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: UIAlertController.Style.alert)
         actionSheet.addAction(UIAlertAction(title: "ОК", style: .cancel, handler: { (alert:UIAlertAction!) -> Void in
             self.saveButtonsEnabled = false
             self.inEditingState = false
             self.editButton.isEnabled = false
             self.editButton.alpha = 0.5
-            //progressBar
+            self.activityIndicator.startAnimating()
             self.dataManager.loadData()
         }))
         self.present(actionSheet, animated: true, completion: nil)
     }
     func savingDataFailed() {
-        //stop progressBar
-        //alert, retry by pressed button
+        activityIndicator.stopAnimating()
+        saveButtonsEnabled = true
+        //unblock iconButton
+        let actionSheet = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: UIAlertController.Style.alert)
+        actionSheet.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (alert:UIAlertAction!) -> Void in
+            self.tryToSaveChangedValuesToDataManager()
+        }))
+        actionSheet.addAction(UIAlertAction(title: "ОК", style: .cancel, handler: { (alert:UIAlertAction!) -> Void in
+            self.saveButtonsEnabled = false
+            self.inEditingState = false
+            self.editButton.isEnabled = false
+            self.editButton.alpha = 0.5
+            self.activityIndicator.startAnimating()
+            self.dataManager.loadData()
+        }))
+        self.present(actionSheet, animated: true, completion: nil)
     }
     func loadDataFromDataManager() {
-        //progressBar
+        activityIndicator.startAnimating()
         dataManager.loadData()
     }
     func loadingDataFinished() {
-        //stop progressBar
+        activityIndicator.stopAnimating()
         usernameLabel.text = dataManager.username
         aboutLabel.text = dataManager.about
         if dataManager.avatar != nil {
@@ -260,6 +283,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        view.addSubview(activityIndicator)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        let horizontalConstraint = NSLayoutConstraint(item: activityIndicator, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0)
+        view.addConstraint(horizontalConstraint)
+        let verticalConstraint = NSLayoutConstraint(item: activityIndicator, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: usernameChangeField, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
+        view.addConstraint(verticalConstraint)
         saveButtonsEnabled = false
         inEditingState = false
         editButton.isEnabled = false
