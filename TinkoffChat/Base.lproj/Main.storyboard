@@ -196,18 +196,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Alex Zverev" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMC-xR-E1f">
-                                <rect key="frame" x="16" y="377.5" width="343" height="36"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love 😍 iOS Development, like butterflies and live in Tinkoff Bank" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-Fv-oC6">
-                                <rect key="frame" x="16" y="429.5" width="343" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </label>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-dt-Tx0" customClass="RoundedView" customModule="TinkoffChat" customModuleProvider="target">
                                 <rect key="frame" x="244" y="277" width="84" height="84.5"/>
                                 <subviews>
@@ -235,6 +223,30 @@
                                     <outletCollection property="gestureRecognizers" destination="1qm-OZ-I0F" appends="YES" id="bqV-2a-HNc"/>
                                 </connections>
                             </view>
+                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя пользователя" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xJJ-pi-noo">
+                                <rect key="frame" x="9" y="375.5" width="357" height="40"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Alex Zverev" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMC-xR-E1f">
+                                <rect key="frame" x="16" y="377.5" width="343" height="36"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jmT-g7-2ba">
+                                <rect key="frame" x="11" y="421.5" width="353" height="171.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Love 😍 iOS Development, like butterflies and live in Tinkoff Bank" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-Fv-oC6">
+                                <rect key="frame" x="16" y="429.5" width="343" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SAd-re-WA7" customClass="RoundedButton" customModule="TinkoffChat" customModuleProvider="target">
                                 <rect key="frame" x="16" y="609" width="161" height="42"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -305,13 +317,17 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="K6h-Fv-oC6" firstAttribute="top" secondItem="QMC-xR-E1f" secondAttribute="bottom" constant="16" id="3Jw-b7-p4j"/>
+                            <constraint firstItem="jmT-g7-2ba" firstAttribute="top" secondItem="xJJ-pi-noo" secondAttribute="bottom" constant="6" id="4L9-Mu-ulx"/>
                             <constraint firstItem="QMC-xR-E1f" firstAttribute="top" secondItem="umm-Kl-QPD" secondAttribute="bottom" constant="16" id="57y-LK-6r6"/>
                             <constraint firstItem="fnH-l2-qEq" firstAttribute="centerY" secondItem="PXG-4b-YcG" secondAttribute="centerY" id="5Pb-FS-7v9"/>
+                            <constraint firstItem="xJJ-pi-noo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="9" id="6cr-kM-GpJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXG-4b-YcG" secondAttribute="trailing" constant="16" id="9rh-aV-eei"/>
                             <constraint firstItem="SAd-re-WA7" firstAttribute="leading" secondItem="PXG-4b-YcG" secondAttribute="leading" id="DoG-7x-33k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PXG-4b-YcG" secondAttribute="bottom" constant="16" id="FzL-ut-3fO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xJJ-pi-noo" secondAttribute="trailing" constant="9" id="Ih2-Rg-o7S"/>
                             <constraint firstItem="SAd-re-WA7" firstAttribute="centerY" secondItem="PXG-4b-YcG" secondAttribute="centerY" id="JF5-vr-AVQ"/>
                             <constraint firstItem="PXG-4b-YcG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="KKa-BP-xJ4"/>
+                            <constraint firstItem="jmT-g7-2ba" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="11" id="Mch-ZL-DE1"/>
                             <constraint firstItem="Rtz-dt-Tx0" firstAttribute="trailing" secondItem="umm-Kl-QPD" secondAttribute="trailing" id="N8g-Fh-8rz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QMC-xR-E1f" secondAttribute="trailing" constant="16" id="NvU-dh-IOp"/>
                             <constraint firstItem="fnH-l2-qEq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="SAd-re-WA7" secondAttribute="trailing" id="S1F-J6-faO"/>
@@ -320,6 +336,7 @@
                             <constraint firstItem="SAd-re-WA7" firstAttribute="height" secondItem="PXG-4b-YcG" secondAttribute="height" id="Vgj-N2-4iL"/>
                             <constraint firstItem="QMC-xR-E1f" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="VkP-Ae-fI6"/>
                             <constraint firstItem="SAd-re-WA7" firstAttribute="width" secondItem="PXG-4b-YcG" secondAttribute="width" multiplier="0.47" id="YEz-fB-f30"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jmT-g7-2ba" secondAttribute="trailing" constant="11" id="aGd-Do-w2Q"/>
                             <constraint firstItem="fnH-l2-qEq" firstAttribute="height" secondItem="PXG-4b-YcG" secondAttribute="height" id="bg3-TT-TqO"/>
                             <constraint firstItem="fnH-l2-qEq" firstAttribute="width" secondItem="PXG-4b-YcG" secondAttribute="width" multiplier="0.47" id="cVS-ce-c8K"/>
                             <constraint firstItem="PXG-4b-YcG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K6h-Fv-oC6" secondAttribute="bottom" constant="16" id="hkj-5b-Da3"/>
@@ -328,6 +345,8 @@
                             <constraint firstItem="umm-Kl-QPD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lpy-yx-uHw"/>
                             <constraint firstItem="K6h-Fv-oC6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="m2A-ow-6uC"/>
                             <constraint firstItem="umm-Kl-QPD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="mSW-FW-UPJ"/>
+                            <constraint firstItem="xJJ-pi-noo" firstAttribute="top" secondItem="umm-Kl-QPD" secondAttribute="bottom" constant="14" id="sly-Fv-drZ"/>
+                            <constraint firstItem="PXG-4b-YcG" firstAttribute="top" secondItem="jmT-g7-2ba" secondAttribute="bottom" constant="16" id="ygL-U0-fnp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="K6h-Fv-oC6" secondAttribute="trailing" constant="16" id="zct-mm-OWd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -340,11 +359,15 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="aboutChangeView" destination="jmT-g7-2ba" id="IeH-Ab-zee"/>
+                        <outlet property="aboutLabel" destination="K6h-Fv-oC6" id="zib-mL-qV0"/>
                         <outlet property="cameraIcon" destination="Rtz-dt-Tx0" id="5XV-qq-ZuW"/>
                         <outlet property="editButton" destination="PXG-4b-YcG" id="zRn-GX-Bgn"/>
                         <outlet property="gcdButton" destination="SAd-re-WA7" id="iH2-2v-dex"/>
                         <outlet property="operationButton" destination="fnH-l2-qEq" id="FUn-pQ-34L"/>
                         <outlet property="userPlaceholder" destination="umm-Kl-QPD" id="AnQ-FO-7cr"/>
+                        <outlet property="usernameChangeField" destination="xJJ-pi-noo" id="XA6-9b-d1m"/>
+                        <outlet property="usernameLabel" destination="QMC-xR-E1f" id="KNO-3O-ttf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -15,24 +15,44 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var editButton: RoundedButton!
     @IBOutlet var gcdButton: RoundedButton!
     @IBOutlet var operationButton: RoundedButton!
+    @IBOutlet var usernameLabel: UILabel!
+    @IBOutlet var usernameChangeField: UITextField!
+    @IBOutlet var aboutLabel: UILabel!
+    @IBOutlet var aboutChangeView: UITextView!
     
     @IBAction func editButtonTapped(_ sender: Any) {
         editButton.isHidden = true
+        usernameLabel.isHidden = true
+        aboutLabel.isHidden = true
         gcdButton.isHidden = false
         operationButton.isHidden = false
         cameraIcon.isHidden = false
+        usernameChangeField.isHidden = false
+        aboutChangeView.isHidden = false
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
+        usernameLabel.text = usernameChangeField.text
+        aboutLabel.text = aboutChangeView.text
         editButton.isHidden = false
+        usernameLabel.isHidden = false
+        aboutLabel.isHidden = false
         gcdButton.isHidden = true
         operationButton.isHidden = true
         cameraIcon.isHidden = true
+        usernameChangeField.isHidden = true
+        aboutChangeView.isHidden = true
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
+        usernameLabel.text = usernameChangeField.text
+        aboutLabel.text = aboutChangeView.text
         editButton.isHidden = false
+        usernameLabel.isHidden = false
+        aboutLabel.isHidden = false
         gcdButton.isHidden = true
         operationButton.isHidden = true
         cameraIcon.isHidden = true
+        usernameChangeField.isHidden = true
+        aboutChangeView.isHidden = true
     }
     @IBAction func cameraIconTapped(_ sender: Any) {
         print("Вызов выбора изображения профиля")
@@ -91,7 +111,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+        usernameChangeField.text = usernameLabel.text
+        aboutChangeView.text = aboutLabel.text
     }
     
     override func viewWillAppear(_ animated:Bool) {
