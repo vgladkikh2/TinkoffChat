@@ -124,7 +124,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func tryToSaveChangedValuesToDataManager() {
         activityIndicator.startAnimating()
         saveButtonsEnabled = false
-        //block iconButton
+        cameraIcon.isHidden = true
         var usernameToSave: String?
         var aboutToSave: String?
         var avatarToSave: UIImage?
@@ -141,8 +141,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     func savingDataFinished() {
         activityIndicator.stopAnimating()
-        saveButtonsEnabled = true
-        //unblock iconButton
+//        saveButtonsEnabled = true
+//        cameraIcon.isHidden = false
         let actionSheet = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: UIAlertController.Style.alert)
         actionSheet.addAction(UIAlertAction(title: "ОК", style: .cancel, handler: { (alert:UIAlertAction!) -> Void in
             self.saveButtonsEnabled = false
@@ -156,8 +156,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     func savingDataFailed() {
         activityIndicator.stopAnimating()
-        saveButtonsEnabled = true
-        //unblock iconButton
+//        saveButtonsEnabled = true
+//        cameraIcon.isHidden = false
         let actionSheet = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: UIAlertController.Style.alert)
         actionSheet.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.tryToSaveChangedValuesToDataManager()
