@@ -117,6 +117,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func tryToSaveChangedValuesToDataManager() {
         //progressBar
+        //block all buttons
         var usernameToSave: String?
         var aboutToSave: String?
         var avatarToSave: UIImage?
@@ -133,23 +134,35 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     func savingDataFinished() {
         //stop progressBar
-        //alert, below is after OK in alert
-        saveButtonsEnabled = false
-        inEditingState = false
-        editButton.isEnabled = false
-        editButton.alpha = 0.5
-        //progressBar
-        dataManager.loadData()
+        let actionSheet = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "ОК", style: .cancel, handler: { (alert:UIAlertAction!) -> Void in
+            self.saveButtonsEnabled = false
+            self.inEditingState = false
+            self.editButton.isEnabled = false
+            self.editButton.alpha = 0.5
+            //progressBar
+            self.dataManager.loadData()
+        }))
+        self.present(actionSheet, animated: true, completion: nil)
     }
     func savingDataFailed() {
         //stop progressBar
         //alert, retry by pressed button
     }
+    func loadDataFromDataManager() {
+        //progressBar
+        dataManager.loadData()
+    }
     func loadingDataFinished() {
         //stop progressBar
         usernameLabel.text = dataManager.username
         aboutLabel.text = dataManager.about
-        userPlaceholder.image = dataManager.avatar
+        if dataManager.avatar != nil {
+            userPlaceholder.image = dataManager.avatar
+        }
+        shouldSaveNewName = false
+        shouldSaveNewAbout = false
+        shouldSaveNewAvatar = false
         editButton.isEnabled = true
         editButton.alpha = 1.0
     }
@@ -241,18 +254,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         dataManager = GCDDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
         super.init(coder: aDecoder)
         dataManager.delegate = self
-        saveButtonsEnabled = false
-        inEditingState = false
-        editButton.isEnabled = false
-        editButton.alpha = 0.5
-        //progressBar
-        dataManager.loadData()
 //        print("\(#function) -> \(editButton.frame)") // editButton здесь nil, так как кнопка еще не успела создаться (и не присвоился адрес в переменную editButton). Поэтому, естественно, падает с ошибкой в рантайме
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        saveButtonsEnabled = false
+        inEditingState = false
+        editButton.isEnabled = false
+        editButton.alpha = 0.5
+        loadDataFromDataManager()
     }
     
     override func viewWillAppear(_ animated:Bool) {

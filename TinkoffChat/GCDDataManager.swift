@@ -26,16 +26,27 @@ class GCDDataManager: DataManager {
     var delegate: DataManagerDelegate?
     
     func saveData(username: String?, about: String?, avatar: UIImage?) {
+        var success = true
+        if let image = avatar {
+            if success {
+                success = saveDataToFile(image: image, file: avatarFile)
+            }
+        }
         if let info = username {
-            saveInfoToUserDefaults(info: info, key: usernameKey)
+            if success {
+                success = saveInfoToUserDefaults(info: info, key: usernameKey)
+            }
         }
         if let info = about {
-            saveInfoToUserDefaults(info: info, key: aboutKey)
+            if success {
+                success = saveInfoToUserDefaults(info: info, key: aboutKey)
+            }
         }
-        if let image = avatar {
-            saveDataToFile(image: image, file: avatarFile)
+        if success {
+            delegate?.savingDataFinished()
+        } else {
+            delegate?.savingDataFailed()
         }
-        delegate?.savingDataFinished()
     }
     
     func loadData() {
@@ -46,24 +57,37 @@ class GCDDataManager: DataManager {
     }
     
     
-    private func saveDataToFile(image: UIImage, file: String) {
-        print("saveDataToFile \(file)")
-//        delegate?.savingDataFailed()
+    private func saveDataToFile(image: UIImage, file: String) -> Bool {
+        if let data = image.pngData() {
+            guard let directory = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) as NSURL else { return false }
+            do {
+                try data.write(to: directory.appendingPathComponent(file)!)
+                return true
+            } catch {
+                print(error.localizedDescription)
+                return false
+            }
+        } else {
+            return false
+        }
     }
     
-    private func saveInfoToUserDefaults(info: String, key: String) {
+    private func saveInfoToUserDefaults(info: String, key: String) -> Bool {
         do {
             try UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: info, requiringSecureCoding: false), forKey: key)
             UserDefaults.standard.synchronize()
+            return true
         } catch {
             print("Cannot save info = \"\(info)\" for key = \"\(key)\" to UserDefaults")
-            delegate?.savingDataFailed()
+            return false
         }
     }
     
     private func loadDataFromFile(file: String) -> UIImage? {
-        print("loadDataFromFile \(file)")
-        return UIImage()
+        if let dir = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false) {
+            return UIImage(contentsOfFile: URL(fileURLWithPath: dir.absoluteString).appendingPathComponent(file).path)
+        }
+        return nil
     }
     
     private func loadInfoFromUserDefaults(key: String) -> String? {
@@ -72,8 +96,10 @@ class GCDDataManager: DataManager {
                 let info = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? String
                 return info
             } catch {
-                print("Cannot load info for key = \"\(key)\" from UserDefaults")
+                print("Cannot unarchive loaded info for key = \"\(key)\" from UserDefaults")
             }
+        } else {
+            print("Cannot load info for key = \"\(key)\" from UserDefaults")
         }
         return nil
     }
