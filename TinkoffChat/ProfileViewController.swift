@@ -8,7 +8,76 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate {
+    
+    var savedUsername: String?
+    var savedAbout: String?
+    var savedAvatar: UIImage?
+    var shouldSaveNewName: Bool = false {
+        didSet {
+            if shouldSaveNewName || shouldSaveNewAbout || shouldSaveNewAvatar {
+                saveButtonsEnabled = true
+            } else {
+                saveButtonsEnabled = false
+            }
+        }
+    }
+    var shouldSaveNewAbout: Bool = false {
+        didSet {
+            if shouldSaveNewName || shouldSaveNewAbout || shouldSaveNewAvatar {
+                saveButtonsEnabled = true
+            } else {
+                saveButtonsEnabled = false
+            }
+        }
+    }
+    var shouldSaveNewAvatar: Bool = false {
+        didSet {
+            if shouldSaveNewName || shouldSaveNewAbout || shouldSaveNewAvatar {
+                saveButtonsEnabled = true
+            } else {
+                saveButtonsEnabled = false
+            }
+        }
+    }
+    var saveButtonsEnabled: Bool = false {
+        didSet {
+            if saveButtonsEnabled {
+                gcdButton.isEnabled = true
+                operationButton.isEnabled = true
+                gcdButton.alpha = 1.0
+                operationButton.alpha = 1.0
+            } else {
+                gcdButton.isEnabled = false
+                operationButton.isEnabled = false
+                gcdButton.alpha = 0.5
+                operationButton.alpha = 0.5
+            }
+        }
+    }
+    var inEditingState: Bool = false {
+        didSet {
+            if inEditingState {
+                editButton.isHidden = true
+                usernameLabel.isHidden = true
+                aboutLabel.isHidden = true
+                gcdButton.isHidden = false
+                operationButton.isHidden = false
+                cameraIcon.isHidden = false
+                usernameChangeField.isHidden = false
+                aboutChangeView.isHidden = false
+            } else {
+                editButton.isHidden = false
+                usernameLabel.isHidden = false
+                aboutLabel.isHidden = false
+                gcdButton.isHidden = true
+                operationButton.isHidden = true
+                cameraIcon.isHidden = true
+                usernameChangeField.isHidden = true
+                aboutChangeView.isHidden = true
+            }
+        }
+    }
     
     @IBOutlet weak var cameraIcon: RoundedView!
     @IBOutlet weak var userPlaceholder: RoundedImage!
@@ -21,38 +90,26 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var aboutChangeView: UITextView!
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        editButton.isHidden = true
-        usernameLabel.isHidden = true
-        aboutLabel.isHidden = true
-        gcdButton.isHidden = false
-        operationButton.isHidden = false
-        cameraIcon.isHidden = false
-        usernameChangeField.isHidden = false
-        aboutChangeView.isHidden = false
+        usernameChangeField.text = savedUsername
+        aboutChangeView.text = savedAbout
+        inEditingState = true
+        saveButtonsEnabled = false
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
-        usernameLabel.text = usernameChangeField.text
-        aboutLabel.text = aboutChangeView.text
-        editButton.isHidden = false
-        usernameLabel.isHidden = false
-        aboutLabel.isHidden = false
-        gcdButton.isHidden = true
-        operationButton.isHidden = true
-        cameraIcon.isHidden = true
-        usernameChangeField.isHidden = true
-        aboutChangeView.isHidden = true
+        savedUsername = usernameChangeField.text
+        savedAbout = aboutChangeView.text
+        usernameLabel.text = savedUsername
+        aboutLabel.text = savedAbout
+        inEditingState = false
+        saveButtonsEnabled = false
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
-        usernameLabel.text = usernameChangeField.text
-        aboutLabel.text = aboutChangeView.text
-        editButton.isHidden = false
-        usernameLabel.isHidden = false
-        aboutLabel.isHidden = false
-        gcdButton.isHidden = true
-        operationButton.isHidden = true
-        cameraIcon.isHidden = true
-        usernameChangeField.isHidden = true
-        aboutChangeView.isHidden = true
+        savedUsername = usernameChangeField.text
+        savedAbout = aboutChangeView.text
+        usernameLabel.text = savedUsername
+        aboutLabel.text = savedAbout
+        inEditingState = false
+        saveButtonsEnabled = false
     }
     @IBAction func cameraIconTapped(_ sender: Any) {
         print("Вызов выбора изображения профиля")
@@ -60,6 +117,30 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     @IBAction func closeButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == usernameChangeField {
+            if let text = textField.text, let textRange = Range(range, in: text) {
+                let updatedText = text.replacingCharacters(in: textRange, with: string)
+                if updatedText != savedUsername && updatedText != "" {
+                    shouldSaveNewName = true
+                } else {
+                    shouldSaveNewName = false
+                }
+            }
+        }
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if textView == aboutChangeView {
+            if textView.text != savedAbout {
+                shouldSaveNewAbout = true
+            } else {
+                shouldSaveNewAbout = false
+            }
+        }
     }
     
     func showActionSheet() {
@@ -111,8 +192,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        usernameChangeField.text = usernameLabel.text
-        aboutChangeView.text = aboutLabel.text
+        savedUsername = usernameLabel.text
+        savedAbout = aboutLabel.text
     }
     
     override func viewWillAppear(_ animated:Bool) {
