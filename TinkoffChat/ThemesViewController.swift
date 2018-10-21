@@ -16,11 +16,14 @@ class ThemesViewController: UIViewController {
     func applyColorChanges(theme: UIColor?) {
         if let color = theme {
             view.backgroundColor = color
-            do {
-                try UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false), forKey: "ApplicationTheme")
-                UserDefaults.standard.synchronize()
-            } catch {
-                print("Cannot save application theme to UserDefaults")
+            let queue = DispatchQueue.global(qos: .utility)
+            queue.async{
+                do {
+                    try UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false), forKey: "ApplicationTheme")
+                    UserDefaults.standard.synchronize()
+                } catch {
+                    print("Cannot save application theme to UserDefaults")
+                }
             }
             AppDelegate.changeApplicationColor(color: color)
         }
