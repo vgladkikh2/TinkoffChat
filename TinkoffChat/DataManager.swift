@@ -21,12 +21,7 @@ protocol DataManager: AnyObject {
 
 
 extension DataManager {
-    
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    func saveDataToFile(image: UIImage, file: String) -> Bool {
+    static func SaveDataToFile(image: UIImage, file: String) -> Bool {
         if let data = image.pngData() {
             let fileManager = FileManager.default
             let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(file)
@@ -36,7 +31,7 @@ extension DataManager {
             return false
         }
     }
-    func saveInfoToUserDefaults(info: String, key: String) -> Bool {
+    static func SaveInfoToUserDefaults(info: String, key: String) -> Bool {
         do {
             try UserDefaults.standard.setValue(NSKeyedArchiver.archivedData(withRootObject: info, requiringSecureCoding: false), forKey: key)
             UserDefaults.standard.synchronize()
@@ -46,7 +41,7 @@ extension DataManager {
             return false
         }
     }
-    func loadDataFromFile(file: String) -> UIImage? {
+    static func LoadDataFromFile(file: String) -> UIImage? {
         let fileManager = FileManager.default
         let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(file)
         if fileManager.fileExists(atPath: path) {
@@ -55,7 +50,7 @@ extension DataManager {
             return nil
         }
     }
-    func loadInfoFromUserDefaults(key: String) -> String? {
+    static func LoadInfoFromUserDefaults(key: String) -> String? {
         if let data = UserDefaults.standard.data(forKey: key) {
             do {
                 let info = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? String

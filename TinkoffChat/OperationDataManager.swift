@@ -10,6 +10,62 @@ import Foundation
 
 class OperationDataManager: DataManager {
     
+    class SaveDataOperation: Operation {
+        var username: String?
+        var about: String?
+        var avatar: UIImage?
+        var usernameKey: String
+        var aboutKey: String
+        var avatarFile: String
+        var isSuccess: Bool = true
+        init(username: String?, about: String?, avatar: UIImage?, usernameKey: String, aboutKey: String, avatarFile: String) {
+            self.username = username
+            self.about = about
+            self.avatar = avatar
+            self.usernameKey = usernameKey
+            self.aboutKey = aboutKey
+            self.avatarFile = avatarFile
+        }
+        override func main() {
+            sleep(2)
+            if let image = avatar {
+                if isSuccess {
+                    isSuccess = OperationDataManager.SaveDataToFile(image: image, file: avatarFile)
+                }
+            }
+            if let info = username {
+                if isSuccess {
+                    isSuccess = OperationDataManager.SaveInfoToUserDefaults(info: info, key: usernameKey)
+                }
+            }
+            if let info = about {
+                if isSuccess {
+                    isSuccess = OperationDataManager.SaveInfoToUserDefaults(info: info, key: aboutKey)
+                }
+            }
+        }
+    }
+    
+    class LoadDataOperation: Operation {
+        var usernameKey: String
+        var aboutKey: String
+        var avatarFile: String
+        var username: String?
+        var about: String?
+        var avatar: UIImage?
+        init(usernameKey: String, aboutKey: String, avatarFile: String) {
+            self.usernameKey = usernameKey
+            self.aboutKey = aboutKey
+            self.avatarFile = avatarFile
+        }
+        override func main() {
+            sleep(2)
+            username = OperationDataManager.LoadInfoFromUserDefaults(key: usernameKey)
+            about = OperationDataManager.LoadInfoFromUserDefaults(key: aboutKey)
+            avatar = OperationDataManager.LoadDataFromFile(file: avatarFile)
+        }
+    }
+    
     var username: String?
     var about: String?
     var avatar: UIImage?
@@ -27,46 +83,36 @@ class OperationDataManager: DataManager {
     var delegate: DataManagerDelegate?
     
     func saveData(username: String?, about: String?, avatar: UIImage?) {
-        isLastSaveSuccess = true
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        queue.async{
-            sleep(1)
-            if let image = self.avatar {
-                if self.isLastSaveSuccess {
-                    self.isLastSaveSuccess = self.saveDataToFile(image: image, file: self.avatarFile)
-                }
-            }
-            if let info = username {
-                if self.isLastSaveSuccess {
-                    self.isLastSaveSuccess = self.saveInfoToUserDefaults(info: info, key: self.usernameKey)
-                }
-            }
-            if let info = about {
-                if self.isLastSaveSuccess {
-                    self.isLastSaveSuccess = self.saveInfoToUserDefaults(info: info, key: self.aboutKey)
-                }
-            }
-            DispatchQueue.main.async {
-                if self.isLastSaveSuccess {
+        let saveDataOperation = SaveDataOperation(username: username, about: about, avatar: avatar, usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
+        saveDataOperation.completionBlock = {
+            OperationQueue.main.addOperation {
+                if saveDataOperation.isSuccess {
                     self.delegate?.savingDataFinished()
                 } else {
                     self.delegate?.savingDataFailed()
                 }
             }
         }
+        let saveQueue = OperationQueue()
+        saveQueue.maxConcurrentOperationCount = 1
+        saveQueue.addOperation(saveDataOperation)
+        saveQueue.waitUntilAllOperationsAreFinished()
     }
     
     func loadData() {
-        let queue = DispatchQueue.global(qos: .userInitiated)
-        queue.async{
-            sleep(1)
-            self.username = self.loadInfoFromUserDefaults(key: self.usernameKey)
-            self.about = self.loadInfoFromUserDefaults(key: self.aboutKey)
-            self.avatar = self.loadDataFromFile(file: self.avatarFile)
-            DispatchQueue.main.async {
+        let loadDataOperation = LoadDataOperation(usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
+        loadDataOperation.completionBlock = {
+            OperationQueue.main.addOperation {
+                self.username = loadDataOperation.username
+                self.about = loadDataOperation.about
+                self.avatar = loadDataOperation.avatar
                 self.delegate?.loadingDataFinished()
             }
         }
+        let loadQueue = OperationQueue()
+        loadQueue.maxConcurrentOperationCount = 1
+        loadQueue.addOperation(loadDataOperation)
+        loadQueue.waitUntilAllOperationsAreFinished()
     }
     
 }

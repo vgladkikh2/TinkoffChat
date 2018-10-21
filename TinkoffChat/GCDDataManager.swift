@@ -28,22 +28,22 @@ class GCDDataManager: DataManager {
     
     func saveData(username: String?, about: String?, avatar: UIImage?) {
         isLastSaveSuccess = true
-        let queue = DispatchQueue.global(qos: .userInitiated)
+        let queue = DispatchQueue(label:"writeSerialQueue")
         queue.async{
-            sleep(1)
+            sleep(2)
             if let image = self.avatar {
                 if self.isLastSaveSuccess {
-                    self.isLastSaveSuccess = self.saveDataToFile(image: image, file: self.avatarFile)
+                    self.isLastSaveSuccess = GCDDataManager.SaveDataToFile(image: image, file: self.avatarFile)
                 }
             }
             if let info = username {
                 if self.isLastSaveSuccess {
-                    self.isLastSaveSuccess = self.saveInfoToUserDefaults(info: info, key: self.usernameKey)
+                    self.isLastSaveSuccess = GCDDataManager.SaveInfoToUserDefaults(info: info, key: self.usernameKey)
                 }
             }
             if let info = about {
                 if self.isLastSaveSuccess {
-                    self.isLastSaveSuccess = self.saveInfoToUserDefaults(info: info, key: self.aboutKey)
+                    self.isLastSaveSuccess = GCDDataManager.SaveInfoToUserDefaults(info: info, key: self.aboutKey)
                 }
             }
             DispatchQueue.main.async {
@@ -57,12 +57,12 @@ class GCDDataManager: DataManager {
     }
     
     func loadData() {
-        let queue = DispatchQueue.global(qos: .userInitiated)
+        let queue = DispatchQueue(label:"readSerialQueue")
         queue.async{
-            sleep(1)
-            self.username = self.loadInfoFromUserDefaults(key: self.usernameKey)
-            self.about = self.loadInfoFromUserDefaults(key: self.aboutKey)
-            self.avatar = self.loadDataFromFile(file: self.avatarFile)
+            sleep(2)
+            self.avatar = GCDDataManager.LoadDataFromFile(file: self.avatarFile)
+            self.username = GCDDataManager.LoadInfoFromUserDefaults(key: self.usernameKey)
+            self.about = GCDDataManager.LoadInfoFromUserDefaults(key: self.aboutKey)
             DispatchQueue.main.async {
                 self.delegate?.loadingDataFinished()
             }

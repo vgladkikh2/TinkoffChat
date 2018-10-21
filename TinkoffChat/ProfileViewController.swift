@@ -274,7 +274,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         usernameKey = "username"
         aboutKey = "about"
         avatarFile = "avatar.png"
-        dataManager = GCDDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
+        dataManager = OperationDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
         super.init(coder: aDecoder)
         dataManager.delegate = self
 //        print("\(#function) -> \(editButton.frame)") // editButton здесь nil, так как кнопка еще не успела создаться (и не присвоился адрес в переменную editButton). Поэтому, естественно, падает с ошибкой в рантайме
