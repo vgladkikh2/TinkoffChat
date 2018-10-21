@@ -67,6 +67,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 usernameChangeField.isHidden = false
                 aboutChangeView.isHidden = false
             } else {
+                savedUsername = usernameLabel.text
+                savedAbout = aboutLabel.text
+                savedAvatar = userPlaceholder.image
                 editButton.isHidden = false
                 usernameLabel.isHidden = false
                 aboutLabel.isHidden = false
@@ -176,8 +179,25 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             userPlaceholder.image = pickedImage
+            if areTwoEqualImages(savedAvatar, pickedImage) {
+                print("photo-false")
+                shouldSaveNewAvatar = false
+            } else {
+                print("photo-true")
+                shouldSaveNewAvatar = true
+            }
         }
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func areTwoEqualImages(_ image1: UIImage?, _ image2: UIImage?) -> Bool {
+        if let img1 = image1, let img2 = image2 {
+            guard let data1 = img1.pngData() else { return false }
+            guard let data2 = img2.pngData() else { return false }
+            return data1.elementsEqual(data2)
+        } else {
+            return false
+        }
     }
     
 //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) { // is used when you create the view programmatically
@@ -192,8 +212,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        savedUsername = usernameLabel.text
-        savedAbout = aboutLabel.text
+        inEditingState = false
+//        savedUsername = usernameLabel.text
+//        savedAbout = aboutLabel.text
+//        savedAvatar = userPlaceholder.image
     }
     
     override func viewWillAppear(_ animated:Bool) {
