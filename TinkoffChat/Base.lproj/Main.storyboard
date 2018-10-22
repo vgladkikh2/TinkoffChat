@@ -186,7 +186,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userPlaceholder" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="umm-Kl-QPD" customClass="RoundedImage" customModule="TinkoffChat" customModuleProvider="target">
-                                <rect key="frame" x="47" y="80" width="281" height="281.5"/>
+                                <rect key="frame" x="37.5" y="80" width="300" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="umm-Kl-QPD" secondAttribute="height" multiplier="1:1" id="4xZ-oI-R6G"/>
                                 </constraints>
@@ -197,10 +197,10 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rtz-dt-Tx0" customClass="RoundedView" customModule="TinkoffChat" customModuleProvider="target">
-                                <rect key="frame" x="244" y="277" width="84" height="84.5"/>
+                                <rect key="frame" x="247.5" y="290" width="90" height="90"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraIcon" translatesAutoresizingMaskIntoConstraints="NO" id="CVU-T2-ReR">
-                                        <rect key="frame" x="21" y="21" width="42" height="42"/>
+                                        <rect key="frame" x="22.5" y="22.5" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="CVU-T2-ReR" secondAttribute="height" multiplier="1:1" id="OCc-C9-FBv"/>
                                         </constraints>
@@ -224,7 +224,7 @@
                                 </connections>
                             </view>
                             <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя пользователя" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xJJ-pi-noo">
-                                <rect key="frame" x="9" y="375.5" width="357" height="40"/>
+                                <rect key="frame" x="9" y="394" width="357" height="40"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -233,13 +233,13 @@
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QMC-xR-E1f">
-                                <rect key="frame" x="16" y="377.5" width="343" height="0.0"/>
+                                <rect key="frame" x="16" y="396" width="343" height="0.0"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jmT-g7-2ba">
-                                <rect key="frame" x="11" y="421.5" width="353" height="171.5"/>
+                                <rect key="frame" x="11" y="440" width="353" height="153"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -248,7 +248,7 @@
                                 </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K6h-Fv-oC6">
-                                <rect key="frame" x="16" y="393.5" width="343" height="0.0"/>
+                                <rect key="frame" x="16" y="412" width="343" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <color key="highlightedColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -346,7 +346,7 @@
                             <constraint firstItem="fnH-l2-qEq" firstAttribute="height" secondItem="PXG-4b-YcG" secondAttribute="height" id="bg3-TT-TqO"/>
                             <constraint firstItem="fnH-l2-qEq" firstAttribute="width" secondItem="PXG-4b-YcG" secondAttribute="width" multiplier="0.47" id="cVS-ce-c8K"/>
                             <constraint firstItem="PXG-4b-YcG" firstAttribute="top" relation="greaterThanOrEqual" secondItem="K6h-Fv-oC6" secondAttribute="bottom" constant="16" id="hkj-5b-Da3"/>
-                            <constraint firstItem="umm-Kl-QPD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.75" id="iuS-UV-rDU"/>
+                            <constraint firstItem="umm-Kl-QPD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="iuS-UV-rDU"/>
                             <constraint firstItem="Rtz-dt-Tx0" firstAttribute="bottom" secondItem="umm-Kl-QPD" secondAttribute="bottom" id="jve-W7-MLy"/>
                             <constraint firstItem="umm-Kl-QPD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="lpy-yx-uHw"/>
                             <constraint firstItem="K6h-Fv-oC6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="m2A-ow-6uC"/>
