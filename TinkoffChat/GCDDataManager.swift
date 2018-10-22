@@ -31,7 +31,7 @@ class GCDDataManager: DataManager {
         let queue = DispatchQueue(label:"writeSerialQueue")
         queue.async{
             sleep(2)
-            if let image = self.avatar {
+            if let image = avatar {
                 if self.isLastSaveSuccess {
                     self.isLastSaveSuccess = GCDDataManager.SaveDataToFile(image: image, file: self.avatarFile)
                 }

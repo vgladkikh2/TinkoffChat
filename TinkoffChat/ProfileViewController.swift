@@ -26,14 +26,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
         if !(dataManager is GCDDataManager) {
-            dataManager = GCDDataManager(usernameKey: "username", aboutKey: "about", avatarFile: "avatar")
+            dataManager = GCDDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
             dataManager.delegate = self
         }
         tryToSaveChangedValuesToDataManager()
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
         if !(dataManager is OperationDataManager) {
-            dataManager = OperationDataManager(usernameKey: "username", aboutKey: "about", avatarFile: "avatar")
+            dataManager = OperationDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
             dataManager.delegate = self
         }
         tryToSaveChangedValuesToDataManager()
@@ -149,23 +149,18 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     func savingDataFinished() {
         activityIndicator.stopAnimating()
-//        saveButtonsEnabled = true
-//        cameraIcon.isHidden = false
         let actionSheet = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: UIAlertController.Style.alert)
         actionSheet.addAction(UIAlertAction(title: "ОК", style: .cancel, handler: { (alert:UIAlertAction!) -> Void in
             self.saveButtonsEnabled = false
             self.inEditingState = false
             self.editButton.isEnabled = false
             self.editButton.alpha = 0.5
-            self.activityIndicator.startAnimating()
-            self.dataManager.loadData()
+            self.loadDataFromDataManager()
         }))
         self.present(actionSheet, animated: true, completion: nil)
     }
     func savingDataFailed() {
         activityIndicator.stopAnimating()
-//        saveButtonsEnabled = true
-//        cameraIcon.isHidden = false
         let actionSheet = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: UIAlertController.Style.alert)
         actionSheet.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (alert:UIAlertAction!) -> Void in
             self.tryToSaveChangedValuesToDataManager()
@@ -175,8 +170,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.inEditingState = false
             self.editButton.isEnabled = false
             self.editButton.alpha = 0.5
-            self.activityIndicator.startAnimating()
-            self.dataManager.loadData()
+            self.loadDataFromDataManager()
         }))
         self.present(actionSheet, animated: true, completion: nil)
     }
@@ -295,7 +289,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         usernameKey = "username"
         aboutKey = "about"
         avatarFile = "avatar.png"
-        dataManager = OperationDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
+        dataManager = GCDDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
         activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
