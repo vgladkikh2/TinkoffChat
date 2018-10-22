@@ -27,7 +27,7 @@ class OperationDataManager: DataManager {
             self.avatarFile = avatarFile
         }
         override func main() {
-            sleep(2)
+            sleep(5)
             if let image = avatar {
                 if isSuccess {
                     isSuccess = OperationDataManager.SaveDataToFile(image: image, file: avatarFile)
@@ -59,7 +59,7 @@ class OperationDataManager: DataManager {
             self.avatarFile = avatarFile
         }
         override func main() {
-            sleep(2)
+            sleep(5)
             username = OperationDataManager.LoadInfoFromUserDefaults(key: usernameKey)
             about = OperationDataManager.LoadInfoFromUserDefaults(key: aboutKey)
             avatar = OperationDataManager.LoadDataFromFile(file: avatarFile)
@@ -96,7 +96,6 @@ class OperationDataManager: DataManager {
         let saveQueue = OperationQueue()
         saveQueue.maxConcurrentOperationCount = 1
         saveQueue.addOperation(saveDataOperation)
-        saveQueue.waitUntilAllOperationsAreFinished()
     }
     
     func loadData() {
@@ -112,7 +111,6 @@ class OperationDataManager: DataManager {
         let loadQueue = OperationQueue()
         loadQueue.maxConcurrentOperationCount = 1
         loadQueue.addOperation(loadDataOperation)
-        loadQueue.waitUntilAllOperationsAreFinished()
     }
     
 }

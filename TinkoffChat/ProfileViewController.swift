@@ -21,14 +21,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var aboutChangeView: UITextView!
     
     @IBAction func editButtonTapped(_ sender: Any) {
-        usernameChangeField.text = usernameLabel.text
-        aboutChangeView.text = aboutLabel.text
         inEditingState = true
         saveButtonsEnabled = false
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
         if !(dataManager is GCDDataManager) {
-            print("AAAASSSSSS")
             dataManager = GCDDataManager(usernameKey: "username", aboutKey: "about", avatarFile: "avatar")
             dataManager.delegate = self
         }
@@ -36,7 +33,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
         if !(dataManager is OperationDataManager) {
-            print("BBBBSSSSSS")
             dataManager = OperationDataManager(usernameKey: "username", aboutKey: "about", avatarFile: "avatar")
             dataManager.delegate = self
         }
@@ -51,7 +47,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     var dataManager: DataManager
-    private var activityIndicator = UIActivityIndicatorView(style: .gray)
+    private var activityIndicator: UIActivityIndicatorView
     private var usernameKey: String
     private var aboutKey: String
     private var avatarFile: String
@@ -106,8 +102,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 gcdButton.isHidden = false
                 operationButton.isHidden = false
                 cameraIcon.isHidden = false
+                usernameChangeField.text = usernameLabel.text
+                aboutChangeView.text = aboutLabel.text
+                if aboutChangeView.text == nil || aboutChangeView.text == "" {
+                    aboutChangeView.text = "О себе"
+                    aboutChangeView.textColor = UIColor.lightGray
+                }
                 usernameChangeField.isHidden = false
                 aboutChangeView.isHidden = false
+                usernameChangeField.isEnabled = true
+                aboutChangeView.isEditable = true
+                aboutChangeView.isSelectable = true
             } else {
                 editButton.isHidden = false
                 usernameLabel.isHidden = false
@@ -124,6 +129,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func tryToSaveChangedValuesToDataManager() {
         activityIndicator.startAnimating()
         saveButtonsEnabled = false
+        usernameChangeField.isEnabled = false
+        aboutChangeView.isEditable = false
+        aboutChangeView.isSelectable = false
         cameraIcon.isHidden = true
         var usernameToSave: String?
         var aboutToSave: String?
@@ -194,7 +202,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if textField == usernameChangeField {
             if let text = textField.text, let textRange = Range(range, in: text) {
                 let updatedText = text.replacingCharacters(in: textRange, with: string)
-                if updatedText != dataManager.username && updatedText != "" {
+                if updatedText != dataManager.username {
                     shouldSaveNewName = true
                 } else {
                     shouldSaveNewName = false
@@ -204,9 +212,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return true
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView == aboutChangeView {
+            if textView.textColor == UIColor.lightGray {
+                textView.text = ""
+                textView.textColor = UIColor.black
+            }
+        }
+    }
+
     func textViewDidChange(_ textView: UITextView) {
         if textView == aboutChangeView {
-            if textView.text != dataManager.about {
+            if textView.textColor == UIColor.lightGray {
+                textView.text = ""
+                textView.textColor = UIColor.black
+            }
+            if let updatedText = textView.text, updatedText != dataManager.about {
                 shouldSaveNewAbout = true
             } else {
                 shouldSaveNewAbout = false
@@ -275,6 +296,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         aboutKey = "about"
         avatarFile = "avatar.png"
         dataManager = OperationDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
+        activityIndicator = UIActivityIndicatorView(style: .gray)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         super.init(coder: aDecoder)
         dataManager.delegate = self
 //        print("\(#function) -> \(editButton.frame)") // editButton здесь nil, так как кнопка еще не успела создаться (и не присвоился адрес в переменную editButton). Поэтому, естественно, падает с ошибкой в рантайме
@@ -284,11 +308,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         view.addSubview(activityIndicator)
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         let horizontalConstraint = NSLayoutConstraint(item: activityIndicator, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0)
         view.addConstraint(horizontalConstraint)
-        let verticalConstraint = NSLayoutConstraint(item: activityIndicator, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: usernameChangeField, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
+        let verticalConstraint = NSLayoutConstraint(item: activityIndicator, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: aboutChangeView, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
         view.addConstraint(verticalConstraint)
         saveButtonsEnabled = false
         inEditingState = false
