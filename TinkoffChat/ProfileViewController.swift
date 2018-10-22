@@ -192,6 +192,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         editButton.alpha = 1.0
     }
     
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        return true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == usernameChangeField {
             if let text = textField.text, let textRange = Range(range, in: text) {
@@ -214,7 +221,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         }
     }
-
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
     func textViewDidChange(_ textView: UITextView) {
         if textView == aboutChangeView {
             if textView.textColor == UIColor.lightGray {
