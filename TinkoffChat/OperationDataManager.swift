@@ -27,7 +27,7 @@ class OperationDataManager: DataManager {
             self.avatarFile = avatarFile
         }
         override func main() {
-            sleep(5)
+//            sleep(2)
             if let image = avatar {
                 if isSuccess {
                     isSuccess = OperationDataManager.SaveDataToFile(image: image, file: avatarFile)
@@ -59,7 +59,7 @@ class OperationDataManager: DataManager {
             self.avatarFile = avatarFile
         }
         override func main() {
-            sleep(5)
+//            sleep(2)
             username = OperationDataManager.LoadInfoFromUserDefaults(key: usernameKey)
             about = OperationDataManager.LoadInfoFromUserDefaults(key: aboutKey)
             avatar = OperationDataManager.LoadDataFromFile(file: avatarFile)

@@ -262,7 +262,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             userPlaceholder.image = pickedImage
-            if areTwoEqualImages(dataManager.avatar, pickedImage) {
+            if areTwoEqualImages(dataManager.avatar, userPlaceholder.image) {
                 shouldSaveNewAvatar = false
             } else {
                 shouldSaveNewAvatar = true

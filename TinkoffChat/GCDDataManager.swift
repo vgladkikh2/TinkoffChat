@@ -30,7 +30,7 @@ class GCDDataManager: DataManager {
         isLastSaveSuccess = true
         let queue = DispatchQueue(label:"writeSerialQueue")
         queue.async{
-            sleep(2)
+//            sleep(2)
             if let image = avatar {
                 if self.isLastSaveSuccess {
                     self.isLastSaveSuccess = GCDDataManager.SaveDataToFile(image: image, file: self.avatarFile)
@@ -59,7 +59,7 @@ class GCDDataManager: DataManager {
     func loadData() {
         let queue = DispatchQueue(label:"readSerialQueue")
         queue.async{
-            sleep(2)
+//            sleep(2)
             self.avatar = GCDDataManager.LoadDataFromFile(file: self.avatarFile)
             self.username = GCDDataManager.LoadInfoFromUserDefaults(key: self.usernameKey)
             self.about = GCDDataManager.LoadInfoFromUserDefaults(key: self.aboutKey)
