@@ -13,6 +13,7 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var multipeerCommunicator: MultipeerCommunicator?
 
     static func changeApplicationColor(color: UIColor) {
         let sharedApplication = UIApplication.shared
@@ -44,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Cannot load application theme from UserDefaults")
             }
         }
+        self.multipeerCommunicator = MultipeerCommunicator()
         return true
     }
 

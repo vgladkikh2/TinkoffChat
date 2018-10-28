@@ -127,6 +127,10 @@ class ConversationData: ConversationCellConfiguration {
 
 class ConversationsListViewController: UITableViewController {
     
+    func updateConversationsListTable() {
+        self.tableView.reloadData()
+    }
+    
     // test data:
     var onlineConversationsData = [ConversationData]()
     var offlineConversationsData = [ConversationData]()

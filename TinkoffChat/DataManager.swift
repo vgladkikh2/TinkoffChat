@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DataManager: class {
+protocol DataManager {
     var username: String? { get set }
     var about: String? { get set }
     var avatar: UIImage? { get set }
