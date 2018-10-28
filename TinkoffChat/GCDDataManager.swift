@@ -24,7 +24,7 @@ class GCDDataManager: DataManager {
         self.avatarFile = avatarFile
     }
     
-    var delegate: DataManagerDelegate?
+    weak var delegate: DataManagerDelegate?
     
     func saveData(username: String?, about: String?, avatar: UIImage?) {
         isLastSaveSuccess = true

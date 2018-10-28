@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol DataManagerDelegate {
+protocol DataManagerDelegate: class {
     func loadingDataFinished()
     func savingDataFinished()
     func savingDataFailed()

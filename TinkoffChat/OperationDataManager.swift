@@ -80,7 +80,7 @@ class OperationDataManager: DataManager {
         self.avatarFile = avatarFile
     }
     
-    var delegate: DataManagerDelegate?
+    weak var delegate: DataManagerDelegate?
     
     func saveData(username: String?, about: String?, avatar: UIImage?) {
         let saveDataOperation = SaveDataOperation(username: username, about: about, avatar: avatar, usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
