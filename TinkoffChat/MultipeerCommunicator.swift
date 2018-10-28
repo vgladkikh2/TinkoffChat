@@ -9,10 +9,6 @@
 import Foundation
 import MultipeerConnectivity
 
-//class MultipeerSession: MCSessionDelegate {
-//
-//}
-
 class MultipeerCommunicator: NSObject, Communicator {
     func sendMessage(string: String, to userId: String, completionHandler: ((Bool, Error?) -> ())?) {
 //        if peersIdsNamesSessionsStates[userId] != nil {
@@ -24,6 +20,7 @@ class MultipeerCommunicator: NSObject, Communicator {
                     let peers = [peersIdsNamesSessionsStates[userId]!.id]
                     try session.send(data, toPeers: peers, with: .reliable)
                     completionHandler?(true, nil)
+                    delegate?.didReceiveMessage(text: string, fromUser: myPeerId.displayName, toUser: userId)
                     print("  Sended message to \(userId)")
                 } catch {
                     completionHandler?(false, error)
@@ -46,7 +43,7 @@ class MultipeerCommunicator: NSObject, Communicator {
     
     override init() {
         self.myPeerId = MCPeerID(displayName: UIDevice.current.name)
-        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: ["userName": "v.gladkikh"], serviceType: "tinkoff-chat")
+        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: ["userName": "v.gladkikhXXXX"], serviceType: "tinkoff-chat")
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: "tinkoff-chat")
         self.peersIdsNamesSessionsStates = [:]
         super.init()

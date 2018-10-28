@@ -10,13 +10,16 @@ import Foundation
 
 class CommunicationManager: CommunicatorDelegate {
     
-//    weak var communicationManager: CommunicationManager?
+    weak var conversationsList: ConversationsListViewController?
+    weak var conversation: ConversationViewController?
     
     func didFoundUser(userId: String, userName: String?) {
-        usersOnline[userId]! = userName
+        usersOnline[userId] = userName
+        conversationsList?.updateConversationsListTable()
     }
     func didLostUser(userId: String) {
-        usersOnline[userId]! = nil
+        usersOnline[userId] = nil
+        conversationsList?.updateConversationsListTable()
     }
     func failedToStartBrowsingForUsers(error: Error) {
         print("failedToStartBrowsingForUsers")
@@ -26,12 +29,21 @@ class CommunicationManager: CommunicatorDelegate {
     }
     func didReceiveMessage(text: String, fromUser: String, toUser: String) {
         if toUser == UIDevice.current.name {
-            usersMessages[fromUser]!.append(text)
+            if usersChatMessages[fromUser] != nil {
+                usersChatMessages[fromUser]!.append((side: 1, message: text, date: Date.init(timeIntervalSinceNow: 0.0), unreaded: true))
+            } else {
+                usersChatMessages[fromUser] = [(side: 1, message: text, date: Date.init(timeIntervalSinceNow: 0.0), unreaded: true)]
+            }
         } else {
-            // Cannot be
+            if usersChatMessages[toUser] != nil {
+                usersChatMessages[toUser]!.append((side: 0, message: text, date: Date.init(timeIntervalSinceNow: 0.0), unreaded: false))
+            } else {
+                usersChatMessages[toUser] = [(side: 0, message: text, date: Date.init(timeIntervalSinceNow: 0.0), unreaded: false)]
+            }
         }
+        conversationsList?.updateConversationsListTable()
+        conversation?.updateConversation()
     }
-    
     var usersOnline: [String: String?] = [:]
-    var usersMessages: [String: [String]] = [:]
+    var usersChatMessages: [String: [(side: Int, message: String, date: Date, unreaded: Bool)]] = [:]
 }

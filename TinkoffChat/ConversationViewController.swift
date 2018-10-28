@@ -32,28 +32,18 @@ class ConversationCell: UITableViewCell, MessageCellConfiguration {
 
 class ConversationViewController: UITableViewController {
     
-    var conversationData: ConversationData!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    // test data:
-    var messages = [(side: Int, message: String)]()
+    var userIdInConversation: String = ""
+    func updateConversation() {
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 44
-        self.title = conversationData.name
-        // fill test data:
-        for i in 0...40 {
-            var side = 0
-            if i % 2 == 0 {
-                side = 1
-            }
-            var message = "ASD\(i) ASD\(conversationData.name ?? "no name")"
-            if i % 3 == 0 {
-                message = "ASssssdddssdddsssssssD\(i) ASddddddddddddfffffffddD\(conversationData.name ?? "no name")"
-            }
-            messages.append((side, message))
-        }
+        self.title = appDelegate.communicationManager.usersOnline[userIdInConversation] ?? nil
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,12 +51,12 @@ class ConversationViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return appDelegate.communicationManager.usersChatMessages[userIdInConversation]?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellIdentifier: String = ""
-        switch messages[indexPath.row].side {
+        switch appDelegate.communicationManager.usersChatMessages[userIdInConversation]?[indexPath.row].side {
         case 0:
             cellIdentifier = "ConversationCellUser"
         case 1:
@@ -75,7 +65,7 @@ class ConversationViewController: UITableViewController {
             assertionFailure("Not online/offline conversation")
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! ConversationCell
-        cell.setParameters(message: messages[indexPath.row].message)
+        cell.setParameters(message: appDelegate.communicationManager.usersChatMessages[userIdInConversation]?[indexPath.row].message)
         return cell
     }
 

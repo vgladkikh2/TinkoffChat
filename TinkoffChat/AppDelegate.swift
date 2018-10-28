@@ -13,7 +13,15 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var multipeerCommunicator: MultipeerCommunicator?
+    var multipeerCommunicator: MultipeerCommunicator
+    var communicationManager: CommunicationManager
+    
+    override init() {
+        communicationManager = CommunicationManager()
+        multipeerCommunicator = MultipeerCommunicator()
+        multipeerCommunicator.delegate = communicationManager
+        super.init()
+    }
 
     static func changeApplicationColor(color: UIColor) {
         let sharedApplication = UIApplication.shared
@@ -45,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Cannot load application theme from UserDefaults")
             }
         }
-        self.multipeerCommunicator = MultipeerCommunicator()
         return true
     }
 

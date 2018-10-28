@@ -127,13 +127,11 @@ class ConversationData: ConversationCellConfiguration {
 
 class ConversationsListViewController: UITableViewController {
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     func updateConversationsListTable() {
         self.tableView.reloadData()
     }
-    
-    // test data:
-    var onlineConversationsData = [ConversationData]()
-    var offlineConversationsData = [ConversationData]()
     
     func logThemeChanging(selectedTheme: UIColor) {
         print("(swift version) \(selectedTheme)")
@@ -141,30 +139,9 @@ class ConversationsListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        appDelegate.communicationManager.conversationsList = self
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
-        // done 4 lines below in storyboard:
-        //        self.title = "Tinkoff Chat"
-        //        let backItem = UIBarButtonItem()
-        //        backItem.title = ""
-        //        self.navigationItem.backBarButtonItem = backItem
-        // fill test data:
-        for i in 1...15 {
-            let hasMessages = (i % 2 == 0 ? true : false)
-            let hasUnreadMessages = (hasMessages ? (i % 4 == 0 ? true : false) : false)
-            let message = (hasMessages ? "Message\(i)" : nil)
-            let dateInSeconds = -(3600.0*2 + 60.0*3 + 2.0) * Double(i)
-            let date: Date? = (hasMessages ? Date(timeIntervalSinceNow: dateInSeconds) : nil)
-            onlineConversationsData.append(ConversationData(name: "NameOnline\(i)", message: message, date: date, online: true, hasUnreadMessages: hasUnreadMessages))
-        }
-        for i in 1...20 {
-            let hasMessages = (i % 2 == 0 ? true : false)
-            let hasUnreadMessages = (hasMessages ? (i % 4 == 0 ? true : false) : false)
-            let message = (hasMessages ? "Message\(i)" : nil)
-            let dateInSeconds = -(3600.0*3 + 60.0*2 + 1.0) * Double(i)
-            let date: Date? = (hasMessages ? Date(timeIntervalSinceNow: dateInSeconds) : nil)
-            offlineConversationsData.append(ConversationData(name: "NameOffline\(i)", message: message, date: date, online: false, hasUnreadMessages: hasUnreadMessages))
-        }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -188,9 +165,9 @@ class ConversationsListViewController: UITableViewController {
         var rowsCount = 0
         switch section {
         case 0:
-            rowsCount = onlineConversationsData.count
+            rowsCount = appDelegate.communicationManager.usersOnline.keys.count
         case 1:
-            rowsCount = offlineConversationsData.count
+            rowsCount = 0
         default:
             assertionFailure("Not online/offline conversation")
         }
@@ -201,9 +178,11 @@ class ConversationsListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationsListCell", for: indexPath) as! ConversationsListCell
         switch indexPath.section {
         case 0:
-            cell.setParameters(name: onlineConversationsData[indexPath.row].name, message: onlineConversationsData[indexPath.row].message, date: onlineConversationsData[indexPath.row].date, online: onlineConversationsData[indexPath.row].online, hasUnreadMessages: onlineConversationsData[indexPath.row].hasUnreadMessages)
+            let userId = appDelegate.communicationManager.usersOnline.keys.sorted()[indexPath.row]
+            let cntMessages = appDelegate.communicationManager.usersChatMessages[userId]!.count - 1
+            cell.setParameters(name: appDelegate.communicationManager.usersOnline[userId] ?? nil, message: appDelegate.communicationManager.usersChatMessages[userId]?[cntMessages].message, date: appDelegate.communicationManager.usersChatMessages[userId]?[cntMessages].date, online: true, hasUnreadMessages: appDelegate.communicationManager.usersChatMessages[userId]?[cntMessages].unreaded ?? false)
         case 1:
-            cell.setParameters(name: offlineConversationsData[indexPath.row].name, message: offlineConversationsData[indexPath.row].message, date: offlineConversationsData[indexPath.row].date, online:  offlineConversationsData[indexPath.row].online, hasUnreadMessages: offlineConversationsData[indexPath.row].hasUnreadMessages)
+            assertionFailure("Cannot Be Now at homework 6")
         default:
             assertionFailure("Not online/offline conversation")
         }
@@ -216,11 +195,12 @@ class ConversationsListViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "openConversation" {
+            appDelegate.communicationManager.conversation = (segue.destination as! ConversationViewController)
             switch tableView.indexPathForSelectedRow!.section {
             case 0:
-                (segue.destination as! ConversationViewController).conversationData = onlineConversationsData[tableView.indexPathForSelectedRow!.row]
+                (segue.destination as! ConversationViewController).userIdInConversation = appDelegate.communicationManager.usersOnline.keys.sorted()[tableView.indexPathForSelectedRow!.row]
             case 1:
-                (segue.destination as! ConversationViewController).conversationData = offlineConversationsData[tableView.indexPathForSelectedRow!.row]
+                assertionFailure("Cannot Be Now at homework 6")
             default:
                 assertionFailure("Not online/offline conversation")
             }
