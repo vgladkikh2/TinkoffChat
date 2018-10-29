@@ -11,8 +11,8 @@ import MultipeerConnectivity
 
 class MultipeerCommunicator: NSObject, Communicator {
     func sendMessage(string: String, to userId: String, completionHandler: ((Bool, Error?) -> ())?) {
-//        if peersIdsNamesSessionsStates[userId] != nil {
-//            if peersIdsNamesSessionsStates[userId]!.state == MCSessionState.connected {
+        if peersIdsNamesSessionsStates[userId] != nil {
+            if peersIdsNamesSessionsStates[userId]!.state == MCSessionState.connected {
                 let message = ["eventType": "TextMessage", "messageId": generateMessageID(), "text": string]
                 do {
                     let data = try JSONSerialization.data(withJSONObject: message, options: [])
@@ -26,12 +26,12 @@ class MultipeerCommunicator: NSObject, Communicator {
                     completionHandler?(false, error)
                     print("  Fail to send message to \(userId)")
                 }
-//            } else {
-//                completionHandler?(false, "\(userId) doesn't connected")
-//            }
-//        } else {
-//            completionHandler?(false, "\(userId) doesn't connected")
-//        }
+            } else {
+                completionHandler?(false, nil)
+            }
+        } else {
+            completionHandler?(false, nil)
+        }
     }
     weak var delegate: CommunicatorDelegate?
     var online: Bool?

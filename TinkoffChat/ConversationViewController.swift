@@ -30,13 +30,26 @@ class ConversationCell: UITableViewCell, MessageCellConfiguration {
     
 }
 
-class ConversationViewController: UITableViewController {
+class ConversationViewController: UITableViewController, UITextFieldDelegate {
+    
+    @IBOutlet var textInputField: UITextField!
+    @IBAction func sendButtonPressed(_ sender: Any) {
+        if let message = textInputField.text {
+            appDelegate.multipeerCommunicator.sendMessage(string: message, to: userIdInConversation, completionHandler: nil)
+        }
+        textInputField.text = nil
+        textInputField.resignFirstResponder()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var userIdInConversation: String = ""
     func updateConversation() {
-        
+        self.tableView.reloadData()
     }
 
     override func viewDidLoad() {

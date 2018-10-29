@@ -97,6 +97,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="KFM-ph-DAF">
+                            <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <items>
+                                <barButtonItem style="plain" id="GzS-fm-hBe">
+                                    <textField key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="8Zy-vI-jee">
+                                        <rect key="frame" x="16" y="7" width="236" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="8qY-TE-aZ2" id="eHQ-vg-7SP"/>
+                                        </connections>
+                                    </textField>
+                                </barButtonItem>
+                                <barButtonItem style="plain" id="lER-27-O5L">
+                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="D5U-8n-Ehx">
+                                        <rect key="frame" x="313" y="7" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendButtonPressed:" destination="8qY-TE-aZ2" eventType="touchUpInside" id="zYz-d1-Evs"/>
+                                        </connections>
+                                    </button>
+                                </barButtonItem>
+                            </items>
+                        </toolbar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConversationCellUser" id="Wqm-6w-6j6" customClass="ConversationCell" customModule="TinkoffChat" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -156,10 +184,13 @@
                             <outlet property="delegate" destination="8qY-TE-aZ2" id="SX1-vl-32y"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="textInputField" destination="8Zy-vI-jee" id="iKy-UW-VK5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A6Q-7v-zKz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-71" y="112"/>
+            <point key="canvasLocation" x="-73.125" y="110.91549295774648"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="erK-3L-gXn">
