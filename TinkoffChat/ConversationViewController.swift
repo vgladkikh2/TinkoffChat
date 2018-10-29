@@ -59,12 +59,29 @@ class ConversationViewController: UITableViewController, UITextFieldDelegate {
         }
         self.tableView.reloadData()
     }
-
+    func checkAllMessagesInCurrentConversationAsReaded() {
+        for i in 0..<(appDelegate.communicationManager.usersChatMessages[userIdInConversation]?.count ?? 0) {
+            appDelegate.communicationManager.usersChatMessages[userIdInConversation]?[i].unreaded = false
+        }
+        appDelegate.communicationManager.conversationsList?.updateConversationsListTable()
+        appDelegate.communicationManager.conversation?.updateConversation()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 44
+        self.checkAllMessagesInCurrentConversationAsReaded()
         self.title = appDelegate.communicationManager.usersOnline[userIdInConversation] ?? nil
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.checkAllMessagesInCurrentConversationAsReaded()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.checkAllMessagesInCurrentConversationAsReaded()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -67,8 +67,8 @@ extension MultipeerCommunicator: MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         var peerAlreadyInSession = false
         for peer in peersIdsNamesSessionsStates.keys {
-            if peer == peerID.displayName && peersIdsNamesSessionsStates[peer]?.state != MCSessionState.notConnected {
-                //(peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connected || peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connecting) {
+//            if peer == peerID.displayName && peersIdsNamesSessionsStates[peer]?.state != MCSessionState.notConnected {
+            if (peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connected || peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connecting) {
                 peerAlreadyInSession = true
                 print("Doesn't accepted invite from \(peerID.displayName) at didReceiveInvitation, as already")
             }
@@ -95,8 +95,8 @@ extension MultipeerCommunicator: MCNearbyServiceBrowserDelegate {
         print("\(peerID.displayName) is found")
         var peerAlreadyInSession = false
         for peer in peersIdsNamesSessionsStates.keys {
-            if peer == peerID.displayName && peersIdsNamesSessionsStates[peer]?.state != MCSessionState.notConnected {
-                //(peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connected || peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connecting) {
+//            if peer == peerID.displayName && peersIdsNamesSessionsStates[peer]?.state != MCSessionState.notConnected {
+            if (peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connected || peersIdsNamesSessionsStates[peer]?.state == MCSessionState.connecting) {
                 peerAlreadyInSession = true
                 print("\(peerID.displayName) isn't invited at foundPeer, as already")
             }
@@ -135,7 +135,7 @@ extension MultipeerCommunicator: MCSessionDelegate {
         if state == MCSessionState.connected {
             delegate?.didFoundUser(userId: peerID.displayName, userName: peersIdsNamesSessionsStates[peerID.displayName]?.name)
             print(" \(peerID.displayName) is connected")
-            sendMessage(string: "Helllloooo!", to: peerID.displayName, completionHandler: nil)
+//            sendMessage(string: "Helllloooo!", to: peerID.displayName, completionHandler: nil)
         }
         if state == MCSessionState.notConnected {
             print(" \(peerID.displayName) is notConnected")

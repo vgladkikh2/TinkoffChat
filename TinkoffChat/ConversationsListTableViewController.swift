@@ -129,6 +129,66 @@ class ConversationsListViewController: UITableViewController {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    func getSortedOnlineDataForIndex(index: Int) -> (name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool) {
+        var data: [(name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool)] = []
+        for key in appDelegate.communicationManager.usersOnline.keys {
+            let cntMessages = appDelegate.communicationManager.usersChatMessages[key]!.count - 1
+            if cntMessages >= 0 {
+                data.append((name: appDelegate.communicationManager.usersOnline[key] ?? nil,
+                             message: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].message,
+                             date: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].date,
+                             online: true,
+                             hasUnreadMessages: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].unreaded ?? false
+                         ))
+            } else {
+                data.append((name: appDelegate.communicationManager.usersOnline[key] ?? nil,
+                             message: nil,
+                             date: nil,
+                             online: true,
+                             hasUnreadMessages: false))
+            }
+        }
+        var swapped = false
+        repeat {
+            swapped = false
+            for i in 1..<data.count {
+                if data[i-1].date == nil {
+                    if data[i].date != nil {
+                        swapped = true
+                    } else {
+                        if data[i-1].name == nil {
+                            if data[i].name != nil {
+                                swapped = true
+                            } else {
+                                swapped = false
+                            }
+                        } else {
+                            if data[i].name != nil && data[i-1].name! > data[i].name! {
+                                swapped = true
+                            } else {
+                                swapped = false
+                            }
+                        }
+                    }
+                } else {
+                    if data[i].date != nil {
+                        if data[i-1].date! < data[i].date! {
+                            swapped = true
+                        }
+                    } else {
+                        swapped = false
+                    }
+                }
+                if swapped {
+                    let tmp = data[i]
+                    data[i] = data[i-1]
+                    data[i-1] = tmp
+                }
+            }
+        } while swapped
+        return data[index]
+    }
+    
     func updateConversationsListTable() {
         self.tableView.reloadData()
     }
@@ -178,11 +238,10 @@ class ConversationsListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationsListCell", for: indexPath) as! ConversationsListCell
         switch indexPath.section {
         case 0:
-            let userId = appDelegate.communicationManager.usersOnline.keys.sorted()[indexPath.row]
-            let cntMessages = appDelegate.communicationManager.usersChatMessages[userId]!.count - 1
-            cell.setParameters(name: appDelegate.communicationManager.usersOnline[userId] ?? nil, message: appDelegate.communicationManager.usersChatMessages[userId]?[cntMessages].message, date: appDelegate.communicationManager.usersChatMessages[userId]?[cntMessages].date, online: true, hasUnreadMessages: appDelegate.communicationManager.usersChatMessages[userId]?[cntMessages].unreaded ?? false)
+            let data = getSortedOnlineDataForIndex(index: indexPath.row)
+            cell.setParameters(name: data.name, message: data.message, date: data.date, online: data.online, hasUnreadMessages: data.hasUnreadMessages)
         case 1:
-            assertionFailure("Cannot Be Now at homework 6")
+            assertionFailure("Cannot Be at homework 6")
         default:
             assertionFailure("Not online/offline conversation")
         }
@@ -200,7 +259,7 @@ class ConversationsListViewController: UITableViewController {
             case 0:
                 (segue.destination as! ConversationViewController).userIdInConversation = appDelegate.communicationManager.usersOnline.keys.sorted()[tableView.indexPathForSelectedRow!.row]
             case 1:
-                assertionFailure("Cannot Be Now at homework 6")
+                assertionFailure("Cannot Be at homework 6")
             default:
                 assertionFailure("Not online/offline conversation")
             }

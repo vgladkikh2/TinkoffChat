@@ -15,13 +15,20 @@ class CommunicationManager: CommunicatorDelegate {
     
     func didFoundUser(userId: String, userName: String?) {
         usersOnline[userId] = userName
-        conversationsList?.updateConversationsListTable()
-        conversation?.updateConversation()
+        if usersChatMessages[userId] == nil {
+           usersChatMessages[userId] = []
+        }
+        DispatchQueue.main.async {
+            self.conversationsList?.updateConversationsListTable()
+            self.conversation?.updateConversation()
+        }
     }
     func didLostUser(userId: String) {
         usersOnline[userId] = nil
-        conversationsList?.updateConversationsListTable()
-        conversation?.updateConversation()
+        DispatchQueue.main.async {
+            self.conversationsList?.updateConversationsListTable()
+            self.conversation?.updateConversation()
+        }
     }
     func failedToStartBrowsingForUsers(error: Error) {
         print("failedToStartBrowsingForUsers")
@@ -43,8 +50,10 @@ class CommunicationManager: CommunicatorDelegate {
                 usersChatMessages[toUser] = [(side: 0, message: text, date: Date.init(timeIntervalSinceNow: 0.0), unreaded: false)]
             }
         }
-        conversationsList?.updateConversationsListTable()
-        conversation?.updateConversation()
+        DispatchQueue.main.async {
+            self.conversationsList?.updateConversationsListTable()
+            self.conversation?.updateConversation()
+        }
     }
     var usersOnline: [String: String?] = [:]
     var usersChatMessages: [String: [(side: Int, message: String, date: Date, unreaded: Bool)]] = [:]
