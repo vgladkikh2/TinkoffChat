@@ -128,68 +128,63 @@ class ConversationData: ConversationCellConfiguration {
 class ConversationsListViewController: UITableViewController {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var sortedOnlineData: [(key: String, name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool)] = []
     
-    func getSortedOnlineDataForIndex(index: Int) -> (name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool) {
-        var data: [(name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool)] = []
+    func getSortedOnlineData() -> [(key: String, name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool)] {
+        var data: [(key:String, name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool)] = []
         for key in appDelegate.communicationManager.usersOnline.keys {
             let cntMessages = appDelegate.communicationManager.usersChatMessages[key]!.count - 1
             if cntMessages >= 0 {
-                data.append((name: appDelegate.communicationManager.usersOnline[key] ?? nil,
-                             message: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].message,
-                             date: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].date,
-                             online: true,
-                             hasUnreadMessages: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].unreaded ?? false
-                         ))
+                data.append((key: key, name: appDelegate.communicationManager.usersOnline[key] ?? nil, message: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].message, date: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].date, online: true, hasUnreadMessages: appDelegate.communicationManager.usersChatMessages[key]?[cntMessages].unreaded ?? false))
             } else {
-                data.append((name: appDelegate.communicationManager.usersOnline[key] ?? nil,
-                             message: nil,
-                             date: nil,
-                             online: true,
-                             hasUnreadMessages: false))
+                data.append((key: key, name: appDelegate.communicationManager.usersOnline[key] ?? nil, message: nil, date: nil, online: true, hasUnreadMessages: false))
             }
         }
-        var swapped = false
-        repeat {
-            swapped = false
-            for i in 1..<data.count {
-                if data[i-1].date == nil {
-                    if data[i].date != nil {
-                        swapped = true
-                    } else {
-                        if data[i-1].name == nil {
-                            if data[i].name != nil {
-                                swapped = true
+        if data.count > 1 {
+            var swapped = false
+            repeat {
+                swapped = false
+                for i in 1..<data.count {
+                    if data[i-1].date == nil {
+                        if data[i].date != nil {
+                            swapped = true
+                        } else {
+                            if data[i-1].name == nil {
+                                if data[i].name != nil {
+                                    swapped = true
+                                } else {
+                                    swapped = false
+                                }
                             } else {
-                                swapped = false
+                                if data[i].name != nil && data[i-1].name! > data[i].name! {
+                                    swapped = true
+                                } else {
+                                    swapped = false
+                                }
+                            }
+                        }
+                    } else {
+                        if data[i].date != nil {
+                            if data[i-1].date! < data[i].date! {
+                                swapped = true
                             }
                         } else {
-                            if data[i].name != nil && data[i-1].name! > data[i].name! {
-                                swapped = true
-                            } else {
-                                swapped = false
-                            }
+                            swapped = false
                         }
                     }
-                } else {
-                    if data[i].date != nil {
-                        if data[i-1].date! < data[i].date! {
-                            swapped = true
-                        }
-                    } else {
-                        swapped = false
+                    if swapped {
+                        let tmp = data[i]
+                        data[i] = data[i-1]
+                        data[i-1] = tmp
                     }
                 }
-                if swapped {
-                    let tmp = data[i]
-                    data[i] = data[i-1]
-                    data[i-1] = tmp
-                }
-            }
-        } while swapped
-        return data[index]
+            } while swapped
+        }
+        return data
     }
     
     func updateConversationsListTable() {
+        self.sortedOnlineData = self.getSortedOnlineData()
         self.tableView.reloadData()
     }
     
@@ -199,6 +194,7 @@ class ConversationsListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.sortedOnlineData = self.getSortedOnlineData()
         appDelegate.communicationManager.conversationsList = self
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
@@ -225,7 +221,7 @@ class ConversationsListViewController: UITableViewController {
         var rowsCount = 0
         switch section {
         case 0:
-            rowsCount = appDelegate.communicationManager.usersOnline.keys.count
+            rowsCount = sortedOnlineData.count // appDelegate.communicationManager.usersOnline.keys.count
         case 1:
             rowsCount = 0
         default:
@@ -238,7 +234,7 @@ class ConversationsListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationsListCell", for: indexPath) as! ConversationsListCell
         switch indexPath.section {
         case 0:
-            let data = getSortedOnlineDataForIndex(index: indexPath.row)
+            let data = sortedOnlineData[indexPath.row]
             cell.setParameters(name: data.name, message: data.message, date: data.date, online: data.online, hasUnreadMessages: data.hasUnreadMessages)
         case 1:
             assertionFailure("Cannot Be at homework 6")
@@ -257,7 +253,7 @@ class ConversationsListViewController: UITableViewController {
             appDelegate.communicationManager.conversation = (segue.destination as! ConversationViewController)
             switch tableView.indexPathForSelectedRow!.section {
             case 0:
-                (segue.destination as! ConversationViewController).userIdInConversation = appDelegate.communicationManager.usersOnline.keys.sorted()[tableView.indexPathForSelectedRow!.row]
+                (segue.destination as! ConversationViewController).userIdInConversation = sortedOnlineData[tableView.indexPathForSelectedRow!.row].key
             case 1:
                 assertionFailure("Cannot Be at homework 6")
             default:
