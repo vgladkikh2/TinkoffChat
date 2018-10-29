@@ -32,6 +32,7 @@ class ConversationCell: UITableViewCell, MessageCellConfiguration {
 
 class ConversationViewController: UITableViewController, UITextFieldDelegate {
     
+    @IBOutlet var sendButton: UIButton!
     @IBOutlet var textInputField: UITextField!
     @IBAction func sendButtonPressed(_ sender: Any) {
         if let message = textInputField.text {
@@ -49,6 +50,13 @@ class ConversationViewController: UITableViewController, UITextFieldDelegate {
     
     var userIdInConversation: String = ""
     func updateConversation() {
+        if appDelegate.communicationManager.usersOnline[userIdInConversation] == nil {
+            sendButton.isEnabled = false
+            sendButton.alpha = 0.5
+        } else {
+            sendButton.isEnabled = true
+            sendButton.alpha = 1.0
+        }
         self.tableView.reloadData()
     }
 

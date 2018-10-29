@@ -16,10 +16,12 @@ class CommunicationManager: CommunicatorDelegate {
     func didFoundUser(userId: String, userName: String?) {
         usersOnline[userId] = userName
         conversationsList?.updateConversationsListTable()
+        conversation?.updateConversation()
     }
     func didLostUser(userId: String) {
         usersOnline[userId] = nil
         conversationsList?.updateConversationsListTable()
+        conversation?.updateConversation()
     }
     func failedToStartBrowsingForUsers(error: Error) {
         print("failedToStartBrowsingForUsers")

@@ -185,6 +185,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="sendButton" destination="D5U-8n-Ehx" id="iAi-78-DTG"/>
                         <outlet property="textInputField" destination="8Zy-vI-jee" id="iKy-UW-VK5"/>
                     </connections>
                 </tableViewController>
