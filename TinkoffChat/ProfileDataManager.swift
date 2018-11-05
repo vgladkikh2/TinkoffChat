@@ -13,6 +13,6 @@ protocol ProfileDataManager {
     var profileAbout: String? { get }
     var profileAvatar: UIImage? { get }
     var profileDataDelegate: ProfileDataManagerDelegate? { get set }
-    func saveProfileData(username: String?, about: String?, avatar: UIImage?)
+    func saveProfileData(username: String?, about: String?, avatar: UIImage?) // if some parameters are submitted as nil then it means that they didn't changed
     func loadProfileData()
 }

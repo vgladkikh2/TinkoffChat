@@ -51,21 +51,26 @@ class CoreDataStack {
         return storeContext
     }()
     
-    func performSave(with context: NSManagedObjectContext, completion: (() -> Void)? = nil) {
+    func performSave(with context: NSManagedObjectContext, completionOnMain: (() -> Void)? = nil) {
         guard context.hasChanges else {
-            completion?()
+            self.mainContext.perform {
+                completionOnMain?()
+            }
             return
         }
         context.perform {
+            sleep(3)
             do {
                 try context.save()
             } catch {
                 print("Context save error: \(error)")
             }
             if let parentContext = context.parent {
-                self.performSave(with: parentContext, completion: completion)
+                self.performSave(with: parentContext, completionOnMain: completionOnMain)
             } else {
-                completion?()
+                self.mainContext.perform {
+                    completionOnMain?()
+                }
             }
         }
     }
@@ -80,6 +85,7 @@ class CoreDataStack {
             return nil
         }
         do {
+//            sleep(3)
             let results = try context.fetch(fetchRequest)
             assert(results.count < 2, "Multiple AppUsers found!")
             if let foundUser = results.first {

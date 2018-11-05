@@ -15,14 +15,15 @@ class StorageDataManager: ProfileDataManager {
     var profileAbout: String? {
         return appUser?.currentUser?.about
     }
-    var profileAvatar: UIImage?
-    var profileDataDelegate: ProfileDataManagerDelegate?
+    var profileAvatar: UIImage? {
+        return nil //...
+    }
+    weak var profileDataDelegate: ProfileDataManagerDelegate?
     var coreDataStack: CoreDataStack
     var appUser: AppUser?
     
     init() {
         coreDataStack = CoreDataStack()
-        appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
     }
     
     func saveProfileData(username: String?, about: String?, avatar: UIImage?) {
@@ -32,10 +33,15 @@ class StorageDataManager: ProfileDataManager {
         if about != nil {
             appUser?.currentUser?.about = about
         }
-        coreDataStack.performSave(with: coreDataStack.dataContext, completion: profileDataDelegate?.savingProfileDataFinished)
+        if avatar != nil {
+//            appUser?.currentUser?.avatar = ...
+        }
+        coreDataStack.performSave(with: coreDataStack.dataContext, completionOnMain: profileDataDelegate?.savingProfileDataFinished)
     }
     func loadProfileData() {
+//        print("loadProfileData start")
         appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
+//        print("loadProfileData end")
         profileDataDelegate?.loadingProfileDataFinished()
     }
     
