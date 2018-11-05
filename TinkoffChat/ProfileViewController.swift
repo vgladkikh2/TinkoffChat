@@ -26,18 +26,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
         if !(profileDataManager is GCDDataManager) {
-            profileDataManager = GCDDataManager()
+            profileDataManager = appDelegate.gcdDataManager
             profileDataManager.profileDataDelegate = self
         }
         tryToSaveChangedValuesToDataManager()
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
         if !(profileDataManager is OperationDataManager) {
-            profileDataManager = OperationDataManager()
+            profileDataManager = appDelegate.operationDataManager
             profileDataManager.profileDataDelegate = self
         }
         tryToSaveChangedValuesToDataManager()
     }
+    
+//    storageButtonTapped {
+//        tryToSaveChangedValuesToDataManager()
+//    }
+    
     @IBAction func cameraIconTapped(_ sender: Any) {
         print("Вызов выбора изображения профиля")
         showActionSheet()
@@ -45,6 +50,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func closeButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var profileDataManager: ProfileDataManager
     private var activityIndicator: UIActivityIndicatorView
@@ -78,15 +85,25 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     private var saveButtonsEnabled: Bool = false {
         didSet {
             if saveButtonsEnabled {
-                gcdButton.isEnabled = true
-                operationButton.isEnabled = true
-                gcdButton.alpha = 1.0
-                operationButton.alpha = 1.0
+                if appDelegate.isStorageDataManager {
+//                    storageButton.isEnabled = true
+//                    storageButton.alpha = 1.0
+                } else {
+                    gcdButton.isEnabled = true
+                    operationButton.isEnabled = true
+                    gcdButton.alpha = 1.0
+                    operationButton.alpha = 1.0
+                }
             } else {
-                gcdButton.isEnabled = false
-                operationButton.isEnabled = false
-                gcdButton.alpha = 0.5
-                operationButton.alpha = 0.5
+                if appDelegate.isStorageDataManager {
+//                    storageButton.isEnabled = false
+//                    storageButton.alpha = 0.5
+                } else {
+                    gcdButton.isEnabled = false
+                    operationButton.isEnabled = false
+                    gcdButton.alpha = 0.5
+                    operationButton.alpha = 0.5
+                }
             }
         }
     }
@@ -96,8 +113,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 editButton.isHidden = true
                 usernameLabel.isHidden = true
                 aboutLabel.isHidden = true
-                gcdButton.isHidden = false
-                operationButton.isHidden = false
+                if appDelegate.isStorageDataManager {
+//                    storageButton.isHidden = false
+                } else {
+                    gcdButton.isHidden = false
+                    operationButton.isHidden = false
+                }
                 cameraIcon.isHidden = false
                 usernameChangeField.text = usernameLabel.text
                 aboutChangeView.text = aboutLabel.text
@@ -114,8 +135,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 editButton.isHidden = false
                 usernameLabel.isHidden = false
                 aboutLabel.isHidden = false
-                gcdButton.isHidden = true
-                operationButton.isHidden = true
+                if appDelegate.isStorageDataManager {
+//                    storageButton.isHidden = true
+                } else {
+                    gcdButton.isHidden = true
+                    operationButton.isHidden = true
+                }
                 cameraIcon.isHidden = true
                 usernameChangeField.isHidden = true
                 aboutChangeView.isHidden = true
@@ -296,7 +321,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //        print("\(#function) -> \(editButton.frame)")
 //    }
     required init?(coder aDecoder: NSCoder) { // is used when the view is created from storyboard/xib
-        profileDataManager = GCDDataManager()
+        if appDelegate.isStorageDataManager {
+//            profileDataManager = appDelegate.storageDataManager
+            profileDataManager = appDelegate.gcdDataManager // delete when uncomment above line
+        } else {
+            profileDataManager = appDelegate.gcdDataManager
+        }
         activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false

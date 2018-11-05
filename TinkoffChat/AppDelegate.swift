@@ -15,11 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var multipeerCommunicator: MultipeerCommunicator
     var communicationManager: CommunicationManager
+    var gcdDataManager: GCDDataManager
+    var operationDataManager: OperationDataManager
+    var storageDataManager: StorageDataManager
+    let isStorageDataManager = false
     
     override init() {
         communicationManager = CommunicationManager()
         multipeerCommunicator = MultipeerCommunicator()
         multipeerCommunicator.delegate = communicationManager
+        gcdDataManager = GCDDataManager()
+        operationDataManager = OperationDataManager()
+        storageDataManager = StorageDataManager()
         super.init()
     }
 
