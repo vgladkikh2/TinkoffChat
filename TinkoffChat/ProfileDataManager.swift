@@ -9,9 +9,9 @@
 import Foundation
 
 protocol ProfileDataManager {
-    var profileUsername: String? { get set }
-    var profileAbout: String? { get set }
-    var profileAvatar: UIImage? { get set }
+    var profileUsername: String? { get }
+    var profileAbout: String? { get }
+    var profileAvatar: UIImage? { get }
     var profileDataDelegate: ProfileDataManagerDelegate? { get set }
     func saveProfileData(username: String?, about: String?, avatar: UIImage?)
     func loadProfileData()

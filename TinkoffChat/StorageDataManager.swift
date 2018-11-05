@@ -9,8 +9,12 @@
 import Foundation
 
 class StorageDataManager: ProfileDataManager {
-    var profileUsername: String?
-    var profileAbout: String?
+    var profileUsername: String? {
+        return appUser?.currentUser?.name
+    }
+    var profileAbout: String? {
+        return appUser?.currentUser?.about
+    }
     var profileAvatar: UIImage?
     var profileDataDelegate: ProfileDataManagerDelegate?
     var coreDataStack: CoreDataStack
@@ -22,10 +26,13 @@ class StorageDataManager: ProfileDataManager {
     }
     
     func saveProfileData(username: String?, about: String?, avatar: UIImage?) {
-        appUser?.currentUser?.name = username
-        appUser?.currentUser?.about = about
-        coreDataStack.performSave(with: coreDataStack.dataContext)
-        profileDataDelegate?.savingProfileDataFinished()
+        if username != nil {
+            appUser?.currentUser?.name = username
+        }
+        if about != nil {
+            appUser?.currentUser?.about = about
+        }
+        coreDataStack.performSave(with: coreDataStack.dataContext, completion: profileDataDelegate?.savingProfileDataFinished)
     }
     func loadProfileData() {
         appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
