@@ -30,6 +30,7 @@
 		8C8E030821735BDC00848FE6 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E030721735BDC00848FE6 /* Themes.m */; };
 		8CD7C25821903B3F009AC332 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25721903B3F009AC332 /* CoreDataStack.swift */; };
 		8CD7C25C21906F13009AC332 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25B21906F13009AC332 /* StorageManager.swift */; };
+		8CD7C25E21907356009AC332 /* FileManagerAndDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25D21907356009AC332 /* FileManagerAndDefaultsHelper.swift */; };
 		8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		8C8E030721735BDC00848FE6 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
 		8CD7C25721903B3F009AC332 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		8CD7C25B21906F13009AC332 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		8CD7C25D21907356009AC332 /* FileManagerAndDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerAndDefaultsHelper.swift; sourceTree = "<group>"; };
 		8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -109,6 +111,7 @@
 				8C35AD87217CD59900544B8A /* DataManager.swift */,
 				8C35AD89217CD5BF00544B8A /* GCDDataManager.swift */,
 				8C35AD8B217CD5E100544B8A /* OperationDataManager.swift */,
+				8CD7C25D21907356009AC332 /* FileManagerAndDefaultsHelper.swift */,
 				8C3D165D2185EC50001BEE50 /* CommunicatorDelegate.swift */,
 				8C3D165B2185EC38001BEE50 /* Communicator.swift */,
 				8C3D165F2185EC6D001BEE50 /* MultipeerCommunicator.swift */,
@@ -203,6 +206,7 @@
 				8C51857421617B7800350C42 /* RoundedButton.swift in Sources */,
 				8C35AD8C217CD5E100544B8A /* OperationDataManager.swift in Sources */,
 				8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */,
+				8CD7C25E21907356009AC332 /* FileManagerAndDefaultsHelper.swift in Sources */,
 				8C51857621617C8800350C42 /* RoundedImage.swift in Sources */,
 				8C35AD85217B185200544B8A /* ConversationsListTableViewController.swift in Sources */,
 				8CD7C25C21906F13009AC332 /* StorageManager.swift in Sources */,

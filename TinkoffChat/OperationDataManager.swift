@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OperationDataManager: DataManager {
+class OperationDataManager: FileManagerAndDefaultsHelper, DataManager {
     
     class SaveDataOperation: Operation {
         var username: String?
@@ -69,16 +69,10 @@ class OperationDataManager: DataManager {
     var username: String?
     var about: String?
     var avatar: UIImage?
-    private var usernameKey: String
-    private var aboutKey: String
-    private var avatarFile: String
+    private var usernameKey: String = "username"
+    private var aboutKey: String = "about"
+    private var avatarFile: String = "avatar.png"
     private var isLastSaveSuccess: Bool = true
-    
-    required init(usernameKey: String, aboutKey: String, avatarFile: String) {
-        self.usernameKey = usernameKey
-        self.aboutKey = aboutKey
-        self.avatarFile = avatarFile
-    }
     
     weak var delegate: DataManagerDelegate?
     

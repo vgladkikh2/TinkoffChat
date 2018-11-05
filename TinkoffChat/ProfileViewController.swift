@@ -26,14 +26,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
         if !(dataManager is GCDDataManager) {
-            dataManager = GCDDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
+            dataManager = GCDDataManager()
             dataManager.delegate = self
         }
         tryToSaveChangedValuesToDataManager()
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
         if !(dataManager is OperationDataManager) {
-            dataManager = OperationDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
+            dataManager = OperationDataManager()
             dataManager.delegate = self
         }
         tryToSaveChangedValuesToDataManager()
@@ -48,9 +48,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var dataManager: DataManager
     private var activityIndicator: UIActivityIndicatorView
-    private var usernameKey: String
-    private var aboutKey: String
-    private var avatarFile: String
     private var shouldSaveNewName: Bool = false {
         didSet {
             if shouldSaveNewName || shouldSaveNewAbout || shouldSaveNewAvatar {
@@ -299,10 +296,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //        print("\(#function) -> \(editButton.frame)")
 //    }
     required init?(coder aDecoder: NSCoder) { // is used when the view is created from storyboard/xib
-        usernameKey = "username"
-        aboutKey = "about"
-        avatarFile = "avatar.png"
-        dataManager = GCDDataManager(usernameKey: usernameKey, aboutKey: aboutKey, avatarFile: avatarFile)
+        dataManager = GCDDataManager()
         activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
