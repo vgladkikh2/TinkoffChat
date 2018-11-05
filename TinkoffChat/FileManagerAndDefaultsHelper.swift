@@ -9,6 +9,11 @@
 import Foundation
 
 class FileManagerAndDefaultsHelper {
+    
+    static var usernameKey: String = "username"
+    static var aboutKey: String = "about"
+    static var avatarFile: String = "avatar.png"
+    
     static func SaveDataToFile(image: UIImage, file: String) -> Bool {
         if let data = image.pngData() {
             let fileManager = FileManager.default

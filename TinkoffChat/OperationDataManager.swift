@@ -8,76 +8,60 @@
 
 import Foundation
 
-class OperationDataManager: FileManagerAndDefaultsHelper, ProfileDataManager {
+class OperationDataManager: ProfileDataManager {
     
     class SaveProfileDataOperation: Operation {
         var username: String?
         var about: String?
         var avatar: UIImage?
-        var usernameKey: String
-        var aboutKey: String
-        var avatarFile: String
         var isSuccess: Bool = true
-        init(username: String?, about: String?, avatar: UIImage?, usernameKey: String, aboutKey: String, avatarFile: String) {
+        init(username: String?, about: String?, avatar: UIImage?) {
             self.username = username
             self.about = about
             self.avatar = avatar
-            self.usernameKey = usernameKey
-            self.aboutKey = aboutKey
-            self.avatarFile = avatarFile
         }
         override func main() {
 //            sleep(2)
             if let image = avatar {
                 if isSuccess {
-                    isSuccess = OperationDataManager.SaveDataToFile(image: image, file: avatarFile)
+                    isSuccess = FileManagerAndDefaultsHelper.SaveDataToFile(image: image, file: FileManagerAndDefaultsHelper.avatarFile)
                 }
             }
             if let info = username {
                 if isSuccess {
-                    isSuccess = OperationDataManager.SaveInfoToUserDefaults(info: info, key: usernameKey)
+                    isSuccess = FileManagerAndDefaultsHelper.SaveInfoToUserDefaults(info: info, key: FileManagerAndDefaultsHelper.usernameKey)
                 }
             }
             if let info = about {
                 if isSuccess {
-                    isSuccess = OperationDataManager.SaveInfoToUserDefaults(info: info, key: aboutKey)
+                    isSuccess = FileManagerAndDefaultsHelper.SaveInfoToUserDefaults(info: info, key: FileManagerAndDefaultsHelper.aboutKey)
                 }
             }
         }
     }
     
     class LoadProfileDataOperation: Operation {
-        var usernameKey: String
-        var aboutKey: String
-        var avatarFile: String
         var username: String?
         var about: String?
         var avatar: UIImage?
-        init(usernameKey: String, aboutKey: String, avatarFile: String) {
-            self.usernameKey = usernameKey
-            self.aboutKey = aboutKey
-            self.avatarFile = avatarFile
-        }
+        
         override func main() {
 //            sleep(2)
-            username = OperationDataManager.LoadInfoFromUserDefaults(key: usernameKey)
-            about = OperationDataManager.LoadInfoFromUserDefaults(key: aboutKey)
-            avatar = OperationDataManager.LoadDataFromFile(file: avatarFile)
+            username = FileManagerAndDefaultsHelper.LoadInfoFromUserDefaults(key: FileManagerAndDefaultsHelper.usernameKey)
+            about = FileManagerAndDefaultsHelper.LoadInfoFromUserDefaults(key: FileManagerAndDefaultsHelper.aboutKey)
+            avatar = FileManagerAndDefaultsHelper.LoadDataFromFile(file: FileManagerAndDefaultsHelper.avatarFile)
         }
     }
     
     var profileUsername: String?
     var profileAbout: String?
     var profileAvatar: UIImage?
-    private var usernameKey: String = "username"
-    private var aboutKey: String = "about"
-    private var avatarFile: String = "avatar.png"
     private var isLastSaveSuccess: Bool = true
     
     weak var profileDataDelegate: ProfileDataManagerDelegate?
     
     func saveProfileData(username: String?, about: String?, avatar: UIImage?) {
-        let saveProfileDataOperation = SaveProfileDataOperation(username: username, about: about, avatar: avatar, usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
+        let saveProfileDataOperation = SaveProfileDataOperation(username: username, about: about, avatar: avatar)
         saveProfileDataOperation.completionBlock = {
             OperationQueue.main.addOperation {
                 if saveProfileDataOperation.isSuccess {
@@ -93,7 +77,7 @@ class OperationDataManager: FileManagerAndDefaultsHelper, ProfileDataManager {
     }
     
     func loadProfileData() {
-        let loadProfileDataOperation = LoadProfileDataOperation(usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
+        let loadProfileDataOperation = LoadProfileDataOperation()
         loadProfileDataOperation.completionBlock = {
             OperationQueue.main.addOperation {
                 self.profileUsername = loadProfileDataOperation.username
