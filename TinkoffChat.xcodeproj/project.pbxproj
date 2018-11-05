@@ -28,6 +28,7 @@
 		8C51857621617C8800350C42 /* RoundedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C51857521617C8800350C42 /* RoundedImage.swift */; };
 		8C5185782161903B00350C42 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5185772161903B00350C42 /* RoundedView.swift */; };
 		8C8E030821735BDC00848FE6 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E030721735BDC00848FE6 /* Themes.m */; };
+		8CD7C25821903B3F009AC332 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25721903B3F009AC332 /* CoreDataStack.swift */; };
 		8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		8C8E03022173496100848FE6 /* TinkoffChat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TinkoffChat-Bridging-Header.h"; sourceTree = "<group>"; };
 		8C8E030621735BDC00848FE6 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		8C8E030721735BDC00848FE6 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		8CD7C25721903B3F009AC332 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 				8C3D165F2185EC6D001BEE50 /* MultipeerCommunicator.swift */,
 				8C3D166121862D06001BEE50 /* CommunicationManager.swift */,
 				8C2FEBC7216119C0006FA820 /* Info.plist */,
+				8CD7C25721903B3F009AC332 /* CoreDataStack.swift */,
 				8C8E03022173496100848FE6 /* TinkoffChat-Bridging-Header.h */,
 				8C8E030621735BDC00848FE6 /* Themes.h */,
 				8C8E030721735BDC00848FE6 /* Themes.m */,
@@ -200,6 +203,7 @@
 				8C51857621617C8800350C42 /* RoundedImage.swift in Sources */,
 				8C35AD85217B185200544B8A /* ConversationsListTableViewController.swift in Sources */,
 				8C35AD86217B18DC00544B8A /* ThemesViewController.swift in Sources */,
+				8CD7C25821903B3F009AC332 /* CoreDataStack.swift in Sources */,
 				8C2FEBB9216119BF006FA820 /* AppDelegate.swift in Sources */,
 				8C35AD8A217CD5BF00544B8A /* GCDDataManager.swift in Sources */,
 				8C3D166221862D06001BEE50 /* CommunicationManager.swift in Sources */,
