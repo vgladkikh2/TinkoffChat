@@ -8,19 +8,18 @@
 
 import Foundation
 
-class GCDDataManager: FileManagerAndDefaultsHelper, DataManager {
-
-    var username: String?
-    var about: String?
-    var avatar: UIImage?
+class GCDDataManager: FileManagerAndDefaultsHelper, ProfileDataManager {
+    var profileUsername: String?
+    var profileAbout: String?
+    var profileAvatar: UIImage?
     private var usernameKey: String = "username"
     private var aboutKey: String = "about"
     private var avatarFile: String = "avatar.png"
     private var isLastSaveSuccess: Bool = true
     
-    weak var delegate: DataManagerDelegate?
+    weak var profileDataDelegate: ProfileDataManagerDelegate?
     
-    func saveData(username: String?, about: String?, avatar: UIImage?) {
+    func saveProfileData(username: String?, about: String?, avatar: UIImage?) {
         isLastSaveSuccess = true
         let queue = DispatchQueue(label:"writeSerialQueue")
         queue.async{
@@ -42,23 +41,23 @@ class GCDDataManager: FileManagerAndDefaultsHelper, DataManager {
             }
             DispatchQueue.main.async {
                 if self.isLastSaveSuccess {
-                    self.delegate?.savingDataFinished()
+                    self.profileDataDelegate?.savingProfileDataFinished()
                 } else {
-                    self.delegate?.savingDataFailed()
+                    self.profileDataDelegate?.savingProfileDataFailed()
                 }
             }
         }
     }
     
-    func loadData() {
+    func loadProfileData() {
         let queue = DispatchQueue(label:"readSerialQueue")
         queue.async{
 //            sleep(2)
-            self.avatar = GCDDataManager.LoadDataFromFile(file: self.avatarFile)
-            self.username = GCDDataManager.LoadInfoFromUserDefaults(key: self.usernameKey)
-            self.about = GCDDataManager.LoadInfoFromUserDefaults(key: self.aboutKey)
+            self.profileAvatar = GCDDataManager.LoadDataFromFile(file: self.avatarFile)
+            self.profileUsername = GCDDataManager.LoadInfoFromUserDefaults(key: self.usernameKey)
+            self.profileAbout = GCDDataManager.LoadInfoFromUserDefaults(key: self.aboutKey)
             DispatchQueue.main.async {
-                self.delegate?.loadingDataFinished()
+                self.profileDataDelegate?.loadingProfileDataFinished()
             }
         }
     }

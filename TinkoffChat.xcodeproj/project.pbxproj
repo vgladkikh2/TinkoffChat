@@ -16,10 +16,10 @@
 		8C2FEBD02161515D006FA820 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 8C2FEBCF2161515C006FA820 /* .gitignore */; };
 		8C35AD85217B185200544B8A /* ConversationsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD84217B185200544B8A /* ConversationsListTableViewController.swift */; };
 		8C35AD86217B18DC00544B8A /* ThemesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD80217B17BE00544B8A /* ThemesViewController.swift */; };
-		8C35AD88217CD59900544B8A /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD87217CD59900544B8A /* DataManager.swift */; };
+		8C35AD88217CD59900544B8A /* ProfileDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD87217CD59900544B8A /* ProfileDataManager.swift */; };
 		8C35AD8A217CD5BF00544B8A /* GCDDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD89217CD5BF00544B8A /* GCDDataManager.swift */; };
 		8C35AD8C217CD5E100544B8A /* OperationDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD8B217CD5E100544B8A /* OperationDataManager.swift */; };
-		8C35AD8E217CEA5700544B8A /* DataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD8D217CEA5700544B8A /* DataManagerDelegate.swift */; };
+		8C35AD8E217CEA5700544B8A /* ProfileDataManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C35AD8D217CEA5700544B8A /* ProfileDataManagerDelegate.swift */; };
 		8C3D165C2185EC38001BEE50 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D165B2185EC38001BEE50 /* Communicator.swift */; };
 		8C3D165E2185EC50001BEE50 /* CommunicatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D165D2185EC50001BEE50 /* CommunicatorDelegate.swift */; };
 		8C3D16602185EC6D001BEE50 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C3D165F2185EC6D001BEE50 /* MultipeerCommunicator.swift */; };
@@ -29,7 +29,7 @@
 		8C5185782161903B00350C42 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5185772161903B00350C42 /* RoundedView.swift */; };
 		8C8E030821735BDC00848FE6 /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8E030721735BDC00848FE6 /* Themes.m */; };
 		8CD7C25821903B3F009AC332 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25721903B3F009AC332 /* CoreDataStack.swift */; };
-		8CD7C25C21906F13009AC332 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25B21906F13009AC332 /* StorageManager.swift */; };
+		8CD7C25C21906F13009AC332 /* StorageDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25B21906F13009AC332 /* StorageDataManager.swift */; };
 		8CD7C25E21907356009AC332 /* FileManagerAndDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD7C25D21907356009AC332 /* FileManagerAndDefaultsHelper.swift */; };
 		8CF7348C2169356D00DCDBE0 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */; };
 /* End PBXBuildFile section */
@@ -46,10 +46,10 @@
 		8C2FEBCF2161515C006FA820 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
 		8C35AD80217B17BE00544B8A /* ThemesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemesViewController.swift; sourceTree = "<group>"; };
 		8C35AD84217B185200544B8A /* ConversationsListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConversationsListTableViewController.swift; sourceTree = "<group>"; };
-		8C35AD87217CD59900544B8A /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		8C35AD87217CD59900544B8A /* ProfileDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataManager.swift; sourceTree = "<group>"; };
 		8C35AD89217CD5BF00544B8A /* GCDDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCDDataManager.swift; sourceTree = "<group>"; };
 		8C35AD8B217CD5E100544B8A /* OperationDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationDataManager.swift; sourceTree = "<group>"; };
-		8C35AD8D217CEA5700544B8A /* DataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerDelegate.swift; sourceTree = "<group>"; };
+		8C35AD8D217CEA5700544B8A /* ProfileDataManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataManagerDelegate.swift; sourceTree = "<group>"; };
 		8C3D165B2185EC38001BEE50 /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
 		8C3D165D2185EC50001BEE50 /* CommunicatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicatorDelegate.swift; sourceTree = "<group>"; };
 		8C3D165F2185EC6D001BEE50 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
@@ -61,7 +61,7 @@
 		8C8E030621735BDC00848FE6 /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		8C8E030721735BDC00848FE6 /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
 		8CD7C25721903B3F009AC332 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		8CD7C25B21906F13009AC332 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		8CD7C25B21906F13009AC332 /* StorageDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageDataManager.swift; sourceTree = "<group>"; };
 		8CD7C25D21907356009AC332 /* FileManagerAndDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerAndDefaultsHelper.swift; sourceTree = "<group>"; };
 		8CF7348B2169356D00DCDBE0 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,23 +107,23 @@
 				8C51857321617B7800350C42 /* RoundedButton.swift */,
 				8C51857521617C8800350C42 /* RoundedImage.swift */,
 				8C5185772161903B00350C42 /* RoundedView.swift */,
-				8C35AD8D217CEA5700544B8A /* DataManagerDelegate.swift */,
-				8C35AD87217CD59900544B8A /* DataManager.swift */,
-				8C35AD89217CD5BF00544B8A /* GCDDataManager.swift */,
-				8C35AD8B217CD5E100544B8A /* OperationDataManager.swift */,
-				8CD7C25D21907356009AC332 /* FileManagerAndDefaultsHelper.swift */,
 				8C3D165D2185EC50001BEE50 /* CommunicatorDelegate.swift */,
 				8C3D165B2185EC38001BEE50 /* Communicator.swift */,
 				8C3D165F2185EC6D001BEE50 /* MultipeerCommunicator.swift */,
 				8C3D166121862D06001BEE50 /* CommunicationManager.swift */,
 				8C2FEBC7216119C0006FA820 /* Info.plist */,
+				8C35AD8D217CEA5700544B8A /* ProfileDataManagerDelegate.swift */,
+				8C35AD87217CD59900544B8A /* ProfileDataManager.swift */,
+				8CD7C25D21907356009AC332 /* FileManagerAndDefaultsHelper.swift */,
+				8C35AD89217CD5BF00544B8A /* GCDDataManager.swift */,
+				8C35AD8B217CD5E100544B8A /* OperationDataManager.swift */,
 				8CD7C25721903B3F009AC332 /* CoreDataStack.swift */,
+				8CD7C25B21906F13009AC332 /* StorageDataManager.swift */,
 				8C8E03022173496100848FE6 /* TinkoffChat-Bridging-Header.h */,
 				8C8E030621735BDC00848FE6 /* Themes.h */,
 				8C8E030721735BDC00848FE6 /* Themes.m */,
 				8C2FEBBF216119BF006FA820 /* TinkoffChat.xcdatamodeld */,
 				8C2FEBCF2161515C006FA820 /* .gitignore */,
-				8CD7C25B21906F13009AC332 /* StorageManager.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -209,7 +209,7 @@
 				8CD7C25E21907356009AC332 /* FileManagerAndDefaultsHelper.swift in Sources */,
 				8C51857621617C8800350C42 /* RoundedImage.swift in Sources */,
 				8C35AD85217B185200544B8A /* ConversationsListTableViewController.swift in Sources */,
-				8CD7C25C21906F13009AC332 /* StorageManager.swift in Sources */,
+				8CD7C25C21906F13009AC332 /* StorageDataManager.swift in Sources */,
 				8C35AD86217B18DC00544B8A /* ThemesViewController.swift in Sources */,
 				8CD7C25821903B3F009AC332 /* CoreDataStack.swift in Sources */,
 				8C2FEBB9216119BF006FA820 /* AppDelegate.swift in Sources */,
@@ -217,8 +217,8 @@
 				8C3D166221862D06001BEE50 /* CommunicationManager.swift in Sources */,
 				8C5185782161903B00350C42 /* RoundedView.swift in Sources */,
 				8C8E030821735BDC00848FE6 /* Themes.m in Sources */,
-				8C35AD8E217CEA5700544B8A /* DataManagerDelegate.swift in Sources */,
-				8C35AD88217CD59900544B8A /* DataManager.swift in Sources */,
+				8C35AD8E217CEA5700544B8A /* ProfileDataManagerDelegate.swift in Sources */,
+				8C35AD88217CD59900544B8A /* ProfileDataManager.swift in Sources */,
 				8C3D16602185EC6D001BEE50 /* MultipeerCommunicator.swift in Sources */,
 				8C2FEBCE21611AAB006FA820 /* ProfileViewController.swift in Sources */,
 				8C2FEBC1216119BF006FA820 /* TinkoffChat.xcdatamodeld in Sources */,

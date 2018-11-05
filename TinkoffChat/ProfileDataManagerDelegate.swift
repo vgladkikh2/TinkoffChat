@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol DataManagerDelegate: class {
-    func loadingDataFinished()
-    func savingDataFinished()
-    func savingDataFailed()
+protocol ProfileDataManagerDelegate: class {
+    func loadingProfileDataFinished()
+    func savingProfileDataFinished()
+    func savingProfileDataFailed()
 }

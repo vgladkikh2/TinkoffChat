@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, DataManagerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UITextViewDelegate, ProfileDataManagerDelegate {
     
     @IBOutlet weak var cameraIcon: RoundedView!
     @IBOutlet weak var userPlaceholder: RoundedImage!
@@ -25,16 +25,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         saveButtonsEnabled = false
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
-        if !(dataManager is GCDDataManager) {
-            dataManager = GCDDataManager()
-            dataManager.delegate = self
+        if !(profileDataManager is GCDDataManager) {
+            profileDataManager = GCDDataManager()
+            profileDataManager.profileDataDelegate = self
         }
         tryToSaveChangedValuesToDataManager()
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
-        if !(dataManager is OperationDataManager) {
-            dataManager = OperationDataManager()
-            dataManager.delegate = self
+        if !(profileDataManager is OperationDataManager) {
+            profileDataManager = OperationDataManager()
+            profileDataManager.profileDataDelegate = self
         }
         tryToSaveChangedValuesToDataManager()
     }
@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.dismiss(animated: true, completion: nil)
     }
     
-    var dataManager: DataManager
+    var profileDataManager: ProfileDataManager
     private var activityIndicator: UIActivityIndicatorView
     private var shouldSaveNewName: Bool = false {
         didSet {
@@ -142,9 +142,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if shouldSaveNewAvatar {
             avatarToSave = userPlaceholder.image
         }
-        dataManager.saveData(username: usernameToSave, about: aboutToSave, avatar: avatarToSave)
+        profileDataManager.saveProfileData(username: usernameToSave, about: aboutToSave, avatar: avatarToSave)
     }
-    func savingDataFinished() {
+    func savingProfileDataFinished() {
         activityIndicator.stopAnimating()
         let actionSheet = UIAlertController(title: "Данные сохранены", message: nil, preferredStyle: UIAlertController.Style.alert)
         actionSheet.addAction(UIAlertAction(title: "ОК", style: .cancel, handler: { (alert:UIAlertAction!) -> Void in
@@ -152,11 +152,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.inEditingState = false
             self.editButton.isEnabled = false
             self.editButton.alpha = 0.5
-            self.loadDataFromDataManager()
+            self.loadProfileDataFromDataManager()
         }))
         self.present(actionSheet, animated: true, completion: nil)
     }
-    func savingDataFailed() {
+    func savingProfileDataFailed() {
         activityIndicator.stopAnimating()
         let actionSheet = UIAlertController(title: "Ошибка", message: "Не удалось сохранить данные", preferredStyle: UIAlertController.Style.alert)
         actionSheet.addAction(UIAlertAction(title: "Повторить", style: .default, handler: { (alert:UIAlertAction!) -> Void in
@@ -167,20 +167,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.inEditingState = false
             self.editButton.isEnabled = false
             self.editButton.alpha = 0.5
-            self.loadDataFromDataManager()
+            self.loadProfileDataFromDataManager()
         }))
         self.present(actionSheet, animated: true, completion: nil)
     }
-    func loadDataFromDataManager() {
+    func loadProfileDataFromDataManager() {
         activityIndicator.startAnimating()
-        dataManager.loadData()
+        profileDataManager.loadProfileData()
     }
-    func loadingDataFinished() {
+    func loadingProfileDataFinished() {
         activityIndicator.stopAnimating()
-        usernameLabel.text = dataManager.username
-        aboutLabel.text = dataManager.about
-        if dataManager.avatar != nil {
-            userPlaceholder.image = dataManager.avatar
+        usernameLabel.text = profileDataManager.profileUsername
+        aboutLabel.text = profileDataManager.profileAbout
+        if profileDataManager.profileAvatar != nil {
+            userPlaceholder.image = profileDataManager.profileAvatar
         }
         shouldSaveNewName = false
         shouldSaveNewAbout = false
@@ -200,7 +200,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if textField == usernameChangeField {
             if let text = textField.text, let textRange = Range(range, in: text) {
                 let updatedText = text.replacingCharacters(in: textRange, with: string)
-                if updatedText != dataManager.username {
+                if updatedText != profileDataManager.profileUsername {
                     shouldSaveNewName = true
                 } else {
                     shouldSaveNewName = false
@@ -231,7 +231,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 textView.text = ""
                 textView.textColor = UIColor.black
             }
-            if let updatedText = textView.text, updatedText != dataManager.about {
+            if let updatedText = textView.text, updatedText != profileDataManager.profileAbout {
                 shouldSaveNewAbout = true
             } else {
                 shouldSaveNewAbout = false
@@ -272,7 +272,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             userPlaceholder.image = pickedImage
-            if areTwoEqualImages(dataManager.avatar, userPlaceholder.image) {
+            if areTwoEqualImages(profileDataManager.profileAvatar, userPlaceholder.image) {
                 shouldSaveNewAvatar = false
             } else {
                 shouldSaveNewAvatar = true
@@ -296,12 +296,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //        print("\(#function) -> \(editButton.frame)")
 //    }
     required init?(coder aDecoder: NSCoder) { // is used when the view is created from storyboard/xib
-        dataManager = GCDDataManager()
+        profileDataManager = GCDDataManager()
         activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         super.init(coder: aDecoder)
-        dataManager.delegate = self
+        profileDataManager.profileDataDelegate = self
 //        print("\(#function) -> \(editButton.frame)") // editButton здесь nil, так как кнопка еще не успела создаться (и не присвоился адрес в переменную editButton). Поэтому, естественно, падает с ошибкой в рантайме
     }
     
@@ -333,7 +333,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         inEditingState = false
         editButton.isEnabled = false
         editButton.alpha = 0.5
-        loadDataFromDataManager()
+        loadProfileDataFromDataManager()
     }
     
     override func viewWillAppear(_ animated:Bool) {

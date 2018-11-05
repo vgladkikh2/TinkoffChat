@@ -8,9 +8,9 @@
 
 import Foundation
 
-class OperationDataManager: FileManagerAndDefaultsHelper, DataManager {
+class OperationDataManager: FileManagerAndDefaultsHelper, ProfileDataManager {
     
-    class SaveDataOperation: Operation {
+    class SaveProfileDataOperation: Operation {
         var username: String?
         var about: String?
         var avatar: UIImage?
@@ -46,7 +46,7 @@ class OperationDataManager: FileManagerAndDefaultsHelper, DataManager {
         }
     }
     
-    class LoadDataOperation: Operation {
+    class LoadProfileDataOperation: Operation {
         var usernameKey: String
         var aboutKey: String
         var avatarFile: String
@@ -66,45 +66,45 @@ class OperationDataManager: FileManagerAndDefaultsHelper, DataManager {
         }
     }
     
-    var username: String?
-    var about: String?
-    var avatar: UIImage?
+    var profileUsername: String?
+    var profileAbout: String?
+    var profileAvatar: UIImage?
     private var usernameKey: String = "username"
     private var aboutKey: String = "about"
     private var avatarFile: String = "avatar.png"
     private var isLastSaveSuccess: Bool = true
     
-    weak var delegate: DataManagerDelegate?
+    weak var profileDataDelegate: ProfileDataManagerDelegate?
     
-    func saveData(username: String?, about: String?, avatar: UIImage?) {
-        let saveDataOperation = SaveDataOperation(username: username, about: about, avatar: avatar, usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
-        saveDataOperation.completionBlock = {
+    func saveProfileData(username: String?, about: String?, avatar: UIImage?) {
+        let saveProfileDataOperation = SaveProfileDataOperation(username: username, about: about, avatar: avatar, usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
+        saveProfileDataOperation.completionBlock = {
             OperationQueue.main.addOperation {
-                if saveDataOperation.isSuccess {
-                    self.delegate?.savingDataFinished()
+                if saveProfileDataOperation.isSuccess {
+                    self.profileDataDelegate?.savingProfileDataFinished()
                 } else {
-                    self.delegate?.savingDataFailed()
+                    self.profileDataDelegate?.savingProfileDataFailed()
                 }
             }
         }
         let saveQueue = OperationQueue()
         saveQueue.maxConcurrentOperationCount = 1
-        saveQueue.addOperation(saveDataOperation)
+        saveQueue.addOperation(saveProfileDataOperation)
     }
     
-    func loadData() {
-        let loadDataOperation = LoadDataOperation(usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
-        loadDataOperation.completionBlock = {
+    func loadProfileData() {
+        let loadProfileDataOperation = LoadProfileDataOperation(usernameKey: self.usernameKey, aboutKey: self.aboutKey, avatarFile: self.avatarFile)
+        loadProfileDataOperation.completionBlock = {
             OperationQueue.main.addOperation {
-                self.username = loadDataOperation.username
-                self.about = loadDataOperation.about
-                self.avatar = loadDataOperation.avatar
-                self.delegate?.loadingDataFinished()
+                self.profileUsername = loadProfileDataOperation.username
+                self.profileAbout = loadProfileDataOperation.about
+                self.profileAvatar = loadProfileDataOperation.avatar
+                self.profileDataDelegate?.loadingProfileDataFinished()
             }
         }
         let loadQueue = OperationQueue()
         loadQueue.maxConcurrentOperationCount = 1
-        loadQueue.addOperation(loadDataOperation)
+        loadQueue.addOperation(loadProfileDataOperation)
     }
     
 }
