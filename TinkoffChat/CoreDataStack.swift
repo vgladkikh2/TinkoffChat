@@ -50,11 +50,11 @@ class CoreDataStack {
         storeContext.mergePolicy = NSOverwriteMergePolicy
         return storeContext
     }()
-    
-    func performSave(with context: NSManagedObjectContext, completion: (() -> Void)? = nil) {
-        guard context.hasChanges else {
+    private var lastSaveWasSuccessed = true
+    func performSave(with context: NSManagedObjectContext, completionToDoOnMain: (() -> Void)? = nil, failureToDoOnMain: (() -> Void)? = nil) {
+        guard context.hasChanges || !lastSaveWasSuccessed else {
             self.mainContext.perform {
-                completion?()
+                completionToDoOnMain?()
             }
             return
         }
@@ -62,14 +62,19 @@ class CoreDataStack {
             sleep(3)
             do {
                 try context.save()
+                if let parentContext = context.parent {
+                    self.performSave(with: parentContext, completionToDoOnMain: completionToDoOnMain)
+                } else {
+                    self.lastSaveWasSuccessed = true
+                    self.mainContext.perform {
+                        completionToDoOnMain?()
+                    }
+                }
             } catch {
                 print("Context save error: \(error)")
-            }
-            if let parentContext = context.parent {
-                self.performSave(with: parentContext, completion: completion)
-            } else {
+                self.lastSaveWasSuccessed = false
                 self.mainContext.perform {
-                    completion?()
+                    failureToDoOnMain?()
                 }
             }
         }
@@ -85,7 +90,6 @@ class CoreDataStack {
             return nil
         }
         do {
-//            sleep(3)
             let results = try context.fetch(fetchRequest)
             assert(results.count < 2, "Multiple AppUsers found!")
             if let foundUser = results.first {

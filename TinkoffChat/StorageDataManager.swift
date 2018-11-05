@@ -16,7 +16,11 @@ class StorageDataManager: ProfileDataManager {
         return appUser?.currentUser?.about
     }
     var profileAvatar: UIImage? {
-        return nil //...
+        if let data = appUser?.currentUser?.avatar {
+            return UIImage(data: data)
+        } else {
+            return nil
+        }
     }
     weak var profileDataDelegate: ProfileDataManagerDelegate?
     var coreDataStack: CoreDataStack
@@ -34,14 +38,12 @@ class StorageDataManager: ProfileDataManager {
             appUser?.currentUser?.about = about
         }
         if avatar != nil {
-//            appUser?.currentUser?.avatar = ...
+            appUser?.currentUser?.avatar = avatar?.pngData()
         }
-        coreDataStack.performSave(with: coreDataStack.dataContext, completion: profileDataDelegate?.savingProfileDataFinished)
+        coreDataStack.performSave(with: coreDataStack.dataContext, completionToDoOnMain: profileDataDelegate?.savingProfileDataFinished, failureToDoOnMain: profileDataDelegate?.savingProfileDataFailed)
     }
     func loadProfileData() {
-//        print("loadProfileData start")
         appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
-//        print("loadProfileData end")
         profileDataDelegate?.loadingProfileDataFinished()
     }
     
