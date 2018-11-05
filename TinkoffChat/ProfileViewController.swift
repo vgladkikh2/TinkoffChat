@@ -27,14 +27,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     @IBAction func gcdButtonTapped(_ sender: Any) {
         if !(profileDataManager is GCDDataManager) {
-            profileDataManager = appDelegate.gcdDataManager
+            profileDataManager = appDelegate.gcdDataManager!
             profileDataManager.profileDataDelegate = self
         }
         tryToSaveChangedValuesToDataManager()
     }
     @IBAction func operationButtonTapped(_ sender: Any) {
         if !(profileDataManager is OperationDataManager) {
-            profileDataManager = appDelegate.operationDataManager
+            profileDataManager = appDelegate.operationDataManager!
             profileDataManager.profileDataDelegate = self
         }
         tryToSaveChangedValuesToDataManager()
@@ -323,9 +323,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //    }
     required init?(coder aDecoder: NSCoder) { // is used when the view is created from storyboard/xib
         if appDelegate.isStorageDataManager {
-            profileDataManager = appDelegate.storageDataManager
+            profileDataManager = appDelegate.storageDataManager!
         } else {
-            profileDataManager = appDelegate.gcdDataManager
+            profileDataManager = appDelegate.gcdDataManager!
         }
         activityIndicator = UIActivityIndicatorView(style: .gray)
         activityIndicator.hidesWhenStopped = true

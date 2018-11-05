@@ -50,6 +50,7 @@ class CoreDataStack {
         storeContext.mergePolicy = NSOverwriteMergePolicy
         return storeContext
     }()
+    
     private var lastSaveWasSuccessed = true
     func performSave(with context: NSManagedObjectContext, completionToDoOnMain: (() -> Void)? = nil, failureToDoOnMain: (() -> Void)? = nil) {
         guard context.hasChanges || !lastSaveWasSuccessed else {
@@ -59,8 +60,8 @@ class CoreDataStack {
             return
         }
         context.perform {
-            sleep(3)
             do {
+//                sleep(2)
                 try context.save()
                 if let parentContext = context.parent {
                     self.performSave(with: parentContext, completionToDoOnMain: completionToDoOnMain)
