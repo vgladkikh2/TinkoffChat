@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var editButton: RoundedButton!
     @IBOutlet var gcdButton: RoundedButton!
     @IBOutlet var operationButton: RoundedButton!
+    @IBOutlet var storageButton: RoundedButton!
     @IBOutlet var usernameLabel: UILabel!
     @IBOutlet var usernameChangeField: UITextField!
     @IBOutlet var aboutLabel: UILabel!
@@ -39,9 +40,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         tryToSaveChangedValuesToDataManager()
     }
     
-//    storageButtonTapped {
-//        tryToSaveChangedValuesToDataManager()
-//    }
+    @IBAction func storageButtonTapped(_ sender: Any) {
+        tryToSaveChangedValuesToDataManager()
+    }
     
     @IBAction func cameraIconTapped(_ sender: Any) {
         print("Вызов выбора изображения профиля")
@@ -86,8 +87,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         didSet {
             if saveButtonsEnabled {
                 if appDelegate.isStorageDataManager {
-//                    storageButton.isEnabled = true
-//                    storageButton.alpha = 1.0
+                    storageButton.isEnabled = true
+                    storageButton.alpha = 1.0
                 } else {
                     gcdButton.isEnabled = true
                     operationButton.isEnabled = true
@@ -96,8 +97,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 }
             } else {
                 if appDelegate.isStorageDataManager {
-//                    storageButton.isEnabled = false
-//                    storageButton.alpha = 0.5
+                    storageButton.isEnabled = false
+                    storageButton.alpha = 0.5
                 } else {
                     gcdButton.isEnabled = false
                     operationButton.isEnabled = false
@@ -114,7 +115,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 usernameLabel.isHidden = true
                 aboutLabel.isHidden = true
                 if appDelegate.isStorageDataManager {
-//                    storageButton.isHidden = false
+                    storageButton.isHidden = false
                 } else {
                     gcdButton.isHidden = false
                     operationButton.isHidden = false
@@ -136,7 +137,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                 usernameLabel.isHidden = false
                 aboutLabel.isHidden = false
                 if appDelegate.isStorageDataManager {
-//                    storageButton.isHidden = true
+                    storageButton.isHidden = true
                 } else {
                     gcdButton.isHidden = true
                     operationButton.isHidden = true
@@ -322,8 +323,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //    }
     required init?(coder aDecoder: NSCoder) { // is used when the view is created from storyboard/xib
         if appDelegate.isStorageDataManager {
-//            profileDataManager = appDelegate.storageDataManager
-            profileDataManager = appDelegate.gcdDataManager // delete when uncomment above line
+            profileDataManager = appDelegate.storageDataManager
         } else {
             profileDataManager = appDelegate.gcdDataManager
         }

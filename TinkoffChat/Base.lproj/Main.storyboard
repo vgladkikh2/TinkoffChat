@@ -327,6 +327,27 @@
                                     <action selector="operationButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1rr-p6-pzt"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xzh-FL-MOX" customClass="RoundedButton" customModule="TinkoffChat" customModuleProvider="target">
+                                <rect key="frame" x="16" y="609" width="343" height="42"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Сохранить">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="storageButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q85-4B-eN0"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXG-4b-YcG" customClass="RoundedButton" customModule="TinkoffChat" customModuleProvider="target">
                                 <rect key="frame" x="16" y="609" width="343" height="42"/>
                                 <constraints>
@@ -358,13 +379,17 @@
                             <constraint firstItem="jmT-g7-2ba" firstAttribute="top" secondItem="xJJ-pi-noo" secondAttribute="bottom" constant="6" id="4L9-Mu-ulx"/>
                             <constraint firstItem="QMC-xR-E1f" firstAttribute="top" secondItem="umm-Kl-QPD" secondAttribute="bottom" constant="16" id="57y-LK-6r6"/>
                             <constraint firstItem="fnH-l2-qEq" firstAttribute="centerY" secondItem="PXG-4b-YcG" secondAttribute="centerY" id="5Pb-FS-7v9"/>
+                            <constraint firstItem="Xzh-FL-MOX" firstAttribute="height" secondItem="PXG-4b-YcG" secondAttribute="height" id="5S3-nc-U0O"/>
                             <constraint firstItem="xJJ-pi-noo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="9" id="6cr-kM-GpJ"/>
+                            <constraint firstItem="Xzh-FL-MOX" firstAttribute="trailing" secondItem="fnH-l2-qEq" secondAttribute="trailing" id="7cz-eh-1Lo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXG-4b-YcG" secondAttribute="trailing" constant="16" id="9rh-aV-eei"/>
+                            <constraint firstItem="Xzh-FL-MOX" firstAttribute="centerY" secondItem="SAd-re-WA7" secondAttribute="centerY" id="DFd-xf-8ml"/>
                             <constraint firstItem="SAd-re-WA7" firstAttribute="leading" secondItem="PXG-4b-YcG" secondAttribute="leading" id="DoG-7x-33k"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PXG-4b-YcG" secondAttribute="bottom" constant="16" id="FzL-ut-3fO"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xJJ-pi-noo" secondAttribute="trailing" constant="9" id="Ih2-Rg-o7S"/>
                             <constraint firstItem="SAd-re-WA7" firstAttribute="centerY" secondItem="PXG-4b-YcG" secondAttribute="centerY" id="JF5-vr-AVQ"/>
                             <constraint firstItem="PXG-4b-YcG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="KKa-BP-xJ4"/>
+                            <constraint firstItem="Xzh-FL-MOX" firstAttribute="leading" secondItem="SAd-re-WA7" secondAttribute="leading" id="Kyw-mo-LD2"/>
                             <constraint firstItem="jmT-g7-2ba" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="11" id="Mch-ZL-DE1"/>
                             <constraint firstItem="Rtz-dt-Tx0" firstAttribute="trailing" secondItem="umm-Kl-QPD" secondAttribute="trailing" id="N8g-Fh-8rz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QMC-xR-E1f" secondAttribute="trailing" constant="16" id="NvU-dh-IOp"/>
@@ -403,6 +428,7 @@
                         <outlet property="editButton" destination="PXG-4b-YcG" id="zRn-GX-Bgn"/>
                         <outlet property="gcdButton" destination="SAd-re-WA7" id="iH2-2v-dex"/>
                         <outlet property="operationButton" destination="fnH-l2-qEq" id="FUn-pQ-34L"/>
+                        <outlet property="storageButton" destination="Xzh-FL-MOX" id="Zoy-7k-70s"/>
                         <outlet property="userPlaceholder" destination="umm-Kl-QPD" id="AnQ-FO-7cr"/>
                         <outlet property="usernameChangeField" destination="xJJ-pi-noo" id="XA6-9b-d1m"/>
                         <outlet property="usernameLabel" destination="QMC-xR-E1f" id="KNO-3O-ttf"/>

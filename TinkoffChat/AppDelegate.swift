@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var gcdDataManager: GCDDataManager
     var operationDataManager: OperationDataManager
     var storageDataManager: StorageDataManager
-    let isStorageDataManager = false
+    let isStorageDataManager = true
     
     override init() {
         communicationManager = CommunicationManager()
