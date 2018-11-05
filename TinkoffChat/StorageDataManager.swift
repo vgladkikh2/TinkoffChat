@@ -36,7 +36,7 @@ class StorageDataManager: ProfileDataManager {
         if avatar != nil {
 //            appUser?.currentUser?.avatar = ...
         }
-        coreDataStack.performSave(with: coreDataStack.dataContext, completionOnMain: profileDataDelegate?.savingProfileDataFinished)
+        coreDataStack.performSave(with: coreDataStack.dataContext, completion: profileDataDelegate?.savingProfileDataFinished)
     }
     func loadProfileData() {
 //        print("loadProfileData start")
