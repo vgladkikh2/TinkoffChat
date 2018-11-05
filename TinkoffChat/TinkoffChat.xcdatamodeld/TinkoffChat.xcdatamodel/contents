@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
-        <relationship name="currentUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" syncable="YES"/>
+        <relationship name="currentUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="currentAppUser" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
-        <attribute name="isOnline" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="about" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avatar" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="currentAppUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="currentUser" inverseEntity="AppUser" syncable="YES"/>
     </entity>
     <fetchRequest name="AppUser" entity="AppUser"/>
     <elements>
-        <element name="AppUser" positionX="-63" positionY="-18" width="128" height="60"/>
-        <element name="User" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="AppUser" positionX="-255.16796875" positionY="119.58203125" width="128" height="58"/>
+        <element name="User" positionX="189.42578125" positionY="60.7421875" width="128" height="118"/>
     </elements>
 </model>
