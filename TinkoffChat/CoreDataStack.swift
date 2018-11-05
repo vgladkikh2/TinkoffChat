@@ -32,23 +32,23 @@ class CoreDataStack {
         }
         return coordinator
     }()
-    lazy var masterContext: NSManagedObjectContext = {
-        var masterContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        masterContext.persistentStoreCoordinator = self.persistentStoreCoordinator
-        masterContext.mergePolicy = NSOverwriteMergePolicy
-        return masterContext
+    lazy var dataContext: NSManagedObjectContext = {
+        var dataContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        dataContext.parent = self.mainContext
+        dataContext.mergePolicy = NSOverwriteMergePolicy
+        return dataContext
     }()
     lazy var mainContext: NSManagedObjectContext = {
         var mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        mainContext.parent = self.masterContext
+        mainContext.parent = self.storeContext
         mainContext.mergePolicy = NSOverwriteMergePolicy
         return mainContext
     }()
-    lazy var saveContext: NSManagedObjectContext = {
-        var saveContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        saveContext.parent = self.mainContext
-        saveContext.mergePolicy = NSOverwriteMergePolicy
-        return saveContext
+    lazy var storeContext: NSManagedObjectContext = {
+        var storeContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        storeContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        storeContext.mergePolicy = NSOverwriteMergePolicy
+        return storeContext
     }()
     
     func performSave(with context: NSManagedObjectContext, completion: (() -> Void)? = nil) {

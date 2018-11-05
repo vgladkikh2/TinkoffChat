@@ -8,6 +8,28 @@
 
 import Foundation
 
-class StorageDataManager {
+class StorageDataManager: ProfileDataManager {
+    var profileUsername: String?
+    var profileAbout: String?
+    var profileAvatar: UIImage?
+    var profileDataDelegate: ProfileDataManagerDelegate?
+    var coreDataStack: CoreDataStack
+    var appUser: AppUser?
+    
+    init() {
+        coreDataStack = CoreDataStack()
+        appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
+    }
+    
+    func saveProfileData(username: String?, about: String?, avatar: UIImage?) {
+        appUser?.currentUser?.name = username
+        appUser?.currentUser?.about = about
+        coreDataStack.performSave(with: coreDataStack.dataContext)
+        profileDataDelegate?.savingProfileDataFinished()
+    }
+    func loadProfileData() {
+        appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
+        profileDataDelegate?.loadingProfileDataFinished()
+    }
     
 }
