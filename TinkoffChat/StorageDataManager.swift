@@ -40,7 +40,7 @@ class StorageDataManager: ProfileDataManager {
         if avatar != nil {
             appUser?.currentUser?.avatar = avatar?.pngData()
         }
-        coreDataStack.performSave(with: coreDataStack.dataContext, completionToDoOnMain: profileDataDelegate?.savingProfileDataFinished, failureToDoOnMain: profileDataDelegate?.savingProfileDataFailed)
+        coreDataStack.performSave(with: coreDataStack.dataContext, completionToDoOnMain: { [unowned self] in self.profileDataDelegate?.savingProfileDataFinished() }, failureToDoOnMain: { [unowned self] in self.profileDataDelegate?.savingProfileDataFailed() })
     }
     func loadProfileData() {
         appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
