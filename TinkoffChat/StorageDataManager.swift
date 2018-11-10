@@ -25,12 +25,29 @@ class StorageDataManager: ProfileDataManager {
     weak var profileDataDelegate: ProfileDataManagerDelegate?
     var coreDataStack: CoreDataStack
     var appUser: AppUser?
+    var users: [User]
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     init() {
         coreDataStack = CoreDataStack()
-        appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
+        guard let appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext) else { assert (false, "cannot retrieve AppUser") }
+        self.appUser = appUser
+        users = coreDataStack.findUsers(in: coreDataStack.dataContext, for: appUser)
+        print("UUUUUUUUUUsers:")
+        for user in users {
+            user.isOnline = false
+            print(user.name ?? "Unnamed")
+        }
+    }
+    
+    func saveUserStateChange(userId: String, userName: String? = nil, isOnline: Bool) {
+        let user = coreDataStack.findOrInsertUser(userId: userId, in: coreDataStack.dataContext, for: appUser!)
+        user?.isOnline = isOnline
+        if isOnline {
+            user?.name = userName
+        }
+        coreDataStack.performSave(with: coreDataStack.dataContext, completionToDoOnMain: nil, failureToDoOnMain: nil)
     }
     
     func saveProfileData(username: String?, about: String?, avatar: UIImage?) {

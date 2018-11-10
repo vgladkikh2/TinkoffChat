@@ -16,6 +16,7 @@ class CommunicationManager: CommunicatorDelegate {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     func didFoundUser(userId: String, userName: String?) {
+        appDelegate.storageDataManager?.saveUserStateChange(userId: userId, userName: userName, isOnline: true)
         usersOnline[userId] = userName
         if usersChatMessages[userId] == nil {
            usersChatMessages[userId] = []
@@ -26,6 +27,7 @@ class CommunicationManager: CommunicatorDelegate {
         }
     }
     func didLostUser(userId: String) {
+        appDelegate.storageDataManager?.saveUserStateChange(userId: userId, isOnline: false)
         usersOnline[userId] = nil
         DispatchQueue.main.async {
             self.conversationsList?.updateConversationsListTable()

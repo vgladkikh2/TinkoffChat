@@ -60,6 +60,9 @@ class CoreDataStack {
             return
         }
         context.perform {
+            if(context == self.mainContext) {
+                //Here to add FRCDelegate's funcs calls
+            }
             do {
 //                sleep(2)
                 try context.save()
@@ -104,6 +107,38 @@ class CoreDataStack {
             appUser = AppUser.insertAppUser(in: context)
         }
         return appUser
+    }
+    
+    func findOrInsertUser(userId: String, in context: NSManagedObjectContext, for appUser: AppUser) -> User? {
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "userId == %@ AND appUser == %@", argumentArray: [userId, appUser])
+        var user: User?
+        do {
+            let results = try context.fetch(fetchRequest)
+            assert(results.count < 2, "Multiple Users with one userId found!")
+            if let foundUser = results.first {
+                user = foundUser
+            }
+        } catch {
+            print("failed to fetch user with userId=\(userId): \(error)")
+        }
+        if user == nil {
+            user = User.insertUser(in: context)
+            user?.userId = userId
+            user?.appUser = appUser
+        }
+        return user
+    }
+    func findUsers(in context: NSManagedObjectContext, for AppUser: AppUser) -> [User] {
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "appUser == %@", AppUser)
+        var users = [User]()
+        do {
+            users = try context.fetch(fetchRequest)
+        } catch {
+            print("failed to fetch Users: \(error)")
+        }
+        return users
     }
 }
 
