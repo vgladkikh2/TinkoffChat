@@ -26,13 +26,17 @@ class StorageDataManager: ProfileDataManager {
     var coreDataStack: CoreDataStack
     var appUser: AppUser?
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     init() {
         coreDataStack = CoreDataStack()
         appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
     }
     
     func saveProfileData(username: String?, about: String?, avatar: UIImage?) {
+        var isUserNameChanged = false
         if username != nil {
+            isUserNameChanged = true
             appUser?.currentUser?.name = username
         }
         if about != nil {
@@ -41,7 +45,21 @@ class StorageDataManager: ProfileDataManager {
         if avatar != nil {
             appUser?.currentUser?.avatar = avatar?.pngData()
         }
-        coreDataStack.performSave(with: coreDataStack.dataContext, completionToDoOnMain: { [unowned self] in self.profileDataDelegate?.savingProfileDataFinished() }, failureToDoOnMain: { [unowned self] in self.profileDataDelegate?.savingProfileDataFailed() })
+        coreDataStack.performSave(with: coreDataStack.dataContext,
+                                  completionToDoOnMain: isUserNameChanged ?
+                                    { [unowned self] in self.profileDataDelegate?.savingProfileDataFinished()
+//                                        let conversationList = self.appDelegate.communicationManager.conversationsList
+//                                        self.appDelegate.communicationManager = nil
+//                                        self.appDelegate.multipeerCommunicator = nil
+//                                        self.appDelegate.communicationManager = CommunicationManager()
+//                                        self.appDelegate.multipeerCommunicator = MultipeerCommunicator()
+//                                        self.appDelegate.multipeerCommunicator.delegate = self.appDelegate.communicationManager
+//                                        conversationList!.sortedOnlineData = conversationList!.getSortedOnlineData()
+//                                        self.appDelegate.communicationManager.conversationsList = conversationList
+                                    } :
+                                    { [unowned self] in self.profileDataDelegate?.savingProfileDataFinished()
+                                    },
+                                  failureToDoOnMain: { [unowned self] in self.profileDataDelegate?.savingProfileDataFailed() })
     }
     func loadProfileData() {
         appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
