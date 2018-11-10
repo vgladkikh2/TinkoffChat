@@ -35,11 +35,11 @@
         <relationship name="currentAppUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="currentUser" inverseEntity="AppUser" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="user" inverseEntity="Message" syncable="YES"/>
     </entity>
-    <fetchRequest name="AppUser" entity="AppUser"/>
+    <fetchRequest name="AppUserRequest" entity="AppUser"/>
     <elements>
         <element name="AppUser" positionX="-45.2890625" positionY="-28.59765625" width="128" height="88"/>
-        <element name="User" positionX="245.05078125" positionY="92.90625" width="128" height="178"/>
         <element name="Conversation" positionX="-54" positionY="108" width="128" height="148"/>
         <element name="Message" positionX="-47.2890625" positionY="277.5625" width="128" height="163"/>
+        <element name="User" positionX="245.05078125" positionY="92.90625" width="128" height="178"/>
     </elements>
 </model>

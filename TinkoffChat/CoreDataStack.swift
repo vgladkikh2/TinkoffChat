@@ -82,14 +82,15 @@ class CoreDataStack {
     }
     
     func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
-        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
-            assert(false, "Model is not available in context!")
-            return nil
-        }
+//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
+//            assert(false, "Model is not available in context!")
+//            return nil
+//        }
+//        guard let fetchRequest = AppUser.fetchRequestAppUser(model: model) else {
+//            return nil
+//        }
+        let fetchRequest: NSFetchRequest<AppUser> = AppUser.fetchRequest() // this one line replaces 2 commented guards above and fetchRequestAppUser() in extension of AppUser
         var appUser: AppUser?
-        guard let fetchRequest = AppUser.fetchRequestAppUser(model: model) else {
-            return nil
-        }
         do {
             let results = try context.fetch(fetchRequest)
             assert(results.count < 2, "Multiple AppUsers found!")
@@ -122,12 +123,12 @@ extension AppUser {
         appUser.currentUser = currentUser
         return appUser
     }
-    static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
-        let templateName = "AppUser"
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
-            assert(false, "No template with name: \(templateName)")
-            return nil
-        }
-        return fetchRequest
-    }
+//    static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
+//        let templateName = "AppUserRequest"
+//        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
+//            assert(false, "No template with name: \(templateName)")
+//            return nil
+//        }
+//        return fetchRequest
+//    }
 }
