@@ -117,7 +117,8 @@ extension AppUser {
     static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
         guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else { return nil }
         let currentUser = User.insertUser(in: context)
-        currentUser?.userId = UIDevice.current.name
+        currentUser?.userId = UIDevice.current.identifierForVendor!.uuidString //UIDevice.current.name
+        currentUser?.name = "User \(Int.random(in: 1...1000))"
         appUser.currentUser = currentUser
         return appUser
     }

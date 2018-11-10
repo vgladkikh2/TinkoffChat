@@ -28,6 +28,7 @@ class StorageDataManager: ProfileDataManager {
     
     init() {
         coreDataStack = CoreDataStack()
+        appUser = coreDataStack.findOrInsertAppUser(in: coreDataStack.dataContext)
     }
     
     func saveProfileData(username: String?, about: String?, avatar: UIImage?) {

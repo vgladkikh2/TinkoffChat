@@ -13,6 +13,8 @@ class CommunicationManager: CommunicatorDelegate {
     weak var conversationsList: ConversationsListViewController?
     weak var conversation: ConversationViewController?
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     func didFoundUser(userId: String, userName: String?) {
         usersOnline[userId] = userName
         if usersChatMessages[userId] == nil {
@@ -37,7 +39,10 @@ class CommunicationManager: CommunicatorDelegate {
         print("failedToStartAdvertising")
     }
     func didReceiveMessage(text: String, fromUser: String, toUser: String) {
-        if toUser == UIDevice.current.name {
+        guard let myUserId = appDelegate.storageDataManager?.appUser?.currentUser?.userId else {
+            assert(false, "cannot retrieve userId")
+        }
+        if toUser == myUserId {
             if usersChatMessages[fromUser] != nil {
                 usersChatMessages[fromUser]!.append((side: 1, message: text, date: Date.init(timeIntervalSinceNow: 0.0), unreaded: true))
             } else {

@@ -39,9 +39,14 @@ class MultipeerCommunicator: NSObject, Communicator {
     private let serviceBrowser : MCNearbyServiceBrowser
     private var peersIdsNamesSessionsStates: [String: (id: MCPeerID, name: String?, session: MCSession, state: MCSessionState?)]
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     override init() {
-        self.myPeerId = MCPeerID(displayName: UIDevice.current.name)
-        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: ["userName": "v.gladkikh\(Int.random(in: 1 ..< 100))"], serviceType: "tinkoff-chat")
+        guard let myUserId = appDelegate.storageDataManager?.appUser?.currentUser?.userId else {
+            assert(false, "cannot retrieve userId")
+        }
+        self.myPeerId = MCPeerID(displayName: myUserId)
+        self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: ["userName": appDelegate.storageDataManager?.appUser?.currentUser?.name ?? ""], serviceType: "tinkoff-chat")
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: "tinkoff-chat")
         self.peersIdsNamesSessionsStates = [:]
         super.init()

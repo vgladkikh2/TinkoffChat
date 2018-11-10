@@ -13,23 +13,14 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var multipeerCommunicator: MultipeerCommunicator
-    var communicationManager: CommunicationManager
+    var multipeerCommunicator: MultipeerCommunicator!
+    var communicationManager: CommunicationManager!
     var gcdDataManager: GCDDataManager?
     var operationDataManager: OperationDataManager?
     var storageDataManager: StorageDataManager?
     let isStorageDataManager = true
     
     override init() {
-        communicationManager = CommunicationManager()
-        multipeerCommunicator = MultipeerCommunicator()
-        multipeerCommunicator.delegate = communicationManager
-        if isStorageDataManager {
-            storageDataManager = StorageDataManager()
-        } else {
-            gcdDataManager = GCDDataManager()
-            operationDataManager = OperationDataManager()
-        }
         super.init()
     }
 
@@ -52,6 +43,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        if isStorageDataManager {
+            storageDataManager = StorageDataManager()
+        } else {
+            gcdDataManager = GCDDataManager()
+            operationDataManager = OperationDataManager()
+        }
+        communicationManager = CommunicationManager()
+        multipeerCommunicator = MultipeerCommunicator()
+        multipeerCommunicator.delegate = communicationManager
         // Override point for customization after application launch.
         if let colorData = UserDefaults.standard.data(forKey: "ApplicationTheme") {
             do {
