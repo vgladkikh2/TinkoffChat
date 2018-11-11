@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class StorageDataManager: ProfileDataManager {
     var profileUsername: String? {
@@ -26,6 +27,7 @@ class StorageDataManager: ProfileDataManager {
     var coreDataStack: CoreDataStack
     var appUser: AppUser?
     var users: [User]
+    var usersOnlineFRC: NSFetchedResultsController<User>
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -36,9 +38,19 @@ class StorageDataManager: ProfileDataManager {
         users = coreDataStack.findUsers(in: coreDataStack.dataContext, for: appUser)
         print("UUUUUUUUUUsers:")
         for user in users {
+            print(user.name ?? "Unnamed" + " \(user.isOnline)")
             user.isOnline = false
-            print(user.name ?? "Unnamed")
         }
+        coreDataStack.performSave(with: coreDataStack.dataContext, completionToDoOnMain: nil, failureToDoOnMain: nil)
+        let request: NSFetchRequest<User> = User.fetchRequest()
+        request.predicate = NSPredicate(format: "isOnline == %@ AND appUser == %@", argumentArray: [true, appUser])
+        let sortDescriptor = NSSortDescriptor(key:"name", ascending:true)
+        request.sortDescriptors = [sortDescriptor]
+        usersOnlineFRC = NSFetchedResultsController(fetchRequest: request,
+                                             managedObjectContext: coreDataStack.mainContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        try! usersOnlineFRC.performFetch()
     }
     
     func saveUserStateChange(userId: String, userName: String? = nil, isOnline: Bool) {

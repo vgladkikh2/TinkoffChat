@@ -15,6 +15,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol ConversationCellConfiguration: class {
     
@@ -125,7 +126,7 @@ class ConversationData: ConversationCellConfiguration {
     
 }
 
-class ConversationsListViewController: UITableViewController {
+class ConversationsListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var sortedOnlineData: [(key: String, name: String?, message: String?, date: Date?, online: Bool, hasUnreadMessages: Bool)] = []
@@ -198,6 +199,7 @@ class ConversationsListViewController: UITableViewController {
         appDelegate.communicationManager.conversationsList = self
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
+        appDelegate.storageDataManager?.usersOnlineFRC.delegate = self
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -221,7 +223,8 @@ class ConversationsListViewController: UITableViewController {
         var rowsCount = 0
         switch section {
         case 0:
-            rowsCount = sortedOnlineData.count // appDelegate.communicationManager.usersOnline.keys.count
+            guard let sections = appDelegate.storageDataManager?.usersOnlineFRC.sections else { fatalError("No sections in usersOnlineFRC") }
+            rowsCount = sections[0].numberOfObjects // sortedOnlineData.count // appDelegate.communicationManager.usersOnline.keys.count
         case 1:
             rowsCount = 0
         default:
@@ -234,7 +237,9 @@ class ConversationsListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationsListCell", for: indexPath) as! ConversationsListCell
         switch indexPath.section {
         case 0:
-            let data = sortedOnlineData[indexPath.row]
+            let user = appDelegate.storageDataManager?.usersOnlineFRC.object(at: indexPath)
+            let data = (key: user!.userId!, name: user?.name, message: nil as String?, date: nil as Date?, online: user!.isOnline, hasUnreadMessages: false)
+            //let data = sortedOnlineData[indexPath.row]
             cell.setParameters(name: data.name, message: data.message, date: data.date, online: data.online, hasUnreadMessages: data.hasUnreadMessages)
         case 1:
             assertionFailure("Cannot Be at homework 6")
@@ -263,6 +268,30 @@ class ConversationsListViewController: UITableViewController {
         if segue.identifier == "openThemes" {
             print("(swift version) open themes")
             ((segue.destination as! UINavigationController).topViewController as! ThemesViewController).themeChanged = { (newColor:UIColor?) -> Void in if let color = newColor {self.logThemeChanging(selectedTheme: color)} }
+        }
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.beginUpdates()
+    }
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.tableView.endUpdates()
+    }
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .move:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
+            tableView.insertRows(at: [newIndexPath!], with: .automatic)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .automatic)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .automatic)
         }
     }
     
